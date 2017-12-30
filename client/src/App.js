@@ -2,14 +2,27 @@ import React, { Component } from 'react';
 import './App.css';
 import Mainframe from './Components/UI/Mainframe/mainframe';
 /* import MainPage from './Containers/MainPage'; */
+var Loader = require('react-loaders').Loader;
+
+const loader = (
+  <Loader
+    key="ball-triangle-path"
+    type="ball-triangle-path"
+    active={true}
+    color="red"
+    size='Large'
+  />
+);
 
 export default class App extends Component {
   state = {
     pose: {},
-    loaded: false
+    loaded: false,
+    mode: 'random'
   };
-  setPose = pose => this.setState({ pose: pose, loaded:true });
-
+  setPose = pose =>
+    this.setState({ pose, loaded: true });
+  setMode = mode => this.setState({ mode });
   componentDidMount = () => {
     const myHeaders = new Headers();
     const myInit = {
@@ -20,16 +33,18 @@ export default class App extends Component {
     };
     fetch(`/index/random`, myInit)
       .then(pose => pose.json())
-      .then(pose => removeSpacesInObjectKeys(pose.data))
+      .then(pose =>
+        removeSpacesInObjectKeys(pose.data)
+      )
       .then(pose => this.setPose(pose));
   };
   render = () => {
     return (
-      <div className="App">
+      <div className="App loader-container">
         {this.state.loaded ? (
           <Mainframe pose={this.state.pose} />
         ) : (
-          ''
+          loader
         )}
       </div>
     );

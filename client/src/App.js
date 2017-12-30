@@ -44,8 +44,8 @@ export default class App extends Component {
         {this.state.loaded ? (
           <Mainframe pose={this.state.pose} />
         ) : (
-          loader
-        )}
+            loader
+          )}
       </div>
     );
   };
@@ -59,3 +59,10 @@ const removeSpacesInObjectKeys = json => {
   });
   return Object.assign({}, ...keyValues);
 };
+/* 
+
+options:
+-load random pose
+-load from category (DB)
+
+ */

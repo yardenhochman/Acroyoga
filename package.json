@@ -17,11 +17,13 @@
     "fs": "^0.0.1-security",
     "jade": "~1.11.0",
     "loaders.css": "^0.1.2",
+    "material-ui": "^0.20.0",
     "method-override": "^2.3.10",
     "morgan": "~1.9.0",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
     "react-loaders": "^3.0.1",
+    "redux-auth": "0.0.5-beta5",
     "serve-favicon": "~2.4.5"
   }
 }

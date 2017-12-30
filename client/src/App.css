@@ -2,7 +2,10 @@
 .App {
   text-align: center;
 }
-
+.hello {
+  color:red;
+  
+}
 
 .loader-hidden {
   display: none;

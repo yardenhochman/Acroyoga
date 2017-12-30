@@ -1,10 +1,9 @@
 var fs = require('fs');
+
 const removeSpacesInObjectKeys = json => {
   const keyValues = Object.keys(json).map(key => {
     const newKey = key.replace(/\s+/g, '_');
-    return {
-      [newKey]: json[key]
-    };
+    return {[newKey]: json[key]};
   });
   return Object.assign({}, ...keyValues);
 };
@@ -701,18 +700,23 @@ const iterate = (list => {
   return list.map(listObject => removeSpacesInObjectKeys(listObject))
 })
 const newPoseList = iterate(poses)
-const dbPoseList = prepareDB(newPoseList)
+//const dbPoseList = prepareDB(newPoseList)
 
-
-fs.writeFile(
-  'dbPrepare.json',
-  JSON.stringify(dbPoseList, null, 4),
-  function (err) {
-    console.log(
-      'File successfully written! - Check your project directory for the output.json file'
-    );
-  }
-);
-
+const writeFile = string => {
+  fs.writeFile(
+    'dbPrepare.json',
+    JSON.stringify(dbPoseList, null, 4),
+    function (err) {
+      console.log(
+        'File successfully written! - Check your project directory for the output.json file'
+      );
+    }
+  );
+}
 
 module.exports = newPoseList;
+
+/* 
+TODO:
+Transfer functionality to scraper
+*/

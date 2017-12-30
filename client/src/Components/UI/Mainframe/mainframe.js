@@ -8,7 +8,7 @@ const Mainframe = ({ pose }) => {
   };
   return (
     <Fragment>
-      <h1>{pose.title}</h1>
+      <h1 className="hello">{pose.title}</h1>
       <img style={style} src={pose.img} alt={"to be added"}/>
       <h2>Difficulty:{pose.Difficulty}</h2>
       <h2>Participans:{pose.Number_of_persons}</h2>

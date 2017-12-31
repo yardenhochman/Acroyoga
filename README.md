@@ -14,7 +14,6 @@ Done:
 -setup DB for poses
 
 
-advanced todo:
+Advanced Todo:
 -pose/sequence recommendation
 -find teacher for pose
--

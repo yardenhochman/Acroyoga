@@ -1,8 +1,6 @@
-import React, { Component, Fragments } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Mainframe from './Components/UI/Mainframe/mainframe';
-/* import MainPage from './Containers/MainPage'; */
-import { removeSpacesInObjectKeys } from './helpers/helpers';
 import { connect } from 'react-redux';
 import * as actionTypes from './store/actions';
 
@@ -11,36 +9,28 @@ import * as actionTypes from './store/actions';
 class App extends Component {
   state = {
     loaded: false,
+    mode: 'random'
   };
-  loadStatus = pose => this.setState({ loaded: true });
   setMode = mode => this.setState({ mode });
   componentDidMount = () => {
-    const myHeaders = new Headers();
-    /* const myInit = {
-      method: 'GET',
-      headers: myHeaders,
-      mode: 'cors',
-      cache: 'default',
-    }; */
     fetch(`/index/random`)
-      .then( res => res.json())  
-      .then(pose => removeSpacesInObjectKeys(pose.data))
-      .then(pose => this.props.storePose(pose))
-      .then(this.loadStatus());
+      .then(res => res.json())
+      .then(pose => {
+        this.props.storePose(pose.data);
+        this.setState({ loaded: true });
+      });
   };
   login = () => this.props.setMode('user');
 
   render = () => {
     const { poses, mode, user } = this.props;
-    const { loaded } = this.state;
-    console.log(poses, this.state.loaded); // eslint-disable-next-line
-    return <div className="App loader-container">{loaded && mode === 'random' && <Mainframe />}</div>;
+    const { loaded } = this.state; // eslint-disable-next-line
+    return <div className="App loader-ceontainer">{loaded && mode === 'random' && <Mainframe />}</div>;
   };
 }
 
 const mapStateToProps = state => {
   return {
-    poses: state.pose.poses,
     mode: state.view.mode,
     user: state.view.user,
   };

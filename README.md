@@ -1,4 +1,4 @@
-# React-Express-Boilerplate
+# Acroyoga App
 
 Stack: Express, PostgresQL, React, Redux,
 

@@ -22,7 +22,6 @@
     "morgan": "~1.9.0",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
-    "react-loaders": "^3.0.1",
     "redux-auth": "0.0.5-beta5",
     "serve-favicon": "~2.4.5"
   }

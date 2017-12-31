@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
 const Mainframe = ({ pose, login }) => {
-  console.log(pose)
+  console.log(pose[0])
   const style = {
     maxWidth: '50vw',
     maxHeight: '50vw',
@@ -22,16 +22,16 @@ const Mainframe = ({ pose, login }) => {
 };
 const mapStateToProps = state => {
   return {
-    pose: state.pose.pose
+    pose: state.pose.poses
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    storePoses: posesArray =>
+    storePoses: pose =>
       dispatch({
-        type: actionTypes.STORE_POSES,
-        posesArray,
+        type: actionTypes.STORE_POSE,
+        pose,
       }),
     login: () =>
       dispatch({

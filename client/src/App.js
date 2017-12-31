@@ -7,30 +7,40 @@ import * as actionTypes from './store/actions';
 //import { EmailSignUpForm } from 'redux-auth/default-theme';
 
 class App extends Component {
-  state = {
-    loaded: false,
-    mode: 'random'
+  //in charge of loading pics
+  displayMode = () => {
+    const { loaded, mode } = this.props;
+    if (!loaded) return '';
+    switch (mode) {
+      case 'random':
+        return <Mainframe />;
+      default:
+        return console.log('you reached default. mode was ', mode);
+    }
   };
-  setMode = mode => this.setState({ mode });
-  componentDidMount = () => {
+  fetchRandomPose = () => {
     fetch(`/index/random`)
       .then(res => res.json())
       .then(pose => {
         this.props.storePose(pose.data);
-        this.setState({ loaded: true });
+        this.props.setLoaded();
       });
   };
-  login = () => this.props.setMode('user');
-
+  componentDidMount = () => {
+    switch (this.props.mode) {
+      case 'random':
+        return this.fetchRandomPose();
+    }
+  };
   render = () => {
-    const { poses, mode, user } = this.props;
-    const { loaded } = this.state; // eslint-disable-next-line
-    return <div className="App loader-ceontainer">{loaded && mode === 'random' && <Mainframe />}</div>;
+    // eslint-disable-next-line
+    return <div className="App loader-ceontainer">{this.displayMode()}</div>;
   };
 }
 
 const mapStateToProps = state => {
   return {
+    loaded: state.view.loaded,
     mode: state.view.mode,
     user: state.view.user,
   };
@@ -47,7 +57,7 @@ const mapDispatchToProps = dispatch => {
         type: actionTypes.SETMODE,
         value,
       }),
-    loaded: () =>
+    setLoaded: () =>
       dispatch({
         type: actionTypes.LOADED,
       }),

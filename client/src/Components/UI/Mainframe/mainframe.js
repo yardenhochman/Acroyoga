@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 
 const Mainframe = ({ login, poses }) => {
-  console.log(poses[0].id);
   const pose = poses[0]
   const style = {
     maxWidth: '50vw',
@@ -23,9 +22,7 @@ const Mainframe = ({ login, poses }) => {
 
 const mapStateToProps = state => {
   return {
-    poses: state.pose.poses,
-    mode: state.view.mode,
-    user: state.view.user,
+    poses: state.pose.poses
   };
 };
 

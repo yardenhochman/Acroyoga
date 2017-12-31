@@ -1,5 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+const passport = require('../services/auth/local');
+const authHelpers = require('../services/auth/auth-helper');
+const usersController = require('../controllers/user-controller');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -7,12 +11,12 @@ router.get('/', function(req, res, next) {
   res.json([
     {
       id: 1,
-      username: 'samsepi0l'
+      username: 'samsepi0l',
     },
     {
       id: 2,
-      username: 'D0loresH4ze'
-    }
+      username: 'D0loresH4ze',
+    },
   ]);
 });
 

@@ -47,8 +47,32 @@ class PoseLoader extends Component {
         return this.fetch(myRequest);
     }
   };
+  renderButtons = () => {
+    const { mode, setMode, filterValue, filter, setFilter } = this.props;
+    const difficulties = ['Easy', 'Intermediate', 'Hard', 'Really Hard', 'Expert'];
+    return (
+      <div className="filters">
+        <button className={`btn ${mode === 'random' ? 'active' : ''}`} onClick={() => setMode('random')}>
+          Random
+        </button>
+        <div className="difficulty-buttons">
+          {difficulties.map((difficulty, i) => (
+            <button key={i} className={'btn' + (mode === 'filtered' && filter === 'difficulty' && filterValue === difficulty ? ' active' : ' inactive')} onClick={() => setFilter('difficulty', difficulty)}>
+              {difficulty}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   render = () => {
-    return <div className="App">{this.displayMode()}</div>;
+    return (
+      <div className="App">
+        <div className="display-space">{this.displayMode()}</div>
+        {this.renderButtons()}
+      </div>
+    );
   };
 }
 
@@ -59,6 +83,7 @@ const mapStateToProps = state => {
     user: state.view.user,
     value: state.view.value,
     filter: state.view.filter,
+    filterValue: state.view.value,
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -68,14 +93,20 @@ const mapDispatchToProps = dispatch => {
         type: actionTypes.STORE_POSE,
         pose,
       }),
-    setMode: value =>
+    setMode: mode =>
       dispatch({
         type: actionTypes.SETMODE,
-        value,
+        mode,
       }),
     setLoaded: () =>
       dispatch({
         type: actionTypes.LOADED,
+      }),
+    setFilter: (setFilter, value) =>
+      dispatch({
+        type: actionTypes.FILTER,
+        setFilter,
+        value,
       }),
   };
 };

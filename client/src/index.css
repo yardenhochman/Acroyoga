@@ -38,3 +38,8 @@ h1 {
     background-image: none;
     border-color: #ffc107;
 }
+
+.display-space {
+  min-height: 60vh;
+  max-height: 90vh;
+}

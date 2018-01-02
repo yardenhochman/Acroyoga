@@ -17,9 +17,9 @@ class PoseDisplay extends Component {
 
     return (
       <Fragment>
-        <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key="">
+        <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key={this.props.poses.length.toString()+15124211}>
           {poses.map((pose, i) => (
-            <div key={poses.length}>
+            <div key={pose.img}>
               <h1 className="hello">{pose.name}</h1>
               <img style={style} src={pose.img} alt={'to be added'} />
               {mode === 'random' && <h2>Difficulty: {pose.difficulty}</h2>}
@@ -39,23 +39,11 @@ class PoseDisplay extends Component {
         </div>
 
         <div className="filters">
-          <button
-            className={`btn ${mode==='random'?'active':''}`}
-            onClick={() => setMode('random')}>
-            Random
-          </button>
+          
 
-          <div className="difficulty-buttons">
-            {difficulties.map((difficulty, i) => (
-              <button
-                key={i}
-                className={'btn' + (mode === 'filtered' &&
-                filter === 'difficulty' && filterValue === difficulty ? ' active' : ' inactive')}
-                onClick={() => setFilter('difficulty', difficulty)}>
-                {difficulty}
-              </button>
-            ))}
-          </div>
+
+
+
         </div>
       </Fragment>
     );
@@ -81,7 +69,7 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: actionTypes.FILTER,
         setFilter,
-        value,
+        value
       }),
   };
 };

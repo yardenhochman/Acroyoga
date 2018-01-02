@@ -17,7 +17,7 @@ class PoseDisplay extends Component {
 
     return (
       <Fragment>
-        <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key={this.props.poses.length.toString()+15124211}>
+        <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key={(poses.length+15124211).toString()}>
           {poses.map((pose, i) => (
             <div key={pose.img}>
               <h1 className="hello">{pose.name}</h1>

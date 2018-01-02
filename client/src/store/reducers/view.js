@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
   let setState;
   switch (action.type) {
     case actionTypes.SETMODE:
-      setState = { mode: action.mode };
+      setState = { mode: action.mode, loaded: false };
       return updateObject(state, setState);
     case actionTypes.LOADED:
       setState = { loaded: true };
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, setState);
     //change difficulty & filter
     case actionTypes.FILTER:
-      setState = { filters: action.filter, value: action.value, mode:'filtered'};
+      setState = { filters: action.filter, value: action.value, mode: 'filtered', loaded: false };
       return updateObject(state, setState);
   }
   return state;

@@ -15,14 +15,11 @@ const init = {
 class PoseLoader extends Component {
   displayMode = () => {
     const { loaded, mode } = this.props;
-    if (!loaded) return '';
-    switch (mode) {
-      case 'filtered':
-      case 'random':
-        return <PoseDisplay />;
-      default:
-        return console.log('(displayMode) you reached default. mode was ', mode);
+    if (!loaded) {
+      this.fetchPoses()
+      return ''
     }
+    return <PoseDisplay />;
   };
   fetch = myRequest => {
     const { storePose, setLoaded } = this.props;
@@ -47,8 +44,9 @@ class PoseLoader extends Component {
     }
   };
   render = () => {
-    this.fetchPoses();
+    const { loaded } = this.props.loaded;
     // eslint-disable-next-line
+    //!loaded && this.fetchPoses();
     return <div className="App">{this.displayMode()}</div>;
   };
 }

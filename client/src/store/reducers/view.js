@@ -4,7 +4,7 @@ const initialState = {
   mode: 'filtered',
   loaded: false,
   user: '',
-  filters: 'difficulty',
+  filter: 'difficulty',
   value: 'Easy',
 }; //turn into filters, values object which will turn into two arrays on model db request
 

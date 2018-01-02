@@ -1,32 +1,72 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
+import ReactSwipe from 'react-swipe';
+class PoseDisplay extends Component {
+  render = () => {
+    const { setMode, poses, setFilter, filter, filterValue, mode } = this.props;
+    const pose = poses[0];
+    const style = {
+      maxWidth: '50vw',
+      maxHeight: '50vw',
+    };
 
-const PoseDisplay = ({ setMode, poses, filter }) => {
-  const pose = poses[0];
-  const style = {
-    maxWidth: '50vw',
-    maxHeight: '50vw',
+    const difficulties = ['Easy', 'Intermediate', 'Hard', 'Really Hard', 'Expert'];
+
+    console.log(filter, filterValue);
+
+    return (
+      <Fragment>
+        <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key="">
+          {poses.map((pose, i) => (
+            <div key={poses.length}>
+              <h1 className="hello">{pose.name}</h1>
+              <img style={style} src={pose.img} alt={'to be added'} />
+              {mode === 'random' && <h2>Difficulty: {pose.difficulty}</h2>}
+              <h2>Participans:{pose.number_of_people}</h2>
+              <h2>Type:{pose.type}</h2>
+            </div>
+          ))}
+        </ReactSwipe>
+
+        <div>
+          <button type="button" onClick={() => this.reactSwipe.prev()}>
+            Prev
+          </button>
+          <button type="button" onClick={() => this.reactSwipe.next()}>
+            Next
+          </button>
+        </div>
+
+        <div className="filters">
+          <button
+            className={`btn ${mode==='random'?'active':''}`}
+            onClick={() => setMode('random')}>
+            Random
+          </button>
+
+          <div className="difficulty-buttons">
+            {difficulties.map((difficulty, i) => (
+              <button
+                key={i}
+                className={'btn' + (mode === 'filtered' &&
+                filter === 'difficulty' && filterValue === difficulty ? ' active' : ' inactive')}
+                onClick={() => setFilter('difficulty', difficulty)}>
+                {difficulty}
+              </button>
+            ))}
+          </div>
+        </div>
+      </Fragment>
+    );
   };
-  return (
-    <Fragment>
-      <h1 className="hello">{pose.name}</h1>
-      <img style={style} src={pose.img} alt={'to be added'} />
-      <h2>Difficulty:{pose.difficulty}</h2>
-      <h2>Participans:{pose.number_of_people}</h2>
-      <h2>Type:{pose.type}</h2>
-      <button onClick={() => setMode('random')}>Random</button>
-      <button onClick={() => filter('difficulty', 'Intermediate')}>Difficulty:Intermediate</button>
-      <button onClick={() => filter('difficulty', 'Hard')}>Difficulty:Hard</button>
-      <button onClick={() => filter('difficulty', 'Really Hard')}>Difficulty:Really Hard</button>
-      <button onClick={() => filter('difficulty', 'Expert')}>Difficulty:Expert</button>
-    </Fragment>
-  );
-};
-
+}
 const mapStateToProps = state => {
   return {
     poses: state.pose.poses,
+    mode: state.view.mode,
+    filter: state.view.filter,
+    filterValue: state.view.value,
   };
 };
 
@@ -37,10 +77,10 @@ const mapDispatchToProps = dispatch => {
         type: actionTypes.SETMODE,
         mode,
       }),
-    filter: (filter, value) =>
+    setFilter: (setFilter, value) =>
       dispatch({
         type: actionTypes.FILTER,
-        filter,
+        setFilter,
         value,
       }),
   };

@@ -3,6 +3,7 @@ import './PoseLoader.css';
 import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
 import { connect } from 'react-redux';
 import * as actionTypes from './store/actions';
+import FacebookLogin from 'react-facebook-login';
 
 const myHeaders = new Headers();
 const init = {
@@ -11,13 +12,16 @@ const init = {
   mode: 'cors',
   cache: 'default',
 };
+const responseFacebook = response => {
+  console.log(response);
+};
 
 class PoseLoader extends Component {
   displayMode = () => {
-    const { loaded, mode } = this.props;
+    const { loaded } = this.props;
     if (!loaded) {
-      this.fetchPoses()
-      return ''
+      this.fetchPoses();
+      return '';
     }
     return <PoseDisplay />;
   };
@@ -31,22 +35,19 @@ class PoseLoader extends Component {
       });
   };
   fetchPoses = () => {
-    const { value, filters, mode } = this.props;
+    const { value, filter, mode } = this.props;
     let url;
     switch (mode) {
       case 'random':
         url = `/index/random`;
       case 'filtered':
-        url = `/index/filter/${filters}/${value}`;
+        url = `/index/filter/${filter}/${value}`;
       default:
         const myRequest = new Request(url, init);
         return this.fetch(myRequest);
     }
   };
   render = () => {
-    const { loaded } = this.props.loaded;
-    // eslint-disable-next-line
-    //!loaded && this.fetchPoses();
     return <div className="App">{this.displayMode()}</div>;
   };
 }
@@ -57,7 +58,7 @@ const mapStateToProps = state => {
     mode: state.view.mode,
     user: state.view.user,
     value: state.view.value,
-    filters: state.view.filters,
+    filter: state.view.filter,
   };
 };
 const mapDispatchToProps = dispatch => {

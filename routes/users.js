@@ -8,14 +8,16 @@ const usersController = require('../controllers/user-controller');
 /* GET users listing. */
 router.get('/login', authHelpers.loginRedirect, (req, res) => res.render('auth/login'));
 router.get('/register', authHelpers.loginRedirect, (req, res) => res.render('auth/register'));
-router.post('/register', userController.create);
+router.post('/register', usersController.create);
 router.get('/logout', (req, res) => {
   req.logout();
   res.json({ message: 'ok', loggedOut: true });
 });
-router.post('/login', passport.authenticate('local'),
+router.post(
+  '/login',
+  passport.authenticate('local'),
   (req, res, next) => res.json({ auth: true, message: 'ok', user: req.user }),
-  (err, req, res, next) => res.json({ auth: false, message: 'Not authed' })
+  (err, req, res, next) => res.json({ auth: false, message: 'Not authed' }),
 );
 
 module.exports = router;

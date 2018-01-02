@@ -8,7 +8,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.STORE_POSE:
       let poses = [...state]
-      poses.push(action.pose);
+      poses=action.pose;
       return { ...state, poses }
   }
   return state;

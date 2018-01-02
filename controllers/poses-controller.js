@@ -3,23 +3,27 @@ const Poses = require(`../models/poses`);
 const posesController = {};
 
 posesController.Random = (req, res, next) => {
-  Poses.FindAll()
+  Poses.RandomPoses()
     .then(poses => {
-      console.log('Poses.FindAll results(poses-controller):', poses);
-      const numOfPoses = poses.length;
-      const randomIndex = Math.floor(Math.random() * numOfPoses);
-      console.log("this is the random index", randomIndex)
-      //return poses[randomIndex];
-      Poses.FindPoseById(randomIndex)
-        .then(pose => {
-          console.log(pose)
-          res.json({
-            message: 'I got your random pose here (poses-controller)',
-            data: pose,
-          });
-        })
-        .catch(err => console.log(err));
+      res.json({
+        message: 'I got your random pose here (poses-controller)',
+        data: poses,
+      });
     })
     .catch(err => console.log(err));
 };
+posesController.Filtered = (req, res, next) => {
+  const { filter, value } = req.params;
+  console.log(filter, value);
+  Poses.FilteredPoses(filter, value)
+    .then(poses => {
+      console.log(poses);
+      res.json({
+        message: 'I got your random pose here (poses-controller)',
+        data: poses,
+      });
+    })
+    .catch(err => console.log(err));
+};
+
 module.exports = posesController;

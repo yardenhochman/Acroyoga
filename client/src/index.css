@@ -2,13 +2,50 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+}
+img {
+  max-height: 30vh
+}
+.display-space {
+  width: 80vw;
+  height: 70vh;
+  margin: 0 auto;
+  display:block
+}
+.filters {
+  margin: 0vh 0 0 0;
+  display: flex;
+  justify-content: center;
+  background-color:white;
+}
+.poses-container {
+}
+.left-button, .right-button {
+  width: 10%;
+  float: left;
+}
+.carousel-container {
+  float: left;
+  width: 80%;
+}
+.left-button button, .right-button button {
+  margin-top: 250px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid black;
 }
 h1 {
-  color:red;
+  color: #5cb85c;
 }
 
 .btn {
-  
+  background-color: white;
     display: inline-block;
     font-weight: 400;
     text-align: center;
@@ -26,10 +63,6 @@ h1 {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-.filters .btn {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
 
 
 .filters .btn.active {
@@ -39,7 +72,12 @@ h1 {
     border-color: #ffc107;
 }
 
-.display-space {
-  min-height: 60vh;
-  max-height: 90vh;
-}
+
+
+
+
+
+
+
+
+

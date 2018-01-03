@@ -69,8 +69,8 @@ class PoseLoader extends Component {
   render = () => {
     return (
       <div className="App">
-        <div className="display-space">{this.displayMode()}</div>
         {this.renderButtons()}
+        <div className="display-space">{this.displayMode()}</div>
       </div>
     );
   };

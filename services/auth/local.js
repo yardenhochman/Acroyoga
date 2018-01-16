@@ -10,18 +10,18 @@ const options = {};
 init();
 
 passport.use(
-  new LocalStrategy(options, (name, pw, done) => {
-    User.findByName(name)
-      .then(user => {
-        console.log('initial:', user);
-        if (!user || !authHelpers.comparePass(pw, user.password_digest)) return done(null, false);
-        console.log('got em:', user);
-        return done(null, user);
-      })
-      .catch(err => {
-        console.log(err);
-        return done(err);
-      });
+  new LocalStrategy(options, async (name, pw, done) => {
+    try {
+      const user = await User.findByName(name)
+      console.log('initial:', user);
+      if (!user || !authHelpers.comparePass(pw, user.password_digest)) return done(null, false);
+      console.log('got em:', user);
+      return done(null, user);
+    }
+    catch (error) {
+      console.log(error);
+      return done(error);
+    };
   }),
 );
 module.exports = passport;

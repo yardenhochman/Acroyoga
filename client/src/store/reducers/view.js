@@ -3,9 +3,8 @@ import { updateObject } from '../utility';
 const initialState = {
   mode: 'filtered',
   loaded: false,
-  user: '',
   filter: 'difficulty',
-  value: 'Easy',
+  filterValue: 'Easy',
 }; //turn into filters, values object which will turn into two arrays on model db request
 
 const reducer = (state = initialState, action) => {
@@ -29,10 +28,3 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
-
-/* const updatedState = {
-  ingredients: updatedIngredients,
-  totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
-};
-return updateObject(state, updatedState);
- */

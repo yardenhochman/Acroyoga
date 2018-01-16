@@ -23,6 +23,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FILTER:
       setState = { filters: action.filter, value: action.value, mode: 'filtered', loaded: false };
       return updateObject(state, setState);
+    default:
   }
   return state;
 };

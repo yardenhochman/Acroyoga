@@ -9,11 +9,9 @@ import { Provider } from 'react-redux';
 
 import view from './store/reducers/view';
 import pose from './store/reducers/pose';
+import user from './store/reducers/user';
 
-const reducer = combineReducers({
-  view,
-  pose
-});
+const reducer = combineReducers({ view, pose, user });
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(

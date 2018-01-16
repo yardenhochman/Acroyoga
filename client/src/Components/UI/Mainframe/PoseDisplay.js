@@ -1,33 +1,41 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
-
-const PoseDisplay = ({ setMode, poses, filter }) => {
-  const pose = poses[0];
-  const style = {
-    maxWidth: '50vw',
-    maxHeight: '50vw',
-  };
-  return (
-    <Fragment>
-      <h1 className="hello">{pose.name}</h1>
-      <img style={style} src={pose.img} alt={'to be added'} />
-      <h2>Difficulty:{pose.difficulty}</h2>
-      <h2>Participans:{pose.number_of_people}</h2>
-      <h2>Type:{pose.type}</h2>
-      <button onClick={() => setMode('random')}>Random</button>
-      <button onClick={() => filter('difficulty', 'Intermediate')}>Difficulty:Intermediate</button>
-      <button onClick={() => filter('difficulty', 'Hard')}>Difficulty:Hard</button>
-      <button onClick={() => filter('difficulty', 'Really Hard')}>Difficulty:Really Hard</button>
-      <button onClick={() => filter('difficulty', 'Expert')}>Difficulty:Expert</button>
-    </Fragment>
-  );
+import ReactSwipe from 'react-swipe';
+const style = {
+  maxWidth: '50vw',
+  maxHeight: '50vw',
 };
+const difficulties = ['Easy', 'Intermediate', 'Hard', 'Really Hard', 'Expert'];
 
+const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) => (
+  <div className="poses-container">
+    <div className="left-button">
+      <button className="glyphicon glyphicon-menu-left" type="button" onClick={() => this.reactSwipe.prev()} />
+    </div>
+
+    <div className="carousel-container">
+      <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key={(poses.length + 15124211).toString()}>
+        {poses.map((pose, i) => (
+          <div key={pose.img}>
+            <h1 className="hello">{pose.name}</h1>
+            <img style={style} src={pose.img} alt={'to be added'} />
+            {mode === 'random' && <h2>Difficulty: {pose.difficulty}</h2>}
+            <h2>Participants:{pose.number_of_people}</h2>
+            <h2>Type:{pose.type}</h2>
+          </div>
+        ))}
+      </ReactSwipe>
+    </div>
+
+    <div className="right-button">
+      <button className="glyphicon glyphicon-menu-right" type="button" onClick={() => this.reactSwipe.next()} />
+    </div>
+  </div>
+);
 const mapStateToProps = state => {
-  return {
-    poses: state.pose.poses,
-  };
+  const { pose: { poses }, view: { mode, filter, filterValue } } = state;
+  return {poses,mode,filter,filterValue};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -37,10 +45,10 @@ const mapDispatchToProps = dispatch => {
         type: actionTypes.SETMODE,
         mode,
       }),
-    filter: (filter, value) =>
+    setFilter: (setFilter, value) =>
       dispatch({
         type: actionTypes.FILTER,
-        filter,
+        setFilter,
         value,
       }),
   };

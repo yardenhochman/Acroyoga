@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import './PoseLoader.css';
-import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
+import axios from 'axios';
 import { connect } from 'react-redux';
+
 import * as actionTypes from './store/actions';
+import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
+import Auth from './Containers/Auth';
+import Lists from './Containers/Lists';
+
+import './PoseLoader.css';
+
 
 const myHeaders = new Headers();
 const init = {
@@ -11,54 +17,73 @@ const init = {
   mode: 'cors',
   cache: 'default',
 };
+const responseFacebook = response => console.log(response);
 
 class PoseLoader extends Component {
   displayMode = () => {
-    const { loaded, mode } = this.props;
+    const { loaded } = this.props;
     if (!loaded) {
-      this.fetchPoses()
-      return ''
+      this.fetchPoses();
+      return '';
     }
     return <PoseDisplay />;
   };
-  fetch = myRequest => {
+  fetch = async url => {
     const { storePose, setLoaded } = this.props;
-    fetch(myRequest)
-      .then(res => res.json())
-      .then(pose => {
-        storePose(pose.data);
-        setLoaded();
-      });
+    try {
+      const pose = await axios.get(url)//fetch(myRequest);
+      await storePose(pose.data.data);
+      setLoaded();
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   fetchPoses = () => {
-    const { value, filters, mode } = this.props;
+    const { filterValue, filter, mode } = this.props;
     let url;
     switch (mode) {
       case 'random':
         url = `/index/random`;
       case 'filtered':
-        url = `/index/filter/${filters}/${value}`;
+        url = `/index/filter/${filter}/${filterValue}`;
       default:
-        const myRequest = new Request(url, init);
-        return this.fetch(myRequest);
+        return this.fetch(url);
     }
   };
+  renderButtons = () => {
+    const { mode, setMode, filterValue, filter, setFilter } = this.props;
+    const difficulties = ['Easy', 'Intermediate', 'Hard', 'Really Hard', 'Expert'];
+    return (
+      <div className="filters">
+        <button className={`btn ${mode === 'random' ? 'active' : ''}`} onClick={() => setMode('random')}>
+          Random
+        </button>
+        <div className="difficulty-buttons">
+          {difficulties.map((difficulty, i) => (
+            <button key={i} className={'btn' + (mode === 'filtered' && filter === 'difficulty' && filterValue === difficulty ? ' active' : ' inactive')} onClick={() => setFilter('difficulty', difficulty)}>
+              {difficulty}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
   render = () => {
-    const { loaded } = this.props.loaded;
-    // eslint-disable-next-line
-    //!loaded && this.fetchPoses();
-    return <div className="App">{this.displayMode()}</div>;
+    const { userName } = this.props;
+    return (
+      <div className="App">
+        {this.renderButtons()}
+        <div className="display-space">{this.displayMode()}</div>
+        {userName === 'guest' ? <Auth /> : '<Lists />'};
+      </div>
+    );
   };
 }
 
 const mapStateToProps = state => {
-  return {
-    loaded: state.view.loaded,
-    mode: state.view.mode,
-    user: state.view.user,
-    value: state.view.value,
-    filters: state.view.filters,
-  };
+  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists } } = state;
+  return { loaded, mode, userName, lists, filter, filterValue };
 };
 const mapDispatchToProps = dispatch => {
   return {
@@ -67,14 +92,20 @@ const mapDispatchToProps = dispatch => {
         type: actionTypes.STORE_POSE,
         pose,
       }),
-    setMode: value =>
+    setMode: mode =>
       dispatch({
         type: actionTypes.SETMODE,
-        value,
+        mode,
       }),
     setLoaded: () =>
       dispatch({
         type: actionTypes.LOADED,
+      }),
+    setFilter: (setFilter, value) =>
+      dispatch({
+        type: actionTypes.FILTER,
+        setFilter,
+        value,
       }),
   };
 };

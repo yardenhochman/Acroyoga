@@ -1,29 +1,26 @@
 const Poses = require(`../models/poses`);
 
+class response {
+  constructor(message, data) {
+    this.message = message;
+    this.data = data;
+  }
+}
+
 const posesController = {};
 
-posesController.Random = (req, res, next) => {
-  Poses.RandomPoses()
-    .then(poses => {
-      res.json({
-        message: 'I got your random pose here (poses-controller)',
-        data: poses,
-      });
-    })
-    .catch(err => console.log(err));
+posesController.Random = async (req, res, next) => {
+  try {
+    const poses = await Poses.RandomPoses(); //all poses sorted randomly
+    res.json(new response('All poses (poses-controller)', poses));
+  } catch (err) { console.log(err) };
 };
-posesController.Filtered = (req, res, next) => {
+posesController.Filtered = async (req, res, next) => {
   const { filter, value } = req.params;
-  console.log(filter, value);
-  Poses.FilteredPoses(filter, value)
-    .then(poses => {
-      console.log(poses);
-      res.json({
-        message: 'I got your random pose here (poses-controller)',
-        data: poses,
-      });
-    })
-    .catch(err => console.log(err));
+  try {
+    const poses = await Poses.FilteredPoses(filter, value);
+    res.json(new response('Filtered Poses (poses-controller)', poses));
+  } catch (err) { console.log(err) };
 };
 
 module.exports = posesController;

@@ -2,23 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
+
 import * as actionTypes from './store/actions';
 import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
 import Auth from './Containers/Auth';
 import Lists from './Containers/Lists';
 
 import './PoseLoader.css';
-
-
-const myHeaders = new Headers();
-const init = {
-  method: 'GET',
-  headers: myHeaders,
-  mode: 'cors',
-  cache: 'default',
-};
-const responseFacebook = response => console.log(response);
-
 class PoseLoader extends Component {
   displayMode = () => {
     const { loaded } = this.props;
@@ -31,7 +21,7 @@ class PoseLoader extends Component {
   fetch = async url => {
     const { storePose, setLoaded } = this.props;
     try {
-      const pose = await axios.get(url)//fetch(myRequest);
+      const pose = await axios.get(url); //fetch(myRequest);
       await storePose(pose.data.data);
       setLoaded();
     } catch (err) {
@@ -43,21 +33,23 @@ class PoseLoader extends Component {
     const { filterValue, filter, mode } = this.props;
     let url;
     switch (mode) {
-      case 'random':
-        url = `/index/random`;
+      case 'all':
+        url = `/index/all`;
+        break;
       case 'filtered':
         url = `/index/filter/${filter}/${filterValue}`;
+        break;
       default:
-        return this.fetch(url);
     }
+    return this.fetch(url);
   };
   renderButtons = () => {
     const { mode, setMode, filterValue, filter, setFilter } = this.props;
     const difficulties = ['Easy', 'Intermediate', 'Hard', 'Really Hard', 'Expert'];
     return (
       <div className="filters">
-        <button className={`btn ${mode === 'random' ? 'active' : ''}`} onClick={() => setMode('random')}>
-          Random
+        <button className={`btn ${mode === 'all' ? 'active' : ''}`} onClick={() => setMode('all')}>
+          All
         </button>
         <div className="difficulty-buttons">
           {difficulties.map((difficulty, i) => (
@@ -75,7 +67,7 @@ class PoseLoader extends Component {
       <div className="App">
         {this.renderButtons()}
         <div className="display-space">{this.displayMode()}</div>
-        {userName === 'guest' ? <Auth /> : '<Lists />'};
+        {/*userName === 'guest' ? <Auth /> : <Lists />*/}
       </div>
     );
   };
@@ -111,12 +103,12 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseLoader);
-//http://localhost:3001/index/random
+//http://localhost:3001/index/all
 
 /* 
 
 options:
--load random pose
+-load all pose
 -load from category (DB)
 
  */

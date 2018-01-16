@@ -1,5 +1,5 @@
 import * as actionTypes from '../actions';
-import { updateObject } from '../utility';
+//import { updateObject } from '../utility';
 const initialState = {
   poses: [],
 };
@@ -10,6 +10,7 @@ const reducer = (state = initialState, action) => {
       let poses = [...state]
       poses=action.pose;
       return { ...state, poses }
+    default:
   }
   return state;
 };

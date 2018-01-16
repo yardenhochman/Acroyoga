@@ -17,6 +17,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.UPDATE_USER:
       setState = action.user;
       return updateObject(state, setState);
+    default:
   }
   return state;
 };

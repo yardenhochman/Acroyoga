@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import Input from '../Components/UI/Input/Input';
 import Button from '../Components/UI/Button/Button';
-import * as actions from '../store/auth';
+//import * as actions from '../store/auth';
 import * as actionTypes from '../store/actions';
 
 class Auth extends Component {
@@ -122,7 +122,8 @@ class Auth extends Component {
   };
 }
 const mapStateToProps = state => {
-  userName: state.user.name;
+  const { user: { name: userName } } = state;
+  return { userName };
 };
 const mapDispatchToProps = dispatch => {
   return {

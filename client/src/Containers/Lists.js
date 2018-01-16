@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect, createProvider } from 'react-redux';
 import axios from 'axios';
 

@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs');
 const User = require('../models/users.js');
 const sjw = require('jsonwebtoken');
 const _ = require('lodash');

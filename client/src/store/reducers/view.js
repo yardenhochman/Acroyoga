@@ -4,7 +4,7 @@ const initialState = {
   mode: 'filtered',
   loaded: false,
   filter: 'difficulty',
-  filterValue: 'Easy',
+  filterValue: 'Intermediate',
 }; //turn into filters, values object which will turn into two arrays on model db request
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, setState);
     //change difficulty & filter
     case actionTypes.FILTER:
-      setState = { filters: action.filter, value: action.value, mode: 'filtered', loaded: false };
+      setState = { filters: action.filter, filterValue: action.value, mode: 'filtered', loaded: false };
       return updateObject(state, setState);
     default:
   }

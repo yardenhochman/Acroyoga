@@ -53,7 +53,6 @@ class PoseLoader extends Component {
       <div className="App">
         {Header(this.props)}
         <div className="display-space">{this.displayMode()}</div>
-        {/*userName === 'guest' ? <Auth /> : <Lists />*/}
       </div>
     );
   };

@@ -23,12 +23,28 @@ body {
 }
 .display-space {
   display: flex;
+  flex-wrap:nowrap;
+  flex-flow: column;
   margin-top: 5vh;
+  height: 95vh;
 }
 
-
-
-
+.ant-card-body {
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+img {
+  display:block;
+  width:auto;
+  height:auto;
+}
+.glyphicon {
+  width: 50px;
+}
+.left-button, .right-button {
+  width: 50px;
+}
 
 
 

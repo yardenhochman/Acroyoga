@@ -19,7 +19,7 @@ const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) =
       <div className="carousel-container">
         <ReactSwipe ref={reactSwipe => (this.reactSwipe = reactSwipe)} className="carousel" swipeOptions={{ continuous: true }} key={(poses.length + 15124211).toString()}>
           {poses.map((pose, i) => (
-            <Card hoverable key={pose.img} className='poseCard' bordered cover={<img src={pose.img} alt={'to be added'} />}>
+            <Card hoverable key={pose.img} className="poseCard" bordered cover={<img src={pose.img} alt={'to be added'} />}>
               <Meta description={`Participants:${pose.number_of_people} Type:${pose.type} ${mode === 'all' && `Difficulty: ${pose.difficulty}`}`} title={pose.name} />
             </Card>
           ))}
@@ -42,3 +42,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseDisplay);
+
+/*
+<button className="glyphicon glyphicon-menu-left left-button" type="button" onClick={() => this.reactSwipe.prev()} />
+              <button className="glyphicon glyphicon-menu-right right-button" type="button" onClick={() => this.reactSwipe.next()} />
+*/

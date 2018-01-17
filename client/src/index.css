@@ -25,19 +25,18 @@ body {
   display: flex;
   flex-wrap:nowrap;
   flex-flow: column;
-  margin-top: 5vh;
   height: 95vh;
 }
-
-.ant-card-body {
-  width:100%;
-  display: flex;
-  justify-content: center;
+.card {
+  display:flex;
+  justify-content:center;
 }
+
 img {
   display:block;
   width:auto;
   height:auto;
+  max-width:100%;
 }
 .glyphicon {
   width: 50px;

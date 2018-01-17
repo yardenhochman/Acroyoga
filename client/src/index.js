@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import PoseLoader from './PoseLoader';
 import registerServiceWorker from './registerServiceWorker';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
@@ -17,7 +18,9 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 ReactDOM.render(
   <Provider store={store}>
-    <PoseLoader />
+    <MuiThemeProvider>  
+      <PoseLoader />
+    </MuiThemeProvider>  
   </Provider>,
   document.getElementById('root'),
 );

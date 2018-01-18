@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actionTypes from './store/actions';
 import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
-import Auth from './Containers/Auth';
+//import Auth from './Containers/Auth';
 import Lists from './Containers/Lists';
 import Header from './Components/UI/Header/header';
 

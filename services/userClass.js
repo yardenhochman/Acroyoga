@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 class UserDetails {
-  constructor(password, email, difficulty = '0') {
-    this.name = `TBA_name ${Math.random(100)}`;
+  constructor(name, password, email, difficulty = '0') {
+    this.name = name;
     this.email = email;
     this.username = email;
     this.pw_digest = this.encrypt(password);

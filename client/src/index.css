@@ -56,6 +56,13 @@ img {
   width: auto;
   border-radius: 5px; 
 }
+.ant-card-body {
+  height: 20vh;
+  display: flex;
+justify-content: center;
+align-content: center;
+align-items: center;
+}
 .Popup {
   height: 400px;
 }

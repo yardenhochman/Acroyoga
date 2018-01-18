@@ -45,9 +45,25 @@ img {
   width: 50px;
 }
 
+.loginForm {
+  height: 40vh;
+  width: 15vw;
+  display: flex;
+flex-wrap: nowrap;
+flex-direction: column;
+align-items: center;
+align-content: center;
+}
 
-
-
+.PopupLogin {
+  height: 40vh;
+  width: 40vw;
+    display: flex;
+flex-wrap: nowrap;
+flex-direction: column;
+align-items: center;
+align-content: center;
+}
 
 
 

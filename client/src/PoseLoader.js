@@ -51,7 +51,7 @@ class PoseLoader extends Component {
     const { userName } = this.props;
     return (
       <div className="App">
-        {Header(this.props)}
+        <Header {...this.props} />
         <div className="display-space">{this.displayMode()}</div>
       </div>
     );

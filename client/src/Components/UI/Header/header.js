@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown, Button } from 'semantic-ui-react';
 import difficultyButtons from './Difficulty/diff_buttons';
-import PopupLogin from './Login/loginModal';
+import Popup from './Popup/popup';
 
-const Header = ({ mode, setMode, filterValue, filter, setFilter, userName }) => (
-  <Menu inverted className="header" size={'massive'} fluid>
-    <Dropdown item text={mode === 'all' ? `All Levels` : filterValue}>
-      <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
-    </Dropdown>
-    <Menu.Menu position="right">
-      <PopupLogin userName={userName} />
-    </Menu.Menu>
-  </Menu>
-);
+const Header = ({ mode, setMode, filterValue, filter, setFilter, userName }) => {
+  let buttonDisplay;
+  if (userName !== 'guest') buttonDisplay = <Button>{`logout ${userName}`}</Button>;
+  else buttonDisplay = <Popup userName={userName} />;
+  return (
+    <Menu inverted className="header" size={'massive'} fluid>
+      <Dropdown item text={mode === 'all' ? `All Levels` : filterValue}>
+        <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
+      </Dropdown>
+      <Menu.Menu position="right">{buttonDisplay}</Menu.Menu>
+    </Menu>
+  );
+};
 
 export default Header;
 

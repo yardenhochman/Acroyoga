@@ -56,8 +56,8 @@ img {
   width: auto;
   border-radius: 5px; 
 }
-.PopupLogin {
-  height: 180px;
+.Popup {
+  height: 400px;
 }
 .glyphicon {
   width: 50px;

@@ -32,7 +32,9 @@ const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) =
                 </div>
               }
             >
-              <Meta description={`Participants:${pose.number_of_people} Type:${pose.type} ${mode === 'all' && `Difficulty: ${pose.difficulty}`}`} title={pose.name} />
+              <Meta
+                description=
+                {`Participants:${pose.number_of_people} Type:${pose.type} ${mode === 'all' && `Difficulty: ${pose.difficulty}`}`} title={pose.name} />
             </Card>
           ))}
         </ReactSwipe>

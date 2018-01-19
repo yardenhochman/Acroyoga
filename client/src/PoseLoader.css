@@ -1,18 +1,4 @@
 
-.App {
-  text-align: center;
-}
-.hello {
-  color:red;
-  
-}
-
-.loader-hidden {
-  display: none;
-}
-.loader-active {
-  display: block;
-}
 .App-header {
   background-color: #222;
   height: 150px;

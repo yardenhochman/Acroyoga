@@ -2,34 +2,41 @@ import React from 'react';
 //import Card from 'material-ui/Card';
 //import { Card } from 'antd';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
-
+import CircularProgress from 'material-ui/CircularProgress';
+import Media from 'react-media';
 //const { Meta } = Card;
+import Img from 'react-image';
 
 const PoseCard = ({ img, name }, prev, next) => {
-  console.log('cardPrinted')
+  console.log('cardPrinted');
   return (
-    <Card key={img}>
+    <Card key={img} className="poseCard">
       <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
-        <img src={img} alt={'to be added'} />
+        <Img src={img} alt={'to be added'} loader={<CircularProgress color="red" size={80} thickness={5} />} />
       </CardMedia>
-      <CardActions>
-        {' '}
-        <button
-          key="24152141341"
-          className="glyphicon glyphicon-menu-left left-button"
-          type="button"
-          onClick={prev}
-        />
-        <button
-          key="2141251t1rf1"
-          className="glyphicon glyphicon-menu-right right-button"
-          type="button"
-          onClick={next}
-        />
-      </CardActions>
+      <Media query="(min-width: 1000px)">
+        {matches =>
+          matches && (
+            <CardActions>
+              <button
+                key="24152141341"
+                className="glyphicon glyphicon-menu-left left-button"
+                type="button"
+                onClick={prev}
+              />
+              <button
+                key="2141251t1rf1"
+                className="glyphicon glyphicon-menu-right right-button"
+                type="button"
+                onClick={next}
+              />
+            </CardActions>
+          )
+        }
+      </Media>
     </Card>
   );
-};  
+};
 
 export default PoseCard;
 

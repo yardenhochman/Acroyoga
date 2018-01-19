@@ -5,10 +5,8 @@ import { connect } from 'react-redux';
 import * as actionTypes from './store/actions';
 import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
 //import Auth from './Containers/Auth';
-import Lists from './Containers/Lists';
+//import Lists from './Containers/Lists';
 import Header from './Components/UI/Header/header';
-
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import './PoseLoader.css';
 
@@ -33,6 +31,7 @@ class PoseLoader extends Component {
   };
 
   fetchPoses = () => {
+    console.log('fetch')
     const { filterValue, filter, mode } = this.props;
     let url;
     switch (mode) {
@@ -48,11 +47,11 @@ class PoseLoader extends Component {
   };
 
   render = () => {
-    const { userName } = this.props;
+    console.log('Loader updated');
     return (
       <div className="App">
         <Header {...this.props} />
-        <div className="display-space">{this.displayMode()}</div>
+        {<div className="display-space">{this.displayMode()}</div>}
       </div>
     );
   };

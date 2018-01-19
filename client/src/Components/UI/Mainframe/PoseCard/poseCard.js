@@ -1,18 +1,35 @@
 import React from 'react';
 //import Card from 'material-ui/Card';
-import { Card } from 'antd';
-const { Meta } = Card;
+//import { Card } from 'antd';
+import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 
-const PoseCard = ({ pose, mode }) => {
-  const { img, number_of_people, type, difficulty, name } = pose;
+//const { Meta } = Card;
+
+const PoseCard = ({ img, name }, prev, next) => {
+  console.log('cardPrinted')
   return (
-    <div>
-      <Card hoverable key={img} bordered cover={<img src={img} alt={'to be added'} />}>
-        <Meta description={`Participants:${number_of_people} Type:${type} ${mode === 'all' && `Difficulty: ${difficulty}`}`} title={name} />
-      </Card>
-    </div>
+    <Card key={img}>
+      <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
+        <img src={img} alt={'to be added'} />
+      </CardMedia>
+      <CardActions>
+        {' '}
+        <button
+          key="24152141341"
+          className="glyphicon glyphicon-menu-left left-button"
+          type="button"
+          onClick={prev}
+        />
+        <button
+          key="2141251t1rf1"
+          className="glyphicon glyphicon-menu-right right-button"
+          type="button"
+          onClick={next}
+        />
+      </CardActions>
+    </Card>
   );
-};
+};  
 
 export default PoseCard;
 

@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Menu, Dropdown, Button } from 'semantic-ui-react';
 import difficultyButtons from './Difficulty/diff_buttons';
 import Popup from './Popup/popup';
 
 const Header = ({ mode, setMode, filterValue, filter, setFilter, userName }) => {
+  console.log('Header updated');
   let buttonDisplay;
   if (userName !== 'guest') buttonDisplay = <Button>{`logout ${userName}`}</Button>;
   else buttonDisplay = <Popup userName={userName} />;
@@ -33,6 +34,12 @@ export default Header;
 
 
 */
-{
-  /*userName === 'guest' ? <Auth /> : <Lists />*/
-}
+
+  /*userName === 'guest' ? <Auth /> : <Lists />
+  
+  
+  improved header concept:
+  -display current pose details in menu.
+  -When a user sets a filter, the color changes to reflect permanance
+  
+  */

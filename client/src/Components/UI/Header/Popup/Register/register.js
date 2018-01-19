@@ -120,6 +120,7 @@ class RegisterForm extends Component {
     if (this.state.badPW) return <MessageExampleError />;
   }
   render = () => {
+    console.log('register updated');
     const { login } = this.props;
     const { password, email, name } = this.state.controls;
 

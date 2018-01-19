@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: black;
 }
 .App {
     text-align: center;
@@ -27,29 +28,24 @@ body {
   flex-wrap:nowrap;
   flex-flow: column;
   height: 95vh;
+  background-color: black;
 }
 
 
 .poseCard {
   height: 100vh;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  margin-top: -5vh; 
   align-content: center;
   justify-content: center;
   width: 100vw;
 
 }
 img {
-  height: 80vh;
+  max-height: 90vh;
   width: auto;
   border-radius: 5px; 
-}
-.ant-card-body {
-  height: 20vh;
-  display: flex;
-justify-content: center;
-align-content: center;
-align-items: center;
 }
 .Popup {
   height: 400px;

@@ -6,11 +6,11 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Media from 'react-media';
 //const { Meta } = Card;
 import Img from 'react-image';
-
+const style = {backgroundColor: 'black'}
 const PoseCard = ({ img, name }, prev, next) => {
   console.log('cardPrinted');
   return (
-    <Card key={img} className="poseCard">
+    <Card style={style} key={img} className="poseCard">
       <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
         <Img src={img} alt={'to be added'} loader={<CircularProgress color="red" size={80} thickness={5} />} />
       </CardMedia>

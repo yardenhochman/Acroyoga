@@ -10,7 +10,6 @@ const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) =
   const prev = () => this.reactSwipe.prev();
   return (
     <div className="poses-container">
-      {
         <div className="carousel-container">
           <ReactSwipe
             ref={reactSwipe => (this.reactSwipe = reactSwipe)}
@@ -21,7 +20,6 @@ const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) =
             {poses.map(pose => PoseCard(pose, prev, next))}
           </ReactSwipe>
         </div>
-      }
     </div>
   );
 };

@@ -10,9 +10,7 @@ import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
 
-const headers = {
-  Authorization: `${localStorage.getItem('token')}`,
-};
+const headers = {Authorization: `${localStorage.getItem('token')}`};
 class PoseLoader extends Component {
   componentDidMount = async () => {
     const { UserLogin } = this.props;

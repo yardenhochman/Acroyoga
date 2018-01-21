@@ -29,7 +29,7 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('./client/build'));
-app.use(session({ secret: 'cats' }));
+//app.use(session({ secret: 'cats' }));
 /* app.use(
   cookieSession({
     name: 'session',

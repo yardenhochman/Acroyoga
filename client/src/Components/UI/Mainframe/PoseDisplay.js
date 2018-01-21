@@ -17,7 +17,7 @@ const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) =
           swipeOptions={{ continuous: true }}
           key={(poses.length + 15124211).toString()}
         >
-          {poses.map(pose => PoseCard(pose, prev, next))}
+          {poses.map(pose => PoseCard(pose, prev, next, mode))}
         </ReactSwipe>
       </div>
     </div>

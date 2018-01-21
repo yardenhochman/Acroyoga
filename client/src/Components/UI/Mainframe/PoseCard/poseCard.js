@@ -7,85 +7,132 @@ import Media from 'react-media';
 //const { Meta } = Card;
 import Img from 'react-image';
 
-let imageStyle = {
-  height: '50vw',
-  maxHeight: '70vh',
-  width: 'auto',
-  borderRadius: '5px',
-};
-//imageStyle = {};
-let poseCardStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  alignContent: 'center',
-  justifyContent: 'center',
-  width: '50vw',
-  height: '95vh',
-  backgroundColor: 'black'
-};
-const seperator = {
-  display:'block',
-  height:'10vh'
-}
-//imageStyle = {};
-
-const PoseCard = ({ img, name }, prev, next) =>  (
-    <Card style={poseCardStyle} key={img} className="poseCard">
-      <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
-        <img
+const MobileCardPortrait = (mode, name, difficulty, img, prev, next) => {
+  let imageStyle = {
+    height: '70vw',
+    width: 'auto',
+    maxWidth: '55vh',
+    borderRadius: '5px',
+    minWidth: 'auto',
+  };
+  const titleStyle = {
+    height: '8vh',
+    marginTop: '6vh',
+    color: 'white',
+  };
+  const subStyle = {
+    color: 'white',
+  };
+  const cardStyle = {
+    height: '95vh',
+    marginTop: '60%',
+  };
+  return (
+    <div style={cardStyle}>
+      <CardMedia>
+        <Img
           src={img}
           style={imageStyle}
           alt={'to be added'}
           loader={<CircularProgress color="red" size={80} thickness={5} />}
         />
       </CardMedia>
-      <Media query="(min-width: 800px)">
-        {matches =>
-          matches && (
-          <CardActions>
-              <button
-                key="24152141341"
-                className="glyphicon glyphicon-menu-left left-button"
-                type="button"
-                onClick={prev}
-              />
-              <button
-                key="2141251t1rf1"
-                className="glyphicon glyphicon-menu-right right-button"
-                type="button"
-                onClick={next}
-              />
-            </CardActions>
-          )
+      <CardTitle
+        title={name}
+        titleStyle={titleStyle}
+        subtitleStyle={subStyle}
+        subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+      />
+    </div>
+  );
+};
+const MobileCardLandscape = (mode, name, difficulty, img, prev, next) => {
+  let imageStyle = {
+    height: '95vh',
+    width: 'auto',
+    borderRadius: '5px',
+  };
+  const overlayStyle = {
+    background: 'rgba(0, 0, 0, 0.35) none repeat scroll 0% 0%',
+    textAlign: 'left'
+  };
+  const titleStyle = {
+    fontSize: '4vh',
+  };
+  return (
+    <Fragment>
+      <CardMedia
+        overlayContentStyle={overlayStyle}
+        overlay={
+          <CardTitle
+            title={name}
+            titleStyle={titleStyle}
+            subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+          />
         }
+      >
+        <Img
+          src={img}
+          style={imageStyle}
+          alt={'to be added'}
+          loader={<CircularProgress color="red" size={80} thickness={5} />}
+        />
+      </CardMedia>
+    </Fragment>
+  );
+};
+const DesktopCard = (name, img, prev, next) => {
+  let imageStyle = {
+    height: '50vw',
+    maxHeight: '70vh',
+    width: 'auto',
+    borderRadius: '5px',
+  };
+  return (
+    <Fragment>
+      <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
+        <Img
+          src={img}
+          style={imageStyle}
+          alt={'to be added'}
+          loader={<CircularProgress color="red" size={80} thickness={5} />}
+        />
+      </CardMedia>
+
+      <CardActions>
+        <button key="24152141341" className="glyphicon glyphicon-menu-left left-button" type="button" onClick={prev} />
+        <button
+          key="2141251t1rf1"
+          className="glyphicon glyphicon-menu-right right-button"
+          type="button"
+          onClick={next}
+        />
+      </CardActions>
+    </Fragment>
+  );
+};
+const PoseCard = ({ img, name, difficulty }, prev, next, mode) => {
+  const poseCardStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    width: '50vw',
+    height: '95vh',
+    backgroundColor: 'black',
+  };
+  return (
+    <Card style={poseCardStyle} key={img} className="poseCard">
+      <Media query={{ minWidth: 1000 }}>{matches => matches && DesktopCard(name, img, prev, next)}</Media>
+      <Media query={{ minWidth: 400, maxWidth: 1000 }}>
+        {matches => matches && MobileCardLandscape(mode, name, difficulty, img, prev, next)}
+      </Media>
+      <Media query={{ maxWidth: 400 }}>
+        {matches => matches && MobileCardPortrait(mode, name, difficulty, img, prev, next)}
       </Media>
     </Card>
-    /*<Card style={style} key={img} className="poseCard">
-      <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
-        <Img src={img} alt={'to be added'} loader={<CircularProgress color="red" size={80} thickness={5} />} />
-      </CardMedia>
-      <Media query="(min-width: 1000px)">
-        {matches =>
-          matches && (
-            <CardActions>
-              <button
-                key="24152141341"
-                className="glyphicon glyphicon-menu-left left-button"
-                type="button"
-                onClick={prev}
-              />
-              <button
-                key="2141251t1rf1"
-                className="glyphicon glyphicon-menu-right right-button"
-                type="button"
-                onClick={next}
-              />
-            </CardActions>
-          )
-        }
-      </Media>
-      </Card >*/
   );
+};
 
 export default PoseCard;
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Modal} from 'semantic-ui-react';
+import { Menu, Modal } from 'semantic-ui-react';
 
 import RegisterForm from './Register/register';
 import LoginForm from './Login/login';
@@ -18,7 +18,16 @@ class Popup extends Component {
   render = () => {
     console.log('Popup updated');
     return (
-      <Modal dimmer="blurring" className="Popup" size="tiny" trigger={<Menu.Item>Login</Menu.Item>}>
+      <Modal
+        dimmer="blurring"
+        className="Popup"
+        size="tiny"
+        trigger={
+          <Menu.Item>
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true" />
+          </Menu.Item>
+        }
+      >
         {this.renderForm()}
       </Modal>
     );

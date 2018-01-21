@@ -5,15 +5,15 @@ import Popup from './Popup/popup';
 
 const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOut }) => {
   console.log('Header updated', userName);
-  let buttonDisplay;
-  if (userName) buttonDisplay = <Button onClick={logOut} color="black">{`${userName} logout`}</Button>;
-  else buttonDisplay = <Popup userName={userName} />;
+  let profileButton;
+  if (userName) profileButton = <Button onClick={logOut} color="black">{`${userName} logout`}</Button>;
+  else profileButton = <Popup userName={userName} />;
   return (
     <Menu inverted className="header" size={'massive'} fluid>
       <Dropdown item text={mode === 'all' ? `All Levels` : filterValue}>
         <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
       </Dropdown>
-      <Menu.Menu position="right">{buttonDisplay}</Menu.Menu>
+      <Menu.Menu position="right">{profileButton}</Menu.Menu>
     </Menu>
   );
 };

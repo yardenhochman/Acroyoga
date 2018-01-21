@@ -9,6 +9,7 @@ import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
 import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
+
 const headers = {
   Authorization: `${localStorage.getItem('token')}`,
 };
@@ -22,6 +23,10 @@ class PoseLoader extends Component {
     } catch (err) {
       console.log(err);
     }
+  };
+  logOut = () => {
+    localStorage.removeItem('token');
+    this.props.UserLogout();
   };
   displayMode = () => {
     const { loaded } = this.props;
@@ -59,11 +64,20 @@ class PoseLoader extends Component {
   };
 
   render = () => {
+    const { mode, setMode, filterValue, filter, setFilter, userName } = this.props;
     console.log('Loader updated');
     return (
       <div className="App">
-        <Header {...this.props} />
-        {<div className="display-space">{this.displayMode()}</div>}
+        <Header
+          mode={mode}
+          setMode={setMode}
+          filterValue={filterValue}
+          filter={filter}
+          setFilter={setFilter}
+          userName={userName}
+          logOut={this.logOut}
+        />
+        <div className="display-space">{this.displayMode()}</div>
       </div>
     );
   };
@@ -79,6 +93,10 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: actionTypes.FILL_USER,
         user,
+      }),
+    UserLogout: () =>
+      dispatch({
+        type: actionTypes.LOG_OUT,
       }),
     storePose: pose =>
       dispatch({

@@ -31,12 +31,6 @@ body {
   width: 100vw;
   background-color: black;
 }
-.PoseDisplay {
-  background-color: blue;
-}
-.Popup {
-  height: 400px;
-}
 .glyphicon {
   width: 50px;
 }

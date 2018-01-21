@@ -3,6 +3,7 @@ import { Menu, Modal } from 'semantic-ui-react';
 
 import RegisterForm from './Register/register';
 import LoginForm from './Login/login';
+import Media from 'react-media';
 
 class Popup extends Component {
   state = { form: 'register' };
@@ -16,14 +17,16 @@ class Popup extends Component {
     else return <RegisterForm login={this.changeForm} />;
   };
   render = () => {
+    let popupStyle = { height: '400px' };
     console.log('Popup updated');
     return (
       <Modal
         dimmer="blurring"
+        style={popupStyle}
         className="Popup"
         size="tiny"
         trigger={
-          <Menu.Item >
+          <Menu.Item>
             <i className="fa fa-user-circle fa-lg" aria-hidden="true" />
           </Menu.Item>
         }

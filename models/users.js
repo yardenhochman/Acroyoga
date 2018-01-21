@@ -1,24 +1,35 @@
 const db = require('../db/config');
+const bcrypt = require('bcrypt');
 
 const User = {};
 
-User.findByName = name => db.oneOrNone(
+User.findByMail = email =>
+  db.oneOrNone(
     `
     SELECT * FROM users
-    WHERE name = $1
-  `, [name],
+    WHERE email = $1
+  `,
+    [email],
   );
-
-User.create = user => db.one(
-  `
+User.findByID = id =>
+  db.oneOrNone(
+    `
+    SELECT * FROM users
+    WHERE id = $1
+  `,
+    [id],
+  );
+User.create = user =>
+  db.one(
+    `
   INSERT INTO users
   (name, email, password_digest,difficulty)
-  VALUES ($1, $2, $3, $4)
+  VALUES ($/name/, $/email/, $/pw_digest/,$/difficulty/)
   RETURNING *
   `,
-  [user.name, user.email, user.pw_digest, user.difficulty],
-);
-
+    user,
+  );
+User.comparePassword = (PW, databasePW) => bcrypt.compareSync(PW, databasePW);
 module.exports = User;
 
 /* 

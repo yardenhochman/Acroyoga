@@ -29,7 +29,7 @@ Poses.FilteredPoses = (filter, value) => {
   );
 };
 
-Poses.RandomPoses = () => {
+Poses.AllPoses = () => {
   console.log('FindAll(poses.js):');
   return db.query(`
   SELECT * FROM poses order by random()

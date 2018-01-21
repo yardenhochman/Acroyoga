@@ -6,9 +6,23 @@ import Media from 'react-media';
 
 const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOut }) => {
   console.log('Header updated', userName);
+  const setFilterColor = (mode, filterValue) => {
+    console.log(mode);
+    if (mode === 'all') return <i class="fa fa-filter" aria-hidden="true" />;
+    switch (filterValue) {
+      case 'Easy':
+        return <i class="fa fa-filter text-success" aria-hidden="true" />;
+      case 'Intermediate':
+        return <i class="fa fa-filter text-info" aria-hidden="true" />;
+      case 'Hard':
+        return <i class="fa fa-filter text-warning" aria-hidden="true" />;
+      case 'Expert':
+        return <i class="fa fa-filter text-danger" aria-hidden="true" />;
+    }
+  };
   const dropDown = () => (
     <Fragment>
-      <Dropdown item text={mode === 'all' ? <i class="fa fa-filter" aria-hidden="true" /> : filterValue}>
+      <Dropdown item text={setFilterColor(mode, filterValue)}>
         <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
       </Dropdown>
       <Menu.Menu position="right">{profileButton}</Menu.Menu>
@@ -28,7 +42,7 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
           )
         }
       </Media>
-      <Media query={{ minWidth: 400, maxWidth: 1000 /* Landscape */ }}>
+      <Media query={{ minWidth: 450, maxWidth: 1000 /* Landscape */ }}>
         {/*matches =>
           matches && (
             <Menu inverted className="header" size={'mini'} fluid>
@@ -37,7 +51,7 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
           )
         */}
       </Media>
-      <Media query={{ maxWidth: 400 /* Portrait */ }}>
+      <Media query={{ maxWidth: 450 /* Portrait */ }}>
         {matches =>
           matches && (
             <Menu inverted className="header" size={'large'} fluid>

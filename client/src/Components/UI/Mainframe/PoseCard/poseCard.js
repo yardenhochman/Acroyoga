@@ -124,10 +124,10 @@ const PoseCard = ({ img, name, difficulty }, prev, next, mode) => {
   return (
     <Card style={poseCardStyle} key={img} className="poseCard">
       <Media query={{ minWidth: 1000 }}>{matches => matches && DesktopCard(name, img, prev, next)}</Media>
-      <Media query={{ minWidth: 400, maxWidth: 1000 }}>
+      <Media query={{ minWidth: 450, maxWidth: 1000 }}>
         {matches => matches && MobileCardLandscape(mode, name, difficulty, img, prev, next)}
       </Media>
-      <Media query={{ maxWidth: 400 }}>
+      <Media query={{ maxWidth: 450 }}>
         {matches => matches && MobileCardPortrait(mode, name, difficulty, img, prev, next)}
       </Media>
     </Card>

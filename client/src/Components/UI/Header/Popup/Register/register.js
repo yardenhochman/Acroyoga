@@ -42,8 +42,6 @@ class RegisterForm extends Component {
   };
   formSubmit = async () => {
     const { email, password, name } = this.state.controls;
-
-    console.log(password.valid);
     if (!email.valid || !password.valid || !name.valid) return; //add error message
     const url = 'users/register';
     const data = {};

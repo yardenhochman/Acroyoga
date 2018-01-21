@@ -3,10 +3,10 @@ import { Menu, Dropdown, Button } from 'semantic-ui-react';
 import difficultyButtons from './Difficulty/diff_buttons';
 import Popup from './Popup/popup';
 
-const Header = ({ mode, setMode, filterValue, filter, setFilter, userName }) => {
-  console.log('Header updated');
+const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOut }) => {
+  console.log('Header updated', userName);
   let buttonDisplay;
-  if (userName !== 'guest') buttonDisplay = <Button color='black'>{`${userName}`}</Button>;
+  if (userName) buttonDisplay = <Button onClick={logOut} color="black">{`${userName} logout`}</Button>;
   else buttonDisplay = <Popup userName={userName} />;
   return (
     <Menu inverted className="header" size={'massive'} fluid>
@@ -35,7 +35,7 @@ export default Header;
 
 */
 
-  /*userName === 'guest' ? <Auth /> : <Lists />
+/*userName === 'guest' ? <Auth /> : <Lists />
   
   
   improved header concept:

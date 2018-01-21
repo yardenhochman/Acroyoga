@@ -2,10 +2,10 @@ const db = require('../db/config');
 
 const User = {};
 
-User.findByName = name => db.oneOrNone(
+User.findByEmail = name => db.oneOrNone(
     `
     SELECT * FROM users
-    WHERE name = $1
+    WHERE email = $1
   `, [name],
   );
 

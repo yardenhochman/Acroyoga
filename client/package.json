@@ -26,6 +26,7 @@
     "redux-form-material-ui": "^4.3.3",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.77.2",
+    "slick-carousel": "^1.8.1",
     "swipe-js-iso": "^2.0.4"
   },
   "scripts": {

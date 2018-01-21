@@ -21,7 +21,6 @@ class LoginForm extends Component {
       const res = await axios({ method: 'POST', url, data });
       localStorage.setItem('token', res.data.token);
       const newUser = res.data.user;
-      console.log(newUser);
       this.props.UserLogin(newUser);
     } catch (err) {
       console.log(err);

@@ -1,35 +1,64 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 //import Card from 'material-ui/Card';
-import { Card } from 'antd';
-//import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
+//import { Card } from 'antd';
+import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import Media from 'react-media';
 //const { Meta } = Card;
 import Img from 'react-image';
 
 let imageStyle = {
-  maxHeight: '90vh',
+  height: '50vw',
+  maxHeight: '70vh',
   width: 'auto',
-  borderRadius: '5px'
-}
-imageStyle = {};
+  borderRadius: '5px',
+};
+//imageStyle = {};
 let poseCardStyle = {
-  backgroundColor: 'blue',
   display: 'flex',
   alignItems: 'center',
-  marginTop: '-5vh',
   alignContent: 'center',
   justifyContent: 'center',
-  width: '100vw',
+  width: '50vw',
+  height: '95vh',
+  backgroundColor: 'black'
 };
-poseCardStyle = {};
+const seperator = {
+  display:'block',
+  height:'10vh'
+}
+//imageStyle = {};
 
-
-const PoseCard = ({ img, name }, prev, next) => {
-  console.log('cardPrinted');
-  return (
+const PoseCard = ({ img, name }, prev, next) =>  (
     <Card style={poseCardStyle} key={img} className="poseCard">
-      <img src={img} alt={'to be added'} />
+      <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
+        <img
+          src={img}
+          style={imageStyle}
+          alt={'to be added'}
+          loader={<CircularProgress color="red" size={80} thickness={5} />}
+        />
+      </CardMedia>
+      <Media query="(min-width: 800px)">
+        {matches =>
+          matches && (
+          <CardActions>
+              <button
+                key="24152141341"
+                className="glyphicon glyphicon-menu-left left-button"
+                type="button"
+                onClick={prev}
+              />
+              <button
+                key="2141251t1rf1"
+                className="glyphicon glyphicon-menu-right right-button"
+                type="button"
+                onClick={next}
+              />
+            </CardActions>
+          )
+        }
+      </Media>
     </Card>
     /*<Card style={style} key={img} className="poseCard">
       <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
@@ -57,7 +86,6 @@ const PoseCard = ({ img, name }, prev, next) => {
       </Media>
       </Card >*/
   );
-};
 
 export default PoseCard;
 

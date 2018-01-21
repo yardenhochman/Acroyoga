@@ -20,6 +20,7 @@ usersController.create = async (req, res, next) => {
 
     res.json(new TokenSet(user, newUser.id));
 
+
     /* req.login(user, err => err && next(err), res.json(new response(user, 'user profile message'))); */
   } catch (error) {
     console.log(error);

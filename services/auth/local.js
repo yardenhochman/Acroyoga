@@ -10,18 +10,25 @@ const options = {};
 init();
 
 passport.use(
-  new LocalStrategy(options, async (name, pw, done) => {
-    try {
-      const user = await User.findByName(name)
-      console.log('initial:', user);
-      if (!user || !authHelpers.comparePass(pw, user.password_digest)) return done(null, false);
-      console.log('got em:', user);
-      return done(null, user);
-    }
-    catch (error) {
-      console.log(error);
-      return done(error);
-    };
+  new LocalStrategy(options, (username, password, done) => {
+    User.findByEmail(username)
+      .then(user => {
+        console.log('initial:', user);
+        if (!user) {
+          return done(null, false);
+        }
+        if (!authHelpers.comparePass(password, user.password_digest)) {
+          return done(null, false);
+        } else {
+          console.log('got em:', user);
+          return done(null, user);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        return done(err);
+      });
   }),
 );
+
 module.exports = passport;

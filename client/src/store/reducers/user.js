@@ -3,10 +3,8 @@ import { updateObject } from '../utility';
 
 const initialState = {
   name: 'guest',
-  email: '',
-  username: '',
   difficulty: '',
-  //lists: [],
+  lists: [],
 };
 const reducer = (state = initialState, action) => {
   let setState;

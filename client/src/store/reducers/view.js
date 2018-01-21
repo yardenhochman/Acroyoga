@@ -1,10 +1,10 @@
 import * as actionTypes from '../actions';
 import { updateObject } from '../utility';
 const initialState = {
-  mode: 'filtered',
+  mode: 'all',
   loaded: false,
   filter: 'difficulty',
-  filterValue: 'Intermediate',
+  filterValue: 'All',
 }; //turn into filters, values object which will turn into two arrays on model db request
 
 const reducer = (state = initialState, action) => {

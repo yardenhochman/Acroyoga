@@ -14,8 +14,9 @@ class response {
 
 usersController.create = async (req, res, next) => {
   console.log('create (poses-controller)');
+  const { name, password, email } = req.body;
   try {
-    const user = new UserDetails(req.body.password, req.body.email);
+    const user = new UserDetails(name, password, email);
     await User.create(user);
     console.log(`user ${user.email} created`);
     res.send(user);

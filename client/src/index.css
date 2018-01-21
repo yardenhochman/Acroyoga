@@ -2,8 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: black;
 }
 .App {
+    text-align: center;
+
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -12,12 +15,11 @@ body {
   align-content: center;
 }
 .header {
-  margin: 0vh 0 0 0;
   width:100vw;
   height: 5vh;
   display: flex;
   flex-direction: row;
-
+  margin: 0;
   justify-content: center;
   background-color:white;
 }
@@ -25,19 +27,12 @@ body {
   display: flex;
   flex-wrap:nowrap;
   flex-flow: column;
-  margin-top: 5vh;
   height: 95vh;
+  width: 100vw;
+  background-color: black;
 }
-
-.ant-card-body {
-  width:100%;
-  display: flex;
-  justify-content: center;
-}
-img {
-  display:block;
-  width:auto;
-  height:auto;
+.Popup {
+  height: 400px;
 }
 .glyphicon {
   width: 50px;
@@ -46,11 +41,8 @@ img {
   width: 50px;
 }
 
-
-
-
-
-
-
+.ui.massive.fluid.inverted.header.menu {
+  margin: 0;
+}
 
 

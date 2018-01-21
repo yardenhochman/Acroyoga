@@ -9,9 +9,9 @@ class response {
 
 const posesController = {};
 
-posesController.Random = async (req, res, next) => {
+posesController.All = async (req, res, next) => {
   try {
-    const poses = await Poses.RandomPoses(); //all poses sorted randomly
+    const poses = await Poses.AllPoses(); //all poses sorted randomly
     res.json(new response('All poses (poses-controller)', poses));
   } catch (err) { console.log(err) };
 };

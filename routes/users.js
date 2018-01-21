@@ -1,23 +1,23 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 
 const passport = require('../services/auth/local');
-const authHelpers = require('../services/auth/auth-helper');
+//const authHelpers = require('../services/auth/auth-helper');
 const usersController = require('../controllers/user-controller');
 
 /* GET users listing. */
-router.get('/login', authHelpers.loginRedirect, (req, res) => res.render('auth/login'));
-router.get('/register', authHelpers.loginRedirect, (req, res) => res.render('auth/register'));
-router.post('/register', usersController.create);
-router.get('/logout', (req, res) => {
+userRouter.route('/login').post(usersController.login);
+userRouter.route('/token').get(usersController.findUser);
+//.get(authHelpers.loginRedirect, (req, res) => res.render('auth/login'))
+/*.post(
+            passport.authenticate('local'),
+            (req, res, next) => res.json({ auth: true, message: 'ok', user: req.user }),
+            (err, req, res, next) => res.json({ auth: false, message: 'Not authed' }),
+          );*/
+
+userRouter.route('/register').post(usersController.create);
+userRouter.route('/logout').get((req, res) => {
   req.logout();
   res.json({ message: 'ok', loggedOut: true });
 });
-router.post(
-  '/login',
-  passport.authenticate('local'),
-  (req, res, next) => res.json({ auth: true, message: 'ok', user: req.user }),
-  (err, req, res, next) => res.json({ auth: false, message: 'Not authed' }),
-);
-
-module.exports = router;
+module.exports = userRouter;

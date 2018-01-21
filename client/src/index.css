@@ -28,24 +28,8 @@ body {
   flex-wrap:nowrap;
   flex-flow: column;
   height: 95vh;
-  background-color: black;
-}
-
-
-.poseCard {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  margin-top: -5vh; 
-  align-content: center;
-  justify-content: center;
   width: 100vw;
-
-}
-img {
-  max-height: 90vh;
-  width: auto;
-  border-radius: 5px; 
+  background-color: black;
 }
 .Popup {
   height: 400px;

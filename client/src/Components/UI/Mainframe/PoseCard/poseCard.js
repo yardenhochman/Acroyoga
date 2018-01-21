@@ -1,16 +1,37 @@
 import React from 'react';
 //import Card from 'material-ui/Card';
-//import { Card } from 'antd';
-import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
+import { Card } from 'antd';
+//import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import Media from 'react-media';
 //const { Meta } = Card;
 import Img from 'react-image';
-const style = {backgroundColor: 'black'}
+
+let imageStyle = {
+  maxHeight: '90vh',
+  width: 'auto',
+  borderRadius: '5px'
+}
+imageStyle = {};
+let poseCardStyle = {
+  backgroundColor: 'blue',
+  display: 'flex',
+  alignItems: 'center',
+  marginTop: '-5vh',
+  alignContent: 'center',
+  justifyContent: 'center',
+  width: '100vw',
+};
+poseCardStyle = {};
+
+
 const PoseCard = ({ img, name }, prev, next) => {
   console.log('cardPrinted');
   return (
-    <Card style={style} key={img} className="poseCard">
+    <Card style={poseCardStyle} key={img} className="poseCard">
+      <img src={img} alt={'to be added'} />
+    </Card>
+    /*<Card style={style} key={img} className="poseCard">
       <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
         <Img src={img} alt={'to be added'} loader={<CircularProgress color="red" size={80} thickness={5} />} />
       </CardMedia>
@@ -34,7 +55,7 @@ const PoseCard = ({ img, name }, prev, next) => {
           )
         }
       </Media>
-    </Card>
+      </Card >*/
   );
 };
 

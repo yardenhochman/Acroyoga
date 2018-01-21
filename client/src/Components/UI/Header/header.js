@@ -6,7 +6,7 @@ import Popup from './Popup/popup';
 const Header = ({ mode, setMode, filterValue, filter, setFilter, userName }) => {
   console.log('Header updated');
   let buttonDisplay;
-  if (userName !== 'guest') buttonDisplay = <Button>{`logout ${userName}`}</Button>;
+  if (userName !== 'guest') buttonDisplay = <Button color='black'>{`${userName}`}</Button>;
   else buttonDisplay = <Popup userName={userName} />;
   return (
     <Menu inverted className="header" size={'massive'} fluid>

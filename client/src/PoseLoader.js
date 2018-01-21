@@ -9,8 +9,20 @@ import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
 import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
-
+const headers = {
+  Authorization: `${localStorage.getItem('token')}`,
+};
 class PoseLoader extends Component {
+  componentDidMount = async () => {
+    const { UserLogin } = this.props;
+    try {
+      const baseURL = 'users/token';
+      const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest);
+      UserLogin(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   displayMode = () => {
     const { loaded } = this.props;
     if (!loaded) {
@@ -22,8 +34,8 @@ class PoseLoader extends Component {
   fetch = async url => {
     const { storePose, setLoaded } = this.props;
     try {
-      const pose = await axios.get(url); //fetch(myRequest);
-      await storePose(pose.data.data);
+      const pose = await axios.get(url, headers); //fetch(myRequest);
+      storePose(pose.data.data);
       setLoaded();
     } catch (err) {
       console.log(err);
@@ -31,7 +43,7 @@ class PoseLoader extends Component {
   };
 
   fetchPoses = () => {
-    console.log('fetch')
+    console.log('fetch');
     const { filterValue, filter, mode } = this.props;
     let url;
     switch (mode) {
@@ -63,6 +75,11 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
+    UserLogin: user =>
+      dispatch({
+        type: actionTypes.FILL_USER,
+        user,
+      }),
     storePose: pose =>
       dispatch({
         type: actionTypes.STORE_POSE,

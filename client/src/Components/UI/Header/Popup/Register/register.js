@@ -53,7 +53,7 @@ class RegisterForm extends Component {
     try {
       const res = await axios({ method: 'POST', url, data });
       console.log(res.data);
-      this.props.UserLogin(res.data);
+      this.props.UserLogin(res.data.user);
     } catch (err) {
       console.log(err);
     }

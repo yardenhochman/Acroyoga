@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../../../store/actions';
 
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
@@ -12,12 +14,15 @@ class LoginForm extends Component {
     const { email, password } = this.state;
     const url = 'users/login';
     const data = {};
-    data.username = email.value;
-    data.password = password.value;
+    data.email = email;
+    data.password = password;
+
     try {
       const res = await axios({ method: 'POST', url, data });
-      console.log(res.data);
-      this.props.UserLogin(res.data);
+      localStorage.setItem('token', res.data.token);
+      const newUser = res.data.user;
+      console.log(newUser);
+      this.props.UserLogin(newUser);
     } catch (err) {
       console.log(err);
     }
@@ -27,7 +32,7 @@ class LoginForm extends Component {
     this.setState({ [type]: value });
   };
   render() {
-    console.log('login updated')
+    console.log('login updated');
     const { register } = this.props;
 
     return (
@@ -76,5 +81,17 @@ class LoginForm extends Component {
     );
   }
 }
-
-export default LoginForm;
+const mapStateToProps = state => {
+  const { user: { name: userName } } = state;
+  return { userName };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    UserLogin: user =>
+      dispatch({
+        type: actionTypes.FILL_USER,
+        user,
+      }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

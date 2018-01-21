@@ -49,7 +49,7 @@ class LoginForm extends Component {
               <Segment stacked>
                 <Form.Input
                   fluid
-                  icon="user"
+                  icon="mail"
                   iconPosition="left"
                   type="email"
                   placeholder="E-mail address"

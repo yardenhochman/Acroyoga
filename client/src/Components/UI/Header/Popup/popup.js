@@ -23,8 +23,8 @@ class Popup extends Component {
         className="Popup"
         size="tiny"
         trigger={
-          <Menu.Item>
-            <i class="fa fa-user-circle fa-2x" aria-hidden="true" />
+          <Menu.Item >
+            <i className="fa fa-user-circle fa-lg" aria-hidden="true" />
           </Menu.Item>
         }
       >

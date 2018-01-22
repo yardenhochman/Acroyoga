@@ -147,7 +147,7 @@ class RegisterForm extends Component {
                 <Form.Input
                   error={this.state.badEmail}
                   fluid
-                  icon="user"
+                  icon="mail"
                   iconPosition="left"
                   placeholder="E-mail address"
                   type="email"

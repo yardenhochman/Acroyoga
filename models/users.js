@@ -3,13 +3,14 @@ const bcrypt = require('bcrypt');
 
 const User = {};
 
+
 User.findByMail = email =>
   db.oneOrNone(
     `
     SELECT * FROM users
     WHERE email = $1
   `,
-    [email],
+    [email]
   );
 User.findByID = id =>
   db.oneOrNone(

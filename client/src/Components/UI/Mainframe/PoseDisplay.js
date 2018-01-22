@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 import ReactSwipe from 'react-swipe';
 import PoseCard from './PoseCard/poseCard';
+import Media from 'react-media';
 
 const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) => {
   console.log('poseDisplay updated');
@@ -17,8 +18,22 @@ const PoseDisplay = ({ setMode, poses, setFilter, filter, filterValue, mode }) =
           swipeOptions={{ continuous: true }}
           key={(poses.length + 15124211).toString()}
         >
-          {poses.map(pose => PoseCard(pose, prev, next))}
+          {poses.map(pose => PoseCard(pose, mode))}
         </ReactSwipe>
+        <Media query={{ minWidth: 1000 }}>
+          {matches =>
+            matches && (
+              <Fragment>
+                <a className="btn btn-light" onClick={prev}>
+                  <i className="fa fa-arrow-circle-o-left fa-4x " />
+                </a>
+                <a className="btn btn-light" onClick={next}>
+                  <i className="fa fa-arrow-circle-o-right fa-4x " />
+                </a>
+              </Fragment>
+            )
+          }
+        </Media>
       </div>
     </div>
   );
@@ -37,7 +52,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseDisplay);
-
-/*
-
-*/

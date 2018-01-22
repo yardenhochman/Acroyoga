@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
+import 'font-awesome/css/font-awesome.min.css';
 import PoseLoader from './PoseLoader';
 import registerServiceWorker from './registerServiceWorker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,9 +19,9 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider>  
+    <MuiThemeProvider>
       <PoseLoader />
-    </MuiThemeProvider>  
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root'),
 );

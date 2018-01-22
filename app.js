@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('./client/build'));
+
 app.use((req, res, next) => {
   if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
     jwt.verify(req.headers.authorization.split(' ')[1], process.env.SECRET, (err, decode) => {

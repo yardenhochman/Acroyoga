@@ -3,13 +3,13 @@ import React, { Fragment } from 'react';
 //import { Card } from 'antd';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
 import { Button } from 'semantic-ui-react';
-
+import styled from 'styled-components';
 import CircularProgress from 'material-ui/CircularProgress';
 import Media from 'react-media';
 //const { Meta } = Card;
 import Img from 'react-image';
 
-const MobileCardPortrait = (mode, name, difficulty, img, prev, next) => {
+const MobileCardPortrait = (mode, name, difficulty, img) => {
   let imageStyle = {
     height: '70vw',
     width: 'auto',
@@ -24,6 +24,7 @@ const MobileCardPortrait = (mode, name, difficulty, img, prev, next) => {
   };
   const subStyle = {
     color: 'white',
+    marginTop: '1vh',
   };
   const cardStyle = {
     height: '95vh',
@@ -48,7 +49,7 @@ const MobileCardPortrait = (mode, name, difficulty, img, prev, next) => {
     </div>
   );
 };
-const MobileCardLandscape = (mode, name, difficulty, img, prev, next) => {
+const MobileCardLandscape = (mode, name, difficulty, img) => {
   let imageStyle = {
     height: '95vh',
     width: 'auto',
@@ -83,7 +84,7 @@ const MobileCardLandscape = (mode, name, difficulty, img, prev, next) => {
     </Fragment>
   );
 };
-const DesktopCard = (mode, name, difficulty, img, prev, next) => {
+const DesktopCard = (mode, name, difficulty, img) => {
   let imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -94,11 +95,19 @@ const DesktopCard = (mode, name, difficulty, img, prev, next) => {
     height: '6vh',
     marginTop: '2vh',
     color: 'white',
+    gridArea: 'center',
   };
   const subStyle = {
     color: 'white',
+    marginBottom: '0',
   };
-
+  const cardInfoStyle = {
+    display: 'grid',
+    gridTemplateRows: '40px auto 40px',
+    gridTemplateColumns: '1vh',
+    gridTemplateAreas: `"side center"`,
+  };
+  const favStyle = { gridArea: 'side' };
   return (
     <Fragment>
       <CardMedia>
@@ -109,44 +118,38 @@ const DesktopCard = (mode, name, difficulty, img, prev, next) => {
           loader={<CircularProgress color="red" size={80} thickness={5} />}
         />
       </CardMedia>
-      <CardTitle
-        title={name}
-        titleStyle={titleStyle}
-        subtitleStyle={subStyle}
-        subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
-      />
-      <CardActions>
-        <a className="btn btn-light" onClick={prev}>
-          <i className="fa fa-arrow-circle-o-left fa-4x " />
-        </a>
-        <a className="btn btn-light" onClick={next}>
-          <i className="fa fa-arrow-circle-o-right fa-4x " />
-        </a>
-      </CardActions>
+      <div style={cardInfoStyle}>
+        <CardActions style={favStyle}>
+          <a onClick={() => console.log('click')} className="btn btn-light">
+            <i class="fa fa-heart-o fa-3x" aria-hidden="true" />
+          </a>
+        </CardActions>
+        <CardTitle
+          title={name}
+          titleStyle={titleStyle}
+          subtitleStyle={subStyle}
+          subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+        />
+      </div>
     </Fragment>
   );
 };
-const PoseCard = ({ img, name, difficulty }, prev, next, mode) => {
-  const poseCardStyle = {
+const PoseCard = ({ img, name, difficulty }, mode) => {
+  const cardStyle = {
     display: 'flex',
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
     width: '50vw',
-    height: '95vh',
     backgroundColor: 'black',
   };
   return (
-    <Card style={poseCardStyle} key={img} className="poseCard">
-      <Media query={{ minWidth: 1000 }}>
-        {matches => matches && DesktopCard(mode, name, difficulty, img, prev, next)}
-      </Media>
+    <Card style={cardStyle} key={img} className="poseCard Cards">
+      <Media query={{ minWidth: 1000 }}>{matches => matches && DesktopCard(mode, name, difficulty, img)}</Media>
       <Media query={{ minWidth: 450, maxWidth: 1000 }}>
-        {matches => matches && MobileCardLandscape(mode, name, difficulty, img, prev, next)}
+        {matches => matches && MobileCardLandscape(mode, name, difficulty, img)}
       </Media>
-      <Media query={{ maxWidth: 450 }}>
-        {matches => matches && MobileCardPortrait(mode, name, difficulty, img, prev, next)}
-      </Media>
+      <Media query={{ maxWidth: 450 }}>{matches => matches && MobileCardPortrait(mode, name, difficulty, img)}</Media>
     </Card>
   );
 };
@@ -185,5 +188,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(PoseDisplay)
 <Card hoverable key={pose.img} bordered cover={<img src={pose.img} alt={'to be added'} />}>
               <Meta description={`Participants:${pose.number_of_people} Type:${pose.type} ${mode === 'all' && `Difficulty: ${pose.difficulty}`}`} title={pose.name} />
 
+const cardStyle = {
+    backgroundColor: 'black',
+  };
+  const Cards = styled.div`
+    display: flex;
 
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 50cw;
+    height: 85vh;
+    @media (min-width: 450px) and (max-width: 1000px) {
+      height: 100vh;
+    }
+  `;
 */

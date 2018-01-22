@@ -10,7 +10,7 @@ import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
 
-const headers = {Authorization: `${localStorage.getItem('token')}`};
+const headers = { Authorization: `${localStorage.getItem('token')}` };
 class PoseLoader extends Component {
   componentDidMount = async () => {
     const { UserLogin } = this.props;
@@ -18,6 +18,21 @@ class PoseLoader extends Component {
       const baseURL = 'users/token';
       const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest);
       UserLogin(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  markPose = async () => {
+    /*
+    receives a pose id and list type (favorite)
+    adds to local user favorite list (optimistic update)
+    posts to backend: userid, poseid, list_name
+    */
+    const { storeUserPose = '' } = this.props;
+    try {
+      const data = {pose_id:'1',user_id:'1',list_name:'1'}
+      const baseURL = 'users/';
+      const pose = await axios({ method: 'post', baseURL, headers, data }); //fetch(myRequest);
     } catch (err) {
       console.log(err);
     }

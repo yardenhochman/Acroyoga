@@ -41,5 +41,13 @@ body {
 .ui.massive.fluid.inverted.header.menu {
   margin: 0;
 }
-
-
+.poseCard {
+  height: 85vh;
+  
+}
+@media (min-width: 450px) and (max-width: 1000px) {
+  .poseCard{
+      height: 100vh;
+    }
+  }
+  

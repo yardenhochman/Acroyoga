@@ -44,10 +44,9 @@ usersController.login = async (req, res) => {
 };
 usersController.findUser = async (req, res) => {
   console.log('findUser (poses-controller)');
-  console.log(req.headers)
   let token;
-  if (req.headers) token = req.headers.authorization;
-  if (token) {
+  if (req.headers.authorization) token = req.headers.authorization;
+  if (token===null) {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) return res.json({ success: false, message: 'Failed to authenticate token.' });
       req.userID = decoded.id;

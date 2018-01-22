@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Menu, Dropdown, Button } from 'semantic-ui-react';
 import difficultyButtons from './Difficulty/diff_buttons';
+import TagChoice from './Tags/tags';
 import Popup from './Popup/popup';
 import Media from 'react-media';
 
@@ -20,11 +21,14 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
         return <i class="fa fa-filter text-danger" aria-hidden="true" />;
     }
   };
-  const dropDown = () => (
+  const HeaderItems = () => (
     <Fragment>
       <Dropdown item text={setFilterColor(mode, filterValue)}>
         <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
       </Dropdown>
+      {/*userName && */<Dropdown item text={<i class="tags icon" />}>
+        <Dropdown.Menu>{TagChoice(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
+      </Dropdown>}
       <Menu.Menu position="right">{profileButton}</Menu.Menu>
     </Fragment>
   );
@@ -37,7 +41,7 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
         {matches =>
           matches && (
             <Menu inverted className="header" size={'large'} fluid>
-              {dropDown()}
+              {HeaderItems()}
             </Menu>
           )
         }
@@ -46,7 +50,7 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
         {/*matches =>
           matches && (
             <Menu inverted className="header" size={'mini'} fluid>
-              {dropDown()}
+              {HeaderItems()}
             </Menu>
           )
         */}
@@ -54,8 +58,8 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
       <Media query={{ maxWidth: 450 /* Portrait */ }}>
         {matches =>
           matches && (
-            <Menu inverted className="header" size={'large'} fluid>
-              {dropDown()}
+            <Menu inverted className="header" size={'huge'} fluid>
+              {HeaderItems()}
             </Menu>
           )
         }

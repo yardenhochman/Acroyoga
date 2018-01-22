@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 //import Card from 'material-ui/Card';
 //import { Card } from 'antd';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
+import { Button } from 'semantic-ui-react';
+
 import CircularProgress from 'material-ui/CircularProgress';
 import Media from 'react-media';
 //const { Meta } = Card;
@@ -54,7 +56,7 @@ const MobileCardLandscape = (mode, name, difficulty, img, prev, next) => {
   };
   const overlayStyle = {
     background: 'rgba(0, 0, 0, 0.35) none repeat scroll 0% 0%',
-    textAlign: 'left'
+    textAlign: 'left',
   };
   const titleStyle = {
     fontSize: '4vh',
@@ -81,16 +83,25 @@ const MobileCardLandscape = (mode, name, difficulty, img, prev, next) => {
     </Fragment>
   );
 };
-const DesktopCard = (name, img, prev, next) => {
+const DesktopCard = (mode, name, difficulty, img, prev, next) => {
   let imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
     width: 'auto',
     borderRadius: '5px',
   };
+  const titleStyle = {
+    height: '6vh',
+    marginTop: '2vh',
+    color: 'white',
+  };
+  const subStyle = {
+    color: 'white',
+  };
+
   return (
     <Fragment>
-      <CardMedia overlay={<CardTitle title={name} subtitle={name} />}>
+      <CardMedia>
         <Img
           src={img}
           style={imageStyle}
@@ -98,15 +109,19 @@ const DesktopCard = (name, img, prev, next) => {
           loader={<CircularProgress color="red" size={80} thickness={5} />}
         />
       </CardMedia>
-
+      <CardTitle
+        title={name}
+        titleStyle={titleStyle}
+        subtitleStyle={subStyle}
+        subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+      />
       <CardActions>
-        <button key="24152141341" className="glyphicon glyphicon-menu-left left-button" type="button" onClick={prev} />
-        <button
-          key="2141251t1rf1"
-          className="glyphicon glyphicon-menu-right right-button"
-          type="button"
-          onClick={next}
-        />
+        <a className="btn btn-light" onClick={prev}>
+          <i className="fa fa-arrow-circle-o-left fa-4x " />
+        </a>
+        <a className="btn btn-light" onClick={next}>
+          <i className="fa fa-arrow-circle-o-right fa-4x " />
+        </a>
       </CardActions>
     </Fragment>
   );
@@ -123,7 +138,9 @@ const PoseCard = ({ img, name, difficulty }, prev, next, mode) => {
   };
   return (
     <Card style={poseCardStyle} key={img} className="poseCard">
-      <Media query={{ minWidth: 1000 }}>{matches => matches && DesktopCard(name, img, prev, next)}</Media>
+      <Media query={{ minWidth: 1000 }}>
+        {matches => matches && DesktopCard(mode, name, difficulty, img, prev, next)}
+      </Media>
       <Media query={{ minWidth: 450, maxWidth: 1000 }}>
         {matches => matches && MobileCardLandscape(mode, name, difficulty, img, prev, next)}
       </Media>

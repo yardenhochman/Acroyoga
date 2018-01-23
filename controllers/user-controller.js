@@ -73,7 +73,7 @@ usersController.findUser = async (req, res) => {
     console.log(user);
     res.json(new TokenSet(user, user.id));
   } else {
-    return res.status(403).send({
+    return res.json(403).send({
       success: false,
       message: 'No token provided.',
     });

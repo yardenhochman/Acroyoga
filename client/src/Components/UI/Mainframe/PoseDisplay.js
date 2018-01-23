@@ -63,22 +63,22 @@ class PoseDisplay extends Component {
     );
   };
   swipeArea = () => {
-    const { name, poses, mode, lists: { Favorites } } = this.props;
+    const { name: userName, poses, mode, lists } = this.props;
     return (
       <ReactSwipe
         className="PoseDisplay"
         ref={reactSwipe => (this.reactSwipe = reactSwipe)}
         swipeOptions={{ continuous: true }}
-        key={poses.length + Favorites.length}
+        key={poses.length + lists && lists.Favorites ? lists.Favorites.length : 1}
       >
         {poses.map(pose => {
           //if there's a favorites list, and pose.id is present
           //set favorite=true
           let isFavorite = true;
           const id = Number(pose.id);
-          if (!name || Favorites.indexOf(Number(pose.id)) == -1) isFavorite = false;
+          if (!userName || lists.Favorites.indexOf(Number(pose.id)) == -1) isFavorite = false;
           const inputRef = el => (this.inputElement = el);
-          return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite);
+          return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite, userName);
         })}
       </ReactSwipe>
     );

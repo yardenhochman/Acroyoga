@@ -20,8 +20,8 @@ class PoseLoader extends Component {
     const { UserLogin } = this.props;
     try {
       const baseURL = '/users/token';
-      const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest);
-      if (!res.data.user) this.setState({ userCheck: true });
+      const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest)
+      if (!res.data.user) return this.setState({ userCheck: true });
       console.log(res.data.user);
       await UserLogin(res.data.user);
       this.setState({ userCheck: true });
@@ -30,11 +30,6 @@ class PoseLoader extends Component {
     }
   };
   markPose = async (selectedPoseID, listType) => {
-    /*
-    receives a pose poseID and list type (favorite)
-    adds to local user favorite list (optimistic update)
-    posts to backend: userid, poseid, list_name
-    */
     console.log(selectedPoseID);
     this.props.addToUser(selectedPoseID, listType);
     try {
@@ -47,11 +42,6 @@ class PoseLoader extends Component {
   };
   unMarkPose = async (pose_id, list_name) => {
     const { userID: user_id, removeFromUser } = this.props;
-    /*
-    receives a pose poseID and list type (favorite)
-    adds to local user favorite list (optimistic update)
-    posts to backend: userid, poseid, list_name
-    */
     removeFromUser(pose_id, list_name);
     try {
       const data = { pose_id, user_id, list_name };

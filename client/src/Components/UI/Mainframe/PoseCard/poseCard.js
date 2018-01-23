@@ -83,7 +83,7 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
     </Fragment>
   );
 };
-const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite) => {
+const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, userName) => {
   const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -91,27 +91,36 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
     borderRadius: '5px',
   };
   const titleStyle = {
-    height: '6vh',
+    gridArea: 'title',
+    height: '7vh',
     marginTop: '2vh',
     color: 'white',
-    gridArea: 'center',
+  };
+  const textAreaStyle = {
+    gridArea: 'textArea',
+    gridRow: '2',
+    gridColumn: '2'
   };
   const subStyle = {
+    gridArea: 'sub',
     color: 'white',
     marginBottom: '0',
   };
   let cardInfoStyle = {
     display: 'grid',
-    gridTemplateColumns: '25% auto 25%',
-    gridTemplateAreas: `"side center ."`,
+    height: '15vh',
+    gridTemplateColumns: '15% auto 15%',
+    gridTemplateRows: '10% auto 10%',
   };
-  cardInfoStyle = {};
+  //cardInfoStyle = {};
   const renderFavIcon = () => {
     const favStyle = {
-      height: '15vh',
-      gridArea: 'favStyle',
+      width: '5vw',
+      height: '5vh',
       display: 'flex',
-      alignItems: 'favStyle',
+      gridColumnStart: '1',
+      gridRow: '2',
+      alignItems: 'center'
     };
     const emptyHeart = (
       <a className={`btn btn-light`} style={favStyle} onClick={makeFavorite}>
@@ -123,7 +132,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
         <i className={`fa fa-heart fa-3x full-heart${id}`} aria-hidden="true" />
       </a>
     );
-
+    if (!userName) return;
     if (!isFavorite) return emptyHeart;
     return fullHeart;
   };
@@ -142,6 +151,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
       <div style={cardInfoStyle}>
         {renderFavIcon()}
         <CardTitle
+          style={textAreaStyle}
           title={name}
           titleStyle={titleStyle}
           subtitleStyle={subStyle}
@@ -151,7 +161,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
     </Fragment>
   );
 };
-const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite) => {
+const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite, userName) => {
   const cardStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -159,12 +169,13 @@ const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFa
     justifyContent: 'center',
     width: '50vw',
     backgroundColor: 'black',
+    height: '80vh'
   };
   return (
     <Card style={cardStyle} key={img} className="poseCard Cards">
       <Media query={{ minWidth: 900 }}>
         {matches =>
-          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite)
+          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, userName)
         }
       </Media>
       <Media query={{ minWidth: 450, maxWidth: 900 }}>

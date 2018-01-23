@@ -6,6 +6,7 @@ import Media from 'react-media';
 import Img from 'react-image';
 
 const MobileCardPortrait = (mode, name, difficulty, img) => {
+  console.log('set to portrait');
   let imageStyle = {
     height: '70vw',
     width: 'auto',
@@ -46,6 +47,8 @@ const MobileCardPortrait = (mode, name, difficulty, img) => {
   );
 };
 const MobileCardLandscape = (mode, name, difficulty, img) => {
+  console.log('set to Landscape');
+
   let imageStyle = {
     height: '95vh',
     width: 'auto',
@@ -80,8 +83,8 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
     </Fragment>
   );
 };
-const DesktopCard = (mode, name, difficulty, img) => {
-  let imageStyle = {
+const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFavorite) => {
+  const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
     width: 'auto',
@@ -97,13 +100,35 @@ const DesktopCard = (mode, name, difficulty, img) => {
     color: 'white',
     marginBottom: '0',
   };
-  const cardInfoStyle = {
+  let cardInfoStyle = {
     display: 'grid',
-    gridTemplateRows: '40px auto 40px',
-    gridTemplateColumns: '1vh',
-    gridTemplateAreas: `"side center"`,
+    gridTemplateColumns: '25% auto 25%',
+    gridTemplateAreas: `"side center ."`,
   };
-  const favStyle = { gridArea: 'side' };
+  cardInfoStyle = {};
+  const renderFavIcon = () => {
+    const favStyle = {
+      height: '15vh',
+      gridArea: 'favStyle',
+      display: 'flex',
+      alignItems: 'favStyle',
+    };
+    const emptyHeart = (
+      <a className={`btn btn-light`} ref={name} style={favStyle} onClick={makeFavorite}>
+        <i className={`fa fa-heart-o fa-3x empty-heart${id}`} aria-hidden="true" />
+      </a>
+    );
+    const fullHeart = (
+      <a className="btn btn-light" style={favStyle} onClick={() => console.log(id)}>
+        <i className={`fa fa-heart fa-3x Fullheart${id}`} aria-hidden="true" />
+      </a>
+    );
+
+    if (!isFavorite) return emptyHeart;
+    return fullHeart;
+  };
+  const getPos = () => poses[this.reactSwipe.getPos(1)];
+  //const viewedPose = getPos();
   return (
     <Fragment>
       <CardMedia>
@@ -115,11 +140,7 @@ const DesktopCard = (mode, name, difficulty, img) => {
         />
       </CardMedia>
       <div style={cardInfoStyle}>
-        <CardActions style={favStyle}>
-          <a onClick={() => console.log('click')} className="btn btn-light">
-            <i class="fa fa-heart-o fa-3x" aria-hidden="true" />
-          </a>
-        </CardActions>
+        {renderFavIcon()}
         <CardTitle
           title={name}
           titleStyle={titleStyle}
@@ -130,7 +151,7 @@ const DesktopCard = (mode, name, difficulty, img) => {
     </Fragment>
   );
 };
-const PoseCard = ({ img, name, difficulty }, mode) => {
+const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, isFavorite) => {
   const cardStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -141,8 +162,10 @@ const PoseCard = ({ img, name, difficulty }, mode) => {
   };
   return (
     <Card style={cardStyle} key={img} className="poseCard Cards">
-      <Media query={{ minWidth: 1000 }}>{matches => matches && DesktopCard(mode, name, difficulty, img)}</Media>
-      <Media query={{ minWidth: 450, maxWidth: 1000 }}>
+      <Media query={{ minWidth: 900 }}>
+        {matches => matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, isFavorite)}
+      </Media>
+      <Media query={{ minWidth: 450, maxWidth: 900 }}>
         {matches => matches && MobileCardLandscape(mode, name, difficulty, img)}
       </Media>
       <Media query={{ maxWidth: 450 }}>{matches => matches && MobileCardPortrait(mode, name, difficulty, img)}</Media>

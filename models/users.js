@@ -3,14 +3,13 @@ const bcrypt = require('bcrypt');
 
 const User = {};
 
-
 User.findByMail = email =>
   db.oneOrNone(
     `
     SELECT * FROM users
     WHERE email = $1
   `,
-    [email]
+    [email],
   );
 User.findByID = id =>
   db.oneOrNone(
@@ -30,6 +29,28 @@ User.create = user =>
   `,
     user,
   );
+User.addPose = (pose, user, list) => {
+  console.log(user, pose, list);
+  db.one(
+    `
+  INSERT INTO user2pose
+  (user_id, pose_id, list_name)
+  VALUES ($1, $2, $3)
+  RETURNING *
+  `,
+    [user, pose, list],
+  );
+};
+User.poseList = userID => {
+  console.log('poseList DB query for userId', userID);
+  return db.query(
+    `
+  SELECT * FROM user2pose
+  WHERE user_id = $1
+  `,
+    [userID],
+  );
+};
 User.comparePassword = (PW, databasePW) => bcrypt.compareSync(PW, databasePW);
 module.exports = User;
 

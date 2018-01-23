@@ -15,6 +15,10 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOG_OUT:
       setState = initialState;
       return updateObject(state, setState);
+    case actionTypes.COLLECT_POSE:
+      let newLists = [...state.lists];
+      newLists[action.type].push(action.pose);
+      return updateObject(state, newLists);
     default:
   }
   return state;

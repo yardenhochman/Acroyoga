@@ -14,6 +14,7 @@ userRouter.route('/token').get(usersController.findUser);
             (req, res, next) => res.json({ auth: true, message: 'ok', user: req.user }),
             (err, req, res, next) => res.json({ auth: false, message: 'Not authed' }),
           );*/
+userRouter.route('/addPose').post(usersController.addPose);
 
 userRouter.route('/register').post(usersController.create);
 userRouter.route('/logout').get((req, res) => {

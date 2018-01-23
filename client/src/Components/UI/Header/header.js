@@ -5,20 +5,19 @@ import TagChoice from './Tags/tags';
 import Popup from './Popup/popup';
 import Media from 'react-media';
 
-const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOut }) => {
+const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOut, lists }) => {
   console.log('Header updated', userName);
   const setFilterColor = (mode, filterValue) => {
-    console.log(mode);
-    if (mode === 'all') return <i class="fa fa-filter" aria-hidden="true" />;
+    if (mode === 'all') return <i className="fa fa-filter" aria-hidden="true" />;
     switch (filterValue) {
       case 'Easy':
-        return <i class="fa fa-filter text-success" aria-hidden="true" />;
+        return <i className="fa fa-filter text-success" aria-hidden="true" />;
       case 'Intermediate':
-        return <i class="fa fa-filter text-info" aria-hidden="true" />;
+        return <i className="fa fa-filter text-info" aria-hidden="true" />;
       case 'Hard':
-        return <i class="fa fa-filter text-warning" aria-hidden="true" />;
+        return <i className="fa fa-filter text-warning" aria-hidden="true" />;
       case 'Expert':
-        return <i class="fa fa-filter text-danger" aria-hidden="true" />;
+        return <i className="fa fa-filter text-danger" aria-hidden="true" />;
     }
   };
   const HeaderItems = () => (
@@ -26,9 +25,11 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
       <Dropdown item text={setFilterColor(mode, filterValue)}>
         <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
       </Dropdown>
-      {/*userName && */<Dropdown item text={<i class="tags icon" />}>
-        <Dropdown.Menu>{TagChoice(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
-      </Dropdown>}
+      {
+          userName && <Dropdown item text={<i class="tags icon" />}>
+          <Dropdown.Menu>{TagChoice(filter, filterValue, mode, setFilter, setMode, lists)}</Dropdown.Menu>
+        </Dropdown>
+      }
       <Menu.Menu position="right">{profileButton}</Menu.Menu>
     </Fragment>
   );

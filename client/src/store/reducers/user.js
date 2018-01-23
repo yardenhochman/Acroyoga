@@ -19,6 +19,11 @@ const reducer = (state = initialState, action) => {
       let newLists = [...state.lists];
       newLists[action.type].push(action.pose);
       return updateObject(state, newLists);
+    case actionTypes.DUMP_POSE:
+      let lists = [...state.lists];
+      const deleteIndex = lists[action.type].indexOf(action.pose);
+      lists[action.type].splice(deleteIndex, 1);
+      return updateObject(state, lists);
     default:
   }
   return state;

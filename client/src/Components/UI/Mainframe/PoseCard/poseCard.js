@@ -83,7 +83,7 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
     </Fragment>
   );
 };
-const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFavorite) => {
+const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite) => {
   const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -114,13 +114,13 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFav
       alignItems: 'favStyle',
     };
     const emptyHeart = (
-      <a className={`btn btn-light`} ref={name} style={favStyle} onClick={makeFavorite}>
+      <a className={`btn btn-light`} style={favStyle} onClick={makeFavorite}>
         <i className={`fa fa-heart-o fa-3x empty-heart${id}`} aria-hidden="true" />
       </a>
     );
     const fullHeart = (
-      <a className="btn btn-light" style={favStyle} onClick={() => console.log(id)}>
-        <i className={`fa fa-heart fa-3x Fullheart${id}`} aria-hidden="true" />
+      <a className="btn btn-light" style={favStyle} onClick={unFavorite}>
+        <i className={`fa fa-heart fa-3x full-heart${id}`} aria-hidden="true" />
       </a>
     );
 
@@ -151,7 +151,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFav
     </Fragment>
   );
 };
-const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, isFavorite) => {
+const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite) => {
   const cardStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -163,7 +163,9 @@ const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, isFa
   return (
     <Card style={cardStyle} key={img} className="poseCard Cards">
       <Media query={{ minWidth: 900 }}>
-        {matches => matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, isFavorite)}
+        {matches =>
+          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite)
+        }
       </Media>
       <Media query={{ minWidth: 450, maxWidth: 900 }}>
         {matches => matches && MobileCardLandscape(mode, name, difficulty, img)}

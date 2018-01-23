@@ -20,8 +20,8 @@ class PoseLoader extends Component {
     const { UserLogin } = this.props;
     try {
       const baseURL = '/users/token';
-      const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest);
-      if (!res.data.user) this.setState({ userCheck: true });
+      const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest)
+      if (!res.data.user) return this.setState({ userCheck: true });
       console.log(res.data.user);
       await UserLogin(res.data.user);
       this.setState({ userCheck: true });
@@ -29,17 +29,23 @@ class PoseLoader extends Component {
       console.log(err);
     }
   };
-  markPose = async selectedPoseID => {
-    /*
-    receives a pose poseID and list type (favorite)
-    adds to local user favorite list (optimistic update)
-    posts to backend: userid, poseid, list_name
-    */
+  markPose = async (selectedPoseID, listType) => {
     console.log(selectedPoseID);
-    this.props.addToUser(selectedPoseID);
+    this.props.addToUser(selectedPoseID, listType);
     try {
-      const data = { pose_id: selectedPoseID, user_id: this.props.userID, list_name: 'Favorites' };
+      const data = { pose_id: selectedPoseID, user_id: this.props.userID, list_name: listType };
       const baseURL = '/users/addPose';
+      const pose = await axios({ method: 'post', baseURL, headers, data }); //fetch(myRequest);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  unMarkPose = async (pose_id, list_name) => {
+    const { userID: user_id, removeFromUser } = this.props;
+    removeFromUser(pose_id, list_name);
+    try {
+      const data = { pose_id, user_id, list_name };
+      const baseURL = '/users/removePose';
       const pose = await axios({ method: 'post', baseURL, headers, data }); //fetch(myRequest);
     } catch (err) {
       console.log(err);
@@ -57,7 +63,7 @@ class PoseLoader extends Component {
     }
     return (
       <div className="display-space">
-        <PoseDisplay userPoselists={this.props.lists.Favorites} markPose={this.markPose} />;
+        <PoseDisplay userPoselists={this.props.lists.Favorites} markPose={this.markPose} unMarkPose={this.unMarkPose} />;
       </div>
     );
   };
@@ -143,9 +149,15 @@ const mapDispatchToProps = dispatch => {
         type: actionTypes.STORE_POSE,
         pose,
       }),
-    addToUser: (pose, type = 'Favorites') =>
+    addToUser: (pose, type) =>
       dispatch({
         type: actionTypes.COLLECT_POSE,
+        pose,
+        type,
+      }),
+    removeFromUser: (pose, type) =>
+      dispatch({
+        type: actionTypes.DUMP_POSE,
         pose,
         type,
       }),

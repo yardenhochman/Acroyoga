@@ -41,6 +41,19 @@ User.addPose = (pose, user, list) => {
     [user, pose, list],
   );
 };
+User.removePose = (pose, user, list) => {
+  console.log(user, pose, list);
+  db.one(
+    `
+  DELETE FROM user2pose
+  WHERE 
+  user_id=$1 AND
+  pose_id=$2 AND 
+  list_name=$3
+  `,
+    [user, pose, list],
+  );
+};
 User.poseList = userID => {
   console.log('poseList DB query for userId', userID);
   return db.query(

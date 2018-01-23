@@ -60,7 +60,7 @@ usersController.findUser = async (req, res) => {
   console.log('findUser (poses-controller)');
   let token;
   if (req.headers) token = req.headers.authorization;
-  if (token !== null) {
+  if (token !== 'null') {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) return res.json({ success: false, message: 'Failed to authenticate token.' });
       req.userID = decoded.id;
@@ -73,7 +73,7 @@ usersController.findUser = async (req, res) => {
     console.log(user);
     res.json(new TokenSet(user, user.id));
   } else {
-    return res.status(403).send({
+    return res.json(403).send({
       success: false,
       message: 'No token provided.',
     });
@@ -84,6 +84,24 @@ usersController.addPose = async (req, res) => {
   const { pose_id, user_id, list_name = 'Favorites' } = req.body;
   try {
     await User.addPose(pose_id, user_id, list_name);
+    const newList = await User.poseList(user_id);
+    const sorted = sortList(newList);
+    console.log(newList);
+    console.log(sorted);
+    res.status(200).send({
+      success: true,
+      message: 'pose Added.',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
+};
+usersController.removePose = async (req, res) => {
+  console.log('removePose (poses-controller)');
+  const { pose_id, user_id, list_name = 'Favorites' } = req.body;
+  try {
+    await User.removePose(pose_id, user_id, list_name);
     const newList = await User.poseList(user_id);
     const sorted = sortList(newList);
     console.log(newList);

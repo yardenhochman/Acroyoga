@@ -83,7 +83,7 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
     </Fragment>
   );
 };
-const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFavorite) => {
+const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, userName) => {
   const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -91,39 +91,48 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFav
     borderRadius: '5px',
   };
   const titleStyle = {
-    height: '6vh',
+    gridArea: 'title',
+    height: '7vh',
     marginTop: '2vh',
     color: 'white',
-    gridArea: 'center',
+  };
+  const textAreaStyle = {
+    gridArea: 'textArea',
+    gridRow: '2',
+    gridColumn: '2'
   };
   const subStyle = {
+    gridArea: 'sub',
     color: 'white',
     marginBottom: '0',
   };
   let cardInfoStyle = {
     display: 'grid',
-    gridTemplateColumns: '25% auto 25%',
-    gridTemplateAreas: `"side center ."`,
+    height: '15vh',
+    gridTemplateColumns: '15% auto 15%',
+    gridTemplateRows: '10% auto 10%',
   };
-  cardInfoStyle = {};
+  //cardInfoStyle = {};
   const renderFavIcon = () => {
     const favStyle = {
-      height: '15vh',
-      gridArea: 'favStyle',
+      width: '5vw',
+      height: '5vh',
       display: 'flex',
-      alignItems: 'favStyle',
+      gridColumnStart: '1',
+      gridRow: '2',
+      alignItems: 'center'
     };
     const emptyHeart = (
-      <a className={`btn btn-light`} ref={name} style={favStyle} onClick={makeFavorite}>
+      <a className={`btn btn-light`} style={favStyle} onClick={makeFavorite}>
         <i className={`fa fa-heart-o fa-3x empty-heart${id}`} aria-hidden="true" />
       </a>
     );
     const fullHeart = (
-      <a className="btn btn-light" style={favStyle} onClick={() => console.log(id)}>
-        <i className={`fa fa-heart fa-3x Fullheart${id}`} aria-hidden="true" />
+      <a className="btn btn-light" style={favStyle} onClick={unFavorite}>
+        <i className={`fa fa-heart fa-3x full-heart${id}`} aria-hidden="true" />
       </a>
     );
-
+    if (!userName) return;
     if (!isFavorite) return emptyHeart;
     return fullHeart;
   };
@@ -142,6 +151,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFav
       <div style={cardInfoStyle}>
         {renderFavIcon()}
         <CardTitle
+          style={textAreaStyle}
           title={name}
           titleStyle={titleStyle}
           subtitleStyle={subStyle}
@@ -151,7 +161,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, isFav
     </Fragment>
   );
 };
-const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, isFavorite) => {
+const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite, userName) => {
   const cardStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -163,7 +173,9 @@ const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, isFa
   return (
     <Card style={cardStyle} key={img} className="poseCard Cards">
       <Media query={{ minWidth: 900 }}>
-        {matches => matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, isFavorite)}
+        {matches =>
+          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, userName)
+        }
       </Media>
       <Media query={{ minWidth: 450, maxWidth: 900 }}>
         {matches => matches && MobileCardLandscape(mode, name, difficulty, img)}

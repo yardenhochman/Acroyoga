@@ -9,27 +9,42 @@ import { ItemDescription, Ref } from 'semantic-ui-react';
 
 class PoseDisplay extends Component {
   makeFavorite = () => {
-    /*
-    receive Ref
-    use ref to change className to full heart
-    */
-
-    const { poses } = this.props;
+    const { poses, unMarkPose, markPose } = this.props;
     const getPos = () => poses[this.reactSwipe.getPos(1)];
     let viewedPose = getPos();
     const $selectedHeart = document.querySelector(`.empty-heart${viewedPose.id}`);
-    $selectedHeart.className = `fa fa-heart fa-3x empty-heart${viewedPose.id}`;
-    this.props.markPose(viewedPose.id);
+    if ($selectedHeart !== null) {
+      $selectedHeart.className = `fa fa-heart fa-3x full-heart${viewedPose.id}`;
+      this.props.markPose(viewedPose.id, 'Favorites');
+    } else {
+      const $changedHeart = document.querySelector(`.full-heart${viewedPose.id}`);
+
+      $changedHeart.className = `fa fa-heart-o fa-3x empty-heart${viewedPose.id}`;
+      unMarkPose(viewedPose.id, 'Favorites');
+    }
+  };
+  unFavorite = () => {
+    const { poses, unMarkPose, markPose } = this.props;
+    const getPos = () => poses[this.reactSwipe.getPos(1)];
+    let viewedPose = getPos();
+    const $selectedHeart = document.querySelector(`.full-heart${viewedPose.id}`);
+    if ($selectedHeart !== null) {
+      $selectedHeart.className = `fa fa-heart-o fa-3x empty-heart${viewedPose.id}`;
+      unMarkPose(viewedPose.id, 'Favorites');
+    } else {
+      const $changedHeart = document.querySelector(`.empty-heart${viewedPose.id}`);
+
+      $changedHeart.className = `fa fa-heart fa-3x full-heart${viewedPose.id}`;
+      markPose(viewedPose.id, 'Favorites');
+    }
   };
   navButtons = () => {
     const leftArrow = {
       height: '6vh',
-      marginTop: '2vh',
       gridArea: 'leftArrow',
     };
     const rightArrow = {
       height: '6vh',
-      marginTop: '2vh',
       gridArea: 'rightArrow',
     };
     const next = () => this.reactSwipe.next();
@@ -46,25 +61,22 @@ class PoseDisplay extends Component {
     );
   };
   swipeArea = () => {
-    const { name, poses, mode, lists: { Favorites } } = this.props;
+    const { name: userName, poses, mode, lists } = this.props;
     return (
       <ReactSwipe
         className="PoseDisplay"
         ref={reactSwipe => (this.reactSwipe = reactSwipe)}
         swipeOptions={{ continuous: true }}
-        key={poses.length + Favorites.length}
+        key={poses.length + lists && lists.Favorites ? lists.Favorites.length : 1}
       >
         {poses.map(pose => {
           //if there's a favorites list, and pose.id is present
           //set favorite=true
           let isFavorite = true;
           const id = Number(pose.id);
-          if (!name || Favorites.indexOf(Number(pose.id)) == -1) {
-            isFavorite = false;
-            console.log(Favorites, id, Favorites.indexOf(id) == -1);
-          }
+          if (!userName || lists.Favorites.indexOf(Number(pose.id)) == -1) isFavorite = false;
           const inputRef = el => (this.inputElement = el);
-          return PoseCard(pose, mode, poses, this.makeFavorite, isFavorite);
+          return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite, userName);
         })}
       </ReactSwipe>
     );

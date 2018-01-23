@@ -41,12 +41,10 @@ class PoseDisplay extends Component {
   navButtons = () => {
     const leftArrow = {
       height: '6vh',
-      marginTop: '2vh',
       gridArea: 'leftArrow',
     };
     const rightArrow = {
       height: '6vh',
-      marginTop: '2vh',
       gridArea: 'rightArrow',
     };
     const next = () => this.reactSwipe.next();

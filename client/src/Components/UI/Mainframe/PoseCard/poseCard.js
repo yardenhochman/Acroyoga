@@ -169,7 +169,6 @@ const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFa
     justifyContent: 'center',
     width: '50vw',
     backgroundColor: 'black',
-    height: '80vh'
   };
   return (
     <Card style={cardStyle} key={img} className="poseCard Cards">

@@ -1,38 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
 import * as actionTypes from './store/actions';
 import PoseDisplay from './Components/UI/Mainframe/PoseDisplay';
+import CircularProgress from 'material-ui/CircularProgress';
+
 //import Auth from './Containers/Auth';
 //import Lists from './Containers/Lists';
 import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
 
-const headers = { Authorization: `${localStorage.getItem('token')}` };
+const headers = { authorization: `${localStorage.getItem('token')}` };
 
 class PoseLoader extends Component {
+  state = { userCheck: false };
   componentDidMount = async () => {
     const { UserLogin } = this.props;
     try {
-      const baseURL = 'users/token';
+      const baseURL = '/users/token';
       const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest);
-      UserLogin(res.data.user);
+      if (!res.data.user) this.setState({ userCheck: true });
+      console.log(res.data.user);
+      await UserLogin(res.data.user);
+      this.setState({ userCheck: true });
     } catch (err) {
       console.log(err);
     }
   };
-  markPose = async () => {
+  markPose = async selectedPoseID => {
     /*
-    receives a pose id and list type (favorite)
+    receives a pose poseID and list type (favorite)
     adds to local user favorite list (optimistic update)
     posts to backend: userid, poseid, list_name
     */
-    const { storeUserPose = '' } = this.props;
+    console.log(selectedPoseID);
+    this.props.addToUser(selectedPoseID);
     try {
-      const data = {pose_id:'1',user_id:'1',list_name:'1'}
-      const baseURL = 'users/';
+      const data = { pose_id: selectedPoseID, user_id: this.props.userID, list_name: 'Favorites' };
+      const baseURL = '/users/addPose';
       const pose = await axios({ method: 'post', baseURL, headers, data }); //fetch(myRequest);
     } catch (err) {
       console.log(err);
@@ -48,7 +55,11 @@ class PoseLoader extends Component {
       this.fetchPoses();
       return '';
     }
-    return <PoseDisplay />;
+    return (
+      <div className="display-space">
+        <PoseDisplay userPoselists={this.props.lists.Favorites} markPose={this.markPose} />;
+      </div>
+    );
   };
   fetch = async url => {
     const { storePose, setLoaded } = this.props;
@@ -60,7 +71,21 @@ class PoseLoader extends Component {
       console.log(err);
     }
   };
-
+  renderHeader = () => {
+    const { mode, setMode, filterValue, filter, setFilter, userName, lists } = this.props;
+    return (
+      <Header
+        mode={mode}
+        setMode={setMode}
+        filterValue={filterValue}
+        filter={filter}
+        setFilter={setFilter}
+        userName={userName}
+        logOut={this.logOut}
+        lists={Object.keys(lists)}
+      />
+    );
+  };
   fetchPoses = () => {
     console.log('fetch');
     const { filterValue, filter, mode } = this.props;
@@ -76,30 +101,31 @@ class PoseLoader extends Component {
     }
     return this.fetch(url);
   };
-
+  mainDisplay = () => (
+    <Fragment>
+      {this.renderHeader()}
+      {this.displayMode()}
+    </Fragment>
+  );
   render = () => {
-    const { mode, setMode, filterValue, filter, setFilter, userName } = this.props;
+    const style = {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+    };
+    const styleAfterLoad = {
+      height: '100vh',
+    };
     console.log('Loader updated');
-    return (
-      <div className="App">
-        <Header
-          mode={mode}
-          setMode={setMode}
-          filterValue={filterValue}
-          filter={filter}
-          setFilter={setFilter}
-          userName={userName}
-          logOut={this.logOut}
-        />
-        <div className="display-space">{this.displayMode()}</div>
-      </div>
-    );
+    const { userCheck } = this.state;
+    return <div className="App">{userCheck && this.mainDisplay()}</div>;
   };
 }
 
 const mapStateToProps = state => {
-  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists } } = state;
-  return { loaded, mode, userName, lists, filter, filterValue };
+  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists, id: userID } } = state;
+  return { loaded, mode, userName, lists, filter, filterValue, userID };
 };
 const mapDispatchToProps = dispatch => {
   return {
@@ -116,6 +142,12 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: actionTypes.STORE_POSE,
         pose,
+      }),
+    addToUser: (pose, type = 'Favorites') =>
+      dispatch({
+        type: actionTypes.COLLECT_POSE,
+        pose,
+        type,
       }),
     setMode: mode =>
       dispatch({

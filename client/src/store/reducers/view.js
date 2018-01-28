@@ -13,6 +13,9 @@ const reducer = (state = initialState, action) => {
   const { SETMODE, LOADED, RELOAD, FILTER, SET_TAG } = actionTypes;
   let setState;
   switch (type) {
+    case SET_TAG:
+      setState = { tag };
+      return updateObject(state, setState);
     case SETMODE:
       setState = { mode, loaded: false };
       return updateObject(state, setState);

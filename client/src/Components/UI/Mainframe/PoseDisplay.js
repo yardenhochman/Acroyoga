@@ -61,23 +61,37 @@ class PoseDisplay extends Component {
     );
   };
   swipeArea = () => {
-    const { name: userName, poses, mode, lists } = this.props;
+    const { name: userName, poses, mode, lists, tag } = this.props;
+    const favoritesList = lists && lists.Favorites;
+
+    const checkIfFavorite = (poseId, favoritesList) => {
+      return favoritesList && favoritesList.indexOf(Number(poseId)) !== -1;
+    };
+    const tagCheck = pose => {
+      if (tag) {
+        return checkIfFavorite(pose.id, favoritesList);
+      }
+      return true;
+    };
+
+    const posesToDisplay = poses.filter(tagCheck).map(pose => {
+      //need to create an empty poseCard view in case there are no favorites
+      const id = Number(pose.id);
+      const isFavorite = checkIfFavorite(pose.id, favoritesList);
+      //const inputRef = el => (this.inputElement = el);
+      const displayHeart = userName && !tag ? true : false;
+      return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite, displayHeart);
+    });
+    //const favoritePoses = poses.filter();
+
     return (
       <ReactSwipe
         className="PoseDisplay"
         ref={reactSwipe => (this.reactSwipe = reactSwipe)}
         swipeOptions={{ continuous: true }}
-        key={poses.length + 1}
+        key={poses.length + tag}
       >
-        {poses.map(pose => {
-          //if there's a favorites list, and pose.id is present
-          //set favorite=true
-          let isFavorite = true;
-          const id = Number(pose.id);
-          if (!userName || !lists.Favorites || lists.Favorites.indexOf(Number(pose.id)) == -1) isFavorite = false;
-          const inputRef = el => (this.inputElement = el);
-          return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite, userName);
-        })}
+        {posesToDisplay}
       </ReactSwipe>
     );
   };
@@ -113,10 +127,8 @@ class PoseDisplay extends Component {
   };
 }
 const mapStateToProps = state => {
-  const { pose: { poses }, view: { mode, filter, filterValue }, user: { name, lists } } = state;
-  return { poses, mode, filter, filterValue, lists, name };
+  const { pose: { poses }, view: { mode, filter, filterValue, tag }, user: { name, lists } } = state;
+  return { poses, mode, filter, filterValue, lists, name, tag };
 };
-
-
 
 export default connect(mapStateToProps)(PoseDisplay);

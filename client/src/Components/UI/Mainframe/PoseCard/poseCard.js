@@ -83,7 +83,7 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
     </Fragment>
   );
 };
-const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, userName) => {
+const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, displayHeart) => {
   const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -132,7 +132,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
         <i className={`fa fa-heart fa-3x full-heart${id}`} aria-hidden="true" />
       </a>
     );
-    if (!userName) return;
+    if (!displayHeart) return;
     if (!isFavorite) return emptyHeart;
     return fullHeart;
   };
@@ -161,7 +161,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
     </Fragment>
   );
 };
-const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite, userName) => {
+const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite, displayHeart) => {
   const cardStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -174,7 +174,7 @@ const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFa
     <Card style={cardStyle} key={img} className="poseCard Cards">
       <Media query={{ minWidth: 900 }}>
         {matches =>
-          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, userName)
+          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, displayHeart)
         }
       </Media>
       <Media query={{ minWidth: 450, maxWidth: 900 }}>

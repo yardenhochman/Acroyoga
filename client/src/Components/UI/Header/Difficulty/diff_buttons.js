@@ -11,8 +11,8 @@ const isFilter = difficulty => (difficulty === 'All') ? false : true;
 
 const difficultyButtons = (filter, filterValue, mode, setFilter, setMode) => {
   const difficulties = ['All', 'Easy', 'Intermediate', 'Hard', 'Expert'];
-  const colors = ['black', 'green', 'yellow', 'orange', 'red', 'purple'];
+  //const colors = ['black', 'green', 'yellow', 'orange', 'red', 'purple'];
   return difficulties.map((difficulty, i) =>
-    <Menu.Item key={i} className={'btn' + (isActive(difficulty, filter, filterValue, mode) ? ' active' : ' inactive')} name={difficulty} onClick={isFilter(difficulty) ? () => setFilter('difficulty', difficulty) : () => setMode('all')} color={colors[i]} />);
+    <Menu.Item key={i} className={'btn' + (isActive(difficulty, filter, filterValue, mode) ? ' active' : ' inactive')} name={difficulty} onClick={isFilter(difficulty) ? () => setFilter('difficulty', difficulty) : () => setMode('all')} />);
 };
 export default difficultyButtons;

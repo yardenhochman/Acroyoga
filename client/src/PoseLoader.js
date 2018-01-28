@@ -12,6 +12,21 @@ import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
 
+const storeLocally = poses => {
+  const posesToLocal = JSON.stringify(poses);
+  localStorage.poses = posesToLocal;
+};
+const retreiveLocalPoses = () => {
+  let locallyStoredPoses = localStorage.poses;
+  if (locallyStoredPoses) {
+    locallyStoredPoses = JSON.parse(locallyStoredPoses);
+    console.log('local poses retreived');
+  }
+  return locallyStoredPoses;
+};
+
+const locallyStoredAllPoses = retreiveLocalPoses();
+
 const headers = { authorization: `${localStorage.getItem('token')}` };
 
 class PoseLoader extends Component {
@@ -21,9 +36,10 @@ class PoseLoader extends Component {
     try {
       const baseURL = '/users/token';
       const res = await axios({ method: 'get', baseURL, headers }); //fetch(myRequest)
-      if (!res.data.user) return this.setState({ userCheck: true });
-      console.log(res.data.user);
-      await UserLogin(res.data.user);
+      const { data: { user } } = res;
+      if (!user) return this.setState({ userCheck: true });
+
+      await UserLogin(user);
       this.setState({ userCheck: true });
     } catch (err) {
       console.log(err);
@@ -68,18 +84,22 @@ class PoseLoader extends Component {
       </div>
     );
   };
-  fetch = async url => {
-    const { storePosesFromServer, setLoaded } = this.props;
+  fetch = async (url, makeFetch) => {
+    const { storePosesFromServer, setLoaded, mode } = this.props;
     try {
-      const pose = await axios.get(url, headers); //fetch(myRequest);
-      storePosesFromServer(pose.data.data);
+      if (makeFetch) {
+        const pose = await axios.get(url, headers); //fetch(myRequest);
+        storePosesFromServer(pose.data.data);
+        mode === 'all' && storeLocally(pose.data.data);
+        console.log('poses retreived from the server');
+      } else storePosesFromServer(locallyStoredAllPoses);
       setLoaded();
     } catch (err) {
       console.log(err);
     }
   };
   renderHeader = () => {
-    const { mode, setMode, filterValue, filter, setFilter, userName, lists } = this.props;
+    const { mode, setMode, filterValue, filter, setFilter, userName, lists, setTag, tag } = this.props;
     return (
       <Header
         mode={mode}
@@ -90,6 +110,9 @@ class PoseLoader extends Component {
         userName={userName}
         logOut={this.logOut}
         lists={Object.keys(lists)}
+        setTag={setTag}
+        tag={tag}
+        key={tag}
       />
     );
   };
@@ -97,16 +120,18 @@ class PoseLoader extends Component {
     console.log('fetch');
     const { filterValue, filter, mode } = this.props;
     let url;
+    let makeFetch = true;
     switch (mode) {
       case 'all':
         url = `/index/all`;
+        if (locallyStoredAllPoses) makeFetch = false;
         break;
       case 'filtered':
         url = `/index/filter/${filter}/${filterValue}`;
         break;
       default:
     }
-    return this.fetch(url);
+    return this.fetch(url, makeFetch);
   };
   mainDisplay = () => (
     <Fragment>
@@ -131,8 +156,8 @@ class PoseLoader extends Component {
 }
 
 const mapStateToProps = state => {
-  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists, id: user_id } } = state;
-  return { loaded, mode, userName, lists, filter, filterValue, user_id };
+  const { view: { loaded, mode, filterValue, filter, tag }, user: { name: userName, lists, id: user_id } } = state;
+  return { loaded, mode, userName, lists, filter, filterValue, user_id, tag };
 };
 const mapDispatchToProps = dispatch => {
   const {
@@ -178,6 +203,11 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: SETMODE,
         mode,
+      }),
+    setTag: tag =>
+      dispatch({
+        type: SET_TAG,
+        tag,
       }),
     setLoaded: () =>
       dispatch({

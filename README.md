@@ -4,13 +4,13 @@
 Stack: Express, PostgresQL, React, Redux,
 
 ## Features:
-..* Login/Register with cookies.
-..* Add pose to favorites.
-..* Filter poses by difficulty/list.
-..* Swiping on mobile. 
-..* Progressive App functionality.
-..* Responsive
 
+ * Login/Register with cookies.
+ * Add pose to favorites.
+ * Filter poses by difficulty/list.
+ * Swiping on mobile. 
+ * Progressive App functionality.
+ * Responsive
 
 ## Component Library:
 

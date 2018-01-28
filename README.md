@@ -12,7 +12,7 @@ Stack: Express, PostgresQL, React, Redux,
 ..* Responsive
 
 
-##Component Library:
+## Component Library:
 
 [Swiping](https://github.com/voronianski/react-swipe)
 

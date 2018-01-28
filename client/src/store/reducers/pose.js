@@ -5,11 +5,13 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actionTypes.STORE_POSE:
-      let poses = [...state]
-      poses=action.pose;
-      return { ...state, poses }
+  const { type, pose } = action;
+  const { STORE_POSE } = actionTypes;
+  switch (type) {
+    case STORE_POSE:
+      let poses = [];
+      poses = pose;
+      return { ...state, poses };
     default:
   }
   return state;

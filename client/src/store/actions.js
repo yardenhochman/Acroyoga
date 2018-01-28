@@ -7,3 +7,4 @@ export const FILL_USER = 'FILL_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const COLLECT_POSE = 'COLLECT_POSE';
 export const DUMP_POSE = 'DUMP_POSE';
+export const SET_TAG = 'SET_TAG';

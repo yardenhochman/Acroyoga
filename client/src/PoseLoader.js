@@ -29,11 +29,11 @@ class PoseLoader extends Component {
       console.log(err);
     }
   };
-  markPose = async (selectedPoseID, listType) => {
-    console.log(selectedPoseID);
-    this.props.addToUser(selectedPoseID, listType);
+  markPose = async (pose_id, list_name) => {
+    const { user_id, addToUser } = this.props;
+    addToUser(pose_id, list_name);
     try {
-      const data = { pose_id: selectedPoseID, user_id: this.props.userID, list_name: listType };
+      const data = { pose_id, user_id, list_name };
       const baseURL = '/users/addPose';
       const pose = await axios({ method: 'post', baseURL, headers, data }); //fetch(myRequest);
     } catch (err) {
@@ -41,12 +41,13 @@ class PoseLoader extends Component {
     }
   };
   unMarkPose = async (pose_id, list_name) => {
-    const { userID: user_id, removeFromUser } = this.props;
-    removeFromUser(pose_id, list_name);
+    const { user_id, removeFromUser } = this.props;
+    removeFromUser(pose_id, list_name); //2, Favorites
     try {
+      console.log('here');
       const data = { pose_id, user_id, list_name };
       const baseURL = '/users/removePose';
-      const pose = await axios({ method: 'post', baseURL, headers, data }); //fetch(myRequest);
+      const pose = await axios({ method: 'delete', baseURL, headers, data }); //fetch(myRequest);
     } catch (err) {
       console.log(err);
     }
@@ -68,10 +69,10 @@ class PoseLoader extends Component {
     );
   };
   fetch = async url => {
-    const { storePose, setLoaded } = this.props;
+    const { storePosesFromServer, setLoaded } = this.props;
     try {
       const pose = await axios.get(url, headers); //fetch(myRequest);
-      storePose(pose.data.data);
+      storePosesFromServer(pose.data.data);
       setLoaded();
     } catch (err) {
       console.log(err);
@@ -130,50 +131,62 @@ class PoseLoader extends Component {
 }
 
 const mapStateToProps = state => {
-  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists, id: userID } } = state;
-  return { loaded, mode, userName, lists, filter, filterValue, userID };
+  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists, id: user_id } } = state;
+  return { loaded, mode, userName, lists, filter, filterValue, user_id };
 };
 const mapDispatchToProps = dispatch => {
+  const {
+    FILL_USER,
+    LOG_OUT,
+    SETMODE,
+    LOADED,
+    RELOAD,
+    FILTER,
+    SET_TAG,
+    STORE_POSE,
+    COLLECT_POSE,
+    DUMP_POSE,
+  } = actionTypes;
   return {
     UserLogin: user =>
       dispatch({
-        type: actionTypes.FILL_USER,
+        type: FILL_USER,
         user,
       }),
     UserLogout: () =>
       dispatch({
-        type: actionTypes.LOG_OUT,
+        type: LOG_OUT,
       }),
-    storePose: pose =>
+    storePosesFromServer: pose =>
       dispatch({
-        type: actionTypes.STORE_POSE,
+        type: STORE_POSE,
         pose,
       }),
-    addToUser: (pose, type) =>
+    addToUser: (pose_id, listName) =>
       dispatch({
-        type: actionTypes.COLLECT_POSE,
-        pose,
-        type,
+        type: COLLECT_POSE,
+        pose_id,
+        listName,
       }),
-    removeFromUser: (pose, type) =>
+    removeFromUser: (pose_id, listName) =>
       dispatch({
-        type: actionTypes.DUMP_POSE,
-        pose,
-        type,
+        type: DUMP_POSE,
+        pose_id,
+        listName,
       }),
     setMode: mode =>
       dispatch({
-        type: actionTypes.SETMODE,
+        type: SETMODE,
         mode,
       }),
     setLoaded: () =>
       dispatch({
-        type: actionTypes.LOADED,
+        type: LOADED,
       }),
-    setFilter: (setFilter, value) =>
+    setFilter: (filters, value) =>
       dispatch({
-        type: actionTypes.FILTER,
-        setFilter,
+        type: FILTER,
+        filters,
         value,
       }),
   };

@@ -79,7 +79,7 @@ class PoseLoader extends Component {
     }
   };
   renderHeader = () => {
-    const { mode, setMode, filterValue, filter, setFilter, userName, lists } = this.props;
+    const { mode, setMode, filterValue, filter, setFilter, userName, lists, setTag, tag } = this.props;
     return (
       <Header
         mode={mode}
@@ -90,6 +90,9 @@ class PoseLoader extends Component {
         userName={userName}
         logOut={this.logOut}
         lists={Object.keys(lists)}
+        setTag={setTag}
+        tag={tag}
+        key={tag}
       />
     );
   };
@@ -131,8 +134,8 @@ class PoseLoader extends Component {
 }
 
 const mapStateToProps = state => {
-  const { view: { loaded, mode, filterValue, filter }, user: { name: userName, lists, id: user_id } } = state;
-  return { loaded, mode, userName, lists, filter, filterValue, user_id };
+  const { view: { loaded, mode, filterValue, filter, tag }, user: { name: userName, lists, id: user_id } } = state;
+  return { loaded, mode, userName, lists, filter, filterValue, user_id, tag };
 };
 const mapDispatchToProps = dispatch => {
   const {
@@ -178,6 +181,11 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: SETMODE,
         mode,
+      }),
+    setTag: tag =>
+      dispatch({
+        type: SET_TAG,
+        tag,
       }),
     setLoaded: () =>
       dispatch({

@@ -67,14 +67,14 @@ class PoseDisplay extends Component {
         className="PoseDisplay"
         ref={reactSwipe => (this.reactSwipe = reactSwipe)}
         swipeOptions={{ continuous: true }}
-        key={poses.length + lists && lists.Favorites ? lists.Favorites.length : 1}
+        key={poses.length + 1}
       >
         {poses.map(pose => {
           //if there's a favorites list, and pose.id is present
           //set favorite=true
           let isFavorite = true;
           const id = Number(pose.id);
-          if (!userName || lists.Favorites.indexOf(Number(pose.id)) == -1) isFavorite = false;
+          if (!userName || !lists.Favorites || lists.Favorites.indexOf(Number(pose.id)) == -1) isFavorite = false;
           const inputRef = el => (this.inputElement = el);
           return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite, userName);
         })}
@@ -117,12 +117,6 @@ const mapStateToProps = state => {
   return { poses, mode, filter, filterValue, lists, name };
 };
 
-const mapDispatchToProps = dispatch => {
-  const { SETMODE, FILTER } = actionTypes;
-  return {
-    setMode: mode => dispatch({ type: SETMODE, mode }),
-    setFilter: (setFilter, value) => dispatch({ type: FILTER, setFilter, value }),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(PoseDisplay);
+
+export default connect(mapStateToProps)(PoseDisplay);

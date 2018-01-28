@@ -102,13 +102,15 @@ usersController.removePose = async (req, res) => {
   const { pose_id, user_id, list_name = 'Favorites' } = req.body;
   try {
     await User.removePose(pose_id, user_id, list_name);
+    /*
     const newList = await User.poseList(user_id);
     const sorted = sortList(newList);
     console.log(newList);
     console.log(sorted);
+    */
     res.status(200).send({
       success: true,
-      message: 'pose Added.',
+      message: 'pose Removed.',
     });
   } catch (error) {
     console.log(error);

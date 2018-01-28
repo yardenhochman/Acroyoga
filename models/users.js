@@ -43,7 +43,7 @@ User.addPose = (pose, user, list) => {
 };
 User.removePose = (pose, user, list) => {
   console.log(user, pose, list);
-  db.one(
+  db.none(
     `
   DELETE FROM user2pose
   WHERE 

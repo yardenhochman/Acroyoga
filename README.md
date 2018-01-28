@@ -1,4 +1,4 @@
-# Acroyoga App
+# Acroyoga Pose Index
 
 ## Stack:
 Stack: Express, PostgresQL, React, Redux,

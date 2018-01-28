@@ -24,8 +24,9 @@ Poses.FilteredPoses = (filter, value) => {
   console.log('FilteredPoses(poses.js):', filter, value);
   return db.query(
     `
-  SELECT * FROM poses WHERE ${filter} = $1`,
-    [value]
+  SELECT * FROM poses WHERE ${filter} = $1
+  order by random()`,
+    [value],
   );
 };
 //order by random()
@@ -34,6 +35,7 @@ Poses.AllPoses = () => {
   console.log('FindAll(poses.js):');
   return db.query(`
   SELECT * FROM poses
+  order by random()
   `);
 };
 

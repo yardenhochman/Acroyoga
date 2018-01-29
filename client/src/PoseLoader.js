@@ -12,6 +12,27 @@ import Header from './Components/UI/Header/header';
 
 import './PoseLoader.css';
 
+//Progressive app helpers
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js')
+    .then(() => console.log('Service Worker Registered')
+  );
+}
+
+const storeFavoritesLocally = poses => {
+  const posesToLocal = JSON.stringify(poses);
+  localStorage.favorites = posesToLocal;
+};
+const retreiveLocalFavoritePoses = () => {
+  let locallyStoredPoses = localStorage.favorites;
+  if (locallyStoredPoses) {
+    locallyStoredPoses = JSON.parse(locallyStoredPoses);
+    console.log('local favorite poses retreived');
+  }
+  return locallyStoredPoses;
+};
+
 const storeLocally = poses => {
   const posesToLocal = JSON.stringify(poses);
   localStorage.poses = posesToLocal;
@@ -73,14 +94,14 @@ class PoseLoader extends Component {
     this.props.UserLogout();
   };
   displayMode = () => {
-    const { loaded } = this.props;
+    const { loaded, lists: { Favorites } } = this.props;
     if (!loaded) {
       this.fetchPoses();
       return '';
     }
     return (
       <div className="display-space">
-        <PoseDisplay userPoselists={this.props.lists.Favorites} markPose={this.markPose} unMarkPose={this.unMarkPose} />;
+        <PoseDisplay userPoselists={Favorites} markPose={this.markPose} unMarkPose={this.unMarkPose} />;
       </div>
     );
   };

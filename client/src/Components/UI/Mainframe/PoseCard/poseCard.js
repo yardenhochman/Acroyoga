@@ -18,6 +18,7 @@ const MobileCardPortrait = (mode, name, difficulty, img) => {
     height: '8vh',
     marginTop: '6vh',
     color: 'white',
+    fontFamily: 'Special Elite',
   };
   const subStyle = {
     color: 'white',
@@ -60,6 +61,7 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
   };
   const titleStyle = {
     fontSize: '4vh',
+    fontFamily: 'Special Elite',
   };
   return (
     <Fragment>
@@ -95,16 +97,18 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
     height: '7vh',
     marginTop: '2vh',
     color: 'white',
+    fontFamily: 'Special Elite',
   };
   const textAreaStyle = {
     gridArea: 'textArea',
     gridRow: '2',
-    gridColumn: '2'
+    gridColumn: '2',
   };
   const subStyle = {
     gridArea: 'sub',
     color: 'white',
     marginBottom: '0',
+    fontFamily: 'Roboto Condensed',
   };
   let cardInfoStyle = {
     display: 'grid',
@@ -120,7 +124,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
       display: 'flex',
       gridColumnStart: '1',
       gridRow: '2',
-      alignItems: 'center'
+      alignItems: 'center',
     };
     const emptyHeart = (
       <a className={`btn btn-light`} style={favStyle} onClick={makeFavorite}>
@@ -174,7 +178,8 @@ const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFa
     <Card style={cardStyle} key={img} className="poseCard Cards">
       <Media query={{ minWidth: 900 }}>
         {matches =>
-          matches && DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, displayHeart)
+          matches &&
+          DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, displayHeart)
         }
       </Media>
       <Media query={{ minWidth: 450, maxWidth: 900 }}>

@@ -1,3 +1,5 @@
+ @font-face { font-family: Special Elite; src: url('Special Elite regular.ttf'); } 
+ @font-face { font-family: Roboto Condensed; src: url('Roboto Condensed regular.ttf'); } 
 body {
   margin: 0;
   padding: 0;

@@ -5,14 +5,10 @@ import Img from 'react-image';
 import loader from '../loader';
 
 const MobileCardLandscape = (
-  { img, name, difficulty, id },
-  mode,
-  cardIndex,
-  currentSlideIndex,
-  preloadedDefault,
-  renderSubtitle,
+  { img, name },
+  closeToCurrentView,
+  subtitle
 ) => {
-  console.log('set to Landscape');
 
   let imageStyle = {
     height: '95vh',
@@ -27,16 +23,12 @@ const MobileCardLandscape = (
     fontSize: '4vh',
     fontFamily: 'Special Elite',
   };
-  const differenceFromCurrentCard = Math.abs(cardIndex - currentSlideIndex);
-  const closeToCurrentView =
-    differenceFromCurrentCard < preloadedDefault.desktop || differenceFromCurrentCard > 105 - preloadedDefault.desktop
-      ? true
-      : false;
+
   const displayCard = (
     <Fragment>
       <CardMedia
         overlayContentStyle={overlayStyle}
-        overlay={<CardTitle title={name} titleStyle={titleStyle} subtitle={renderSubtitle(mode, difficulty)} />}
+        overlay={<CardTitle title={name} titleStyle={titleStyle} subtitle={subtitle} />}
       >
         <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
       </CardMedia>

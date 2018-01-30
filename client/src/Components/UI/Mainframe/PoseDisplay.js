@@ -111,15 +111,14 @@ class PoseDisplay extends Component {
     const posesToDisplay = reactSwipeInstance => {
       const { currentSlide } = this.props;
       return poses.filter(tagCheck).map((pose, index) => {
-        //need to create an empty poseCard view in case there are no favorites
         const id = Number(pose.id);
         const isFavorite = checkIfFavorite(pose.id, favoritesList);
-        //const inputRef = el => (this.inputElement = el);
+        const subtitle = `${mode === 'all' ? `Difficulty: ${pose.difficulty}` : ''}`;
+
         const displayHeart = userName && !tag ? true : false;
         return PoseCard(
           pose,
-          mode,
-          poses,
+          subtitle,
           this.makeFavorite,
           this.unFavorite,
           isFavorite,

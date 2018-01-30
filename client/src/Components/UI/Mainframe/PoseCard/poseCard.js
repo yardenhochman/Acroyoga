@@ -9,8 +9,7 @@ import MobileCardLandscape from './MobileView/mobileLandscapeCard';
 
 const PoseCard = (
   pose,
-  mode,
-  poses,
+  subtitle,
   makeFavorite,
   unFavorite,
   isFavorite,
@@ -30,45 +29,65 @@ const PoseCard = (
     mobile: 15,
     desktop: 30,
   };
-  const renderSubtitle = (mode, difficulty) => `${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`;
-  const desktopCheck = () => {
-    const desktopDisplay = DesktopCard(
-      pose,
-      mode,
-      poses,
-      makeFavorite,
-      unFavorite,
-      isFavorite,
-      displayHeart,
-      cardIndex,
-      currentSlideIndex,
-      preloadedDefault,
-      renderSubtitle,
-    );
-    return <Media query={{ minWidth: 900 }}>{matches => matches && desktopDisplay}</Media>;
+  const renderPic = preload => {
+    const differenceFromCurrentCard = Math.abs(cardIndex - currentSlideIndex);
+    return differenceFromCurrentCard < preload || differenceFromCurrentCard > 105 - preload ? true : false;
   };
-  const landscapeCheck = () => {
-    const landscapeDisplay = MobileCardLandscape(
-      pose,
-      mode,
-      cardIndex,
-      currentSlideIndex,
-      preloadedDefault,
-      renderSubtitle,
+  const renderFavIcon = () => {
+    const { id } = pose;
+    const favStyle = {
+      width: '5vw',
+      height: '5vh',
+      display: 'flex',
+      gridColumnStart: '1',
+      gridRow: '2',
+      alignItems: 'center',
+      cursor: 'pointer',
+      color: 'black',
+    };
+    const favStyleOnHover = {
+      width: '5vw',
+      height: '5vh',
+      display: 'flex',
+      gridColumnStart: '1',
+      gridRow: '2',
+      alignItems: 'center',
+      cursor: 'pointer',
+      color: 'yellow',
+    };
+    const emptyHeart = (
+      <a style={favStyle} onClick={makeFavorite}>
+        <i className={`fa fa-heart-o fa-3x empty-heart${id}`} aria-hidden="true" />
+      </a>
     );
-    return <Media query={{ minWidth: 450, maxWidth: 900 }}>{matches => matches && landscapeDisplay}</Media>;
-  };
-  const portraitCheck = () => {
-    const portraitDisplay = MobileCardPortrait(
-      pose,
-      mode,
-      cardIndex,
-      currentSlideIndex,
-      preloadedDefault,
-      renderSubtitle,
+    const fullHeart = (
+      <a style={favStyle} onClick={unFavorite}>
+        <i className={`fa fa-heart fa-3x full-heart${id}`} aria-hidden="true" />
+      </a>
     );
-    return <Media query={{ maxWidth: 450 }}>{matches => matches && portraitDisplay}</Media>;
+    if (!displayHeart) return;
+    if (!isFavorite) return emptyHeart;
+    return fullHeart;
   };
+  const heart = renderFavIcon();
+  const closeToCurrentViewDesktop = renderPic(preloadedDefault.desktop);
+  const closeToCurrentViewMobile = renderPic(preloadedDefault.mobile);
+
+  const desktopCheck = () => (
+    <Media query={{ minWidth: 900 }}>
+      {matches => matches && DesktopCard(pose, closeToCurrentViewDesktop, heart, subtitle)}
+    </Media>
+  );
+  const landscapeCheck = () => (
+    <Media query={{ minWidth: 450, maxWidth: 900 }}>
+      {matches => matches && MobileCardLandscape(pose, closeToCurrentViewMobile, subtitle)}
+    </Media>
+  );
+  const portraitCheck = () => (
+    <Media query={{ maxWidth: 450 }}>
+      {matches => matches && MobileCardPortrait(pose, closeToCurrentViewMobile, subtitle)}
+    </Media>
+  );
   return (
     <Card style={cardStyle} key={pose.img} className="poseCard Cards">
       {desktopCheck()}

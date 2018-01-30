@@ -5,8 +5,8 @@ import Media from 'react-media';
 import Img from 'react-image';
 
 const preloadedDefault = {
-  mobile: 5,
-  desktop: 20,
+  mobile: 15,
+  desktop: 40,
 };
 
 const MobileCardPortrait = (mode, name, difficulty, img, cardIndex, currentSlideIndex) => {

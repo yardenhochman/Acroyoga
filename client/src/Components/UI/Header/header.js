@@ -1,31 +1,44 @@
 import React, { Fragment } from 'react';
-import { Menu, Dropdown, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../../store/actions';
+
+import { Menu, Dropdown } from 'semantic-ui-react';
 import difficultyButtons from './Difficulty/diff_buttons';
 import TagChoice from './Tags/tags';
 import Popup from './Popup/popup';
 import Media from 'react-media';
 
-const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOut, lists, setTag, tag }) => {
-  console.log('Header updated', userName);
-
-  const filterChoices = (mode, filterValue) => {
-    if (mode === 'all') return <i className="fa fa-filter" aria-hidden="true" />;
-    switch (filterValue) {
-      case 'Easy':
-        return <i className="fa fa-filter text-success" aria-hidden="true" />;
-      case 'Intermediate':
-        return <i className="fa fa-filter text-info" aria-hidden="true" />;
-      case 'Hard':
-        return <i className="fa fa-filter text-warning" aria-hidden="true" />;
-      case 'Expert':
-        return <i className="fa fa-filter text-danger" aria-hidden="true" />;
-    }
+const Header = props => {
+  const logOut = () => {
+    const { UserLogout } = props;
+    localStorage.removeItem('token');
+    UserLogout();
   };
-
-  const tagHeader = tag => {
+  const filterMenuButtonColor = (mode, filterValue) => {
+    let level;
+    if (mode === 'all') level = '';
+    else {
+      switch (filterValue) {
+        case 'Easy':
+          level = 'fa-filter-green';
+          break;
+        case 'Intermediate':
+          level = 'fa-filter-blue';
+          break;
+        case 'Hard':
+          level = 'fa-filter-red';
+          break;
+        case 'Expert':
+          level = 'fa-filter-purple';
+        default:
+      }
+    }
+    return <i className={`fa fa-filter ${level}`} aria-hidden="true" />;
+  };
+  const tagMenuButton = tag => {
     switch (tag) {
       case '':
-        return <i class="tags icon" />;
+        return <i className="tags icon" />;
       case 'favorites':
         return <i className="fa fa-heart-o text-danger" aria-hidden="true" />;
       case 'Intermediate':
@@ -36,57 +49,108 @@ const Header = ({ mode, setMode, filterValue, filter, setFilter, userName, logOu
         return <i className="fa fa-filter text-danger" aria-hidden="true" />;
     }
   };
-
-  const HeaderItems = () => (
-    <Fragment>
-      <Dropdown item text={filterChoices(mode, filterValue)}>
-        <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
-      </Dropdown>
-      {userName && (
-        <Dropdown item text={tagHeader(tag)}>
-          <Dropdown.Menu>{TagChoice(filter, filterValue, mode, setFilter, setMode, setTag, lists, tag)}</Dropdown.Menu>
+  const HeaderItems = profileButton => {
+    const { userName, filter, mode, filterValue, setFilter, setMode, tag, setTag, userSavedLists } = props;
+    return (
+      <Fragment>
+        <Dropdown item text={filterMenuButtonColor(mode, filterValue)}>
+          <Dropdown.Menu>{difficultyButtons(filter, filterValue, mode, setFilter, setMode)}</Dropdown.Menu>
         </Dropdown>
-      )}
-      <Menu.Menu position="right">{profileButton}</Menu.Menu>
-    </Fragment>
-  );
-  let profileButton;
-  if (userName) profileButton = <Button onClick={logOut} color="black">{`${userName} logout`}</Button>;
-  else profileButton = <Popup userName={userName} />;
+        {userName && (
+          <Dropdown item text={tagMenuButton(tag)}>
+            <Dropdown.Menu>
+              {TagChoice(filter, filterValue, mode, setFilter, setMode, setTag, userSavedLists, tag)}
+            </Dropdown.Menu>
+          </Dropdown>
+        )}
+        <Menu.Menu position="right">{profileButton}</Menu.Menu>
+      </Fragment>
+    );
+  };
+  const renderProfileButton = () => {
+    const { userName } = props;
+    const signOutStyle = {
+      cursor: 'pointer',
+    };
+    const LogOutButton = (
+      <Menu.Item>
+        <i className="fa fa-sign-out" style={signOutStyle} onClick={logOut} aria-hidden="true">{`${userName}`}</i>
+      </Menu.Item>
+    );
+    const LogInButton = <Popup userName={userName} />;
+    const profileButton = userName ? LogOutButton : LogInButton;
+    return profileButton;
+  };
+  const desktopCheck = headerItems => {
+    const desktopHeaderDisplay = (
+      <Menu borderless className="header" color="yellow" size={'large'} fluid>
+        {headerItems}
+      </Menu>
+    );
+    return <Media query={{ minWidth: 1000 }}>{matches => matches && desktopHeaderDisplay}</Media>;
+  };
+  const landscapeCheck = headerItems => {
+    const landsacapeHeaderDisplay = null;
+    return (
+      <Media query={{ minWidth: 450, maxWidth: 1000 /* Landscape */ }}>
+        {matches => matches && landsacapeHeaderDisplay}
+      </Media>
+    );
+  };
+  const portraitCheck = headerItems => {
+    const portraitHeaderDisplay = (
+      <Menu borderless className="header" size={'huge'} fluid>
+        {headerItems}
+      </Menu>
+    );
+    return <Media query={{ maxWidth: 450 }}>{matches => matches && portraitHeaderDisplay}</Media>;
+  };
+
+  const profileButton = renderProfileButton();
+  const headerItems = HeaderItems(profileButton);
+  console.log('Header updated');
   return (
     <Fragment>
-      <Media query={{ minWidth: 1000 /* Desktop */ }}>
-        {matches =>
-          matches && (
-            <Menu inverted className="header" size={'large'} fluid>
-              {HeaderItems()}
-            </Menu>
-          )
-        }
-      </Media>
-      <Media query={{ minWidth: 450, maxWidth: 1000 /* Landscape */ }}>
-        {/*matches =>
-          matches && (
-            <Menu inverted className="header" size={'mini'} fluid>
-              {HeaderItems()}
-            </Menu>
-          )
-        */}
-      </Media>
-      <Media query={{ maxWidth: 450 /* Portrait */ }}>
-        {matches =>
-          matches && (
-            <Menu inverted className="header" size={'huge'} fluid>
-              {HeaderItems()}
-            </Menu>
-          )
-        }
-      </Media>
+      {desktopCheck(headerItems)}
+      {landscapeCheck(headerItems)}
+      {portraitCheck(headerItems)}
     </Fragment>
   );
 };
-
-export default Header;
+const mapStateToProps = state => {
+  const { view: { mode, filter, filterValue, tag }, user: { name, lists } } = state;
+  /*const lists = Object.keys(listsObject);*/
+  const userName = name;
+  const userSavedLists = Object.keys(lists);
+  return { mode, filter, filterValue, tag, userName, userSavedLists };
+};
+const mapDispatchToProps = dispatch => {
+  const { SETMODE, SET_TAG, FILTER, LOG_OUT } = actionTypes;
+  return {
+    setMode: mode =>
+      dispatch({
+        type: SETMODE,
+        mode,
+      }),
+    setTag: (tag, currentSlide) =>
+      dispatch({
+        type: SET_TAG,
+        tag,
+        currentSlide,
+      }),
+    setFilter: (filters, value) =>
+      dispatch({
+        type: FILTER,
+        filters,
+        value,
+      }),
+    UserLogout: () =>
+      dispatch({
+        type: LOG_OUT,
+      }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
 /*
 

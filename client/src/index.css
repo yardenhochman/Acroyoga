@@ -1,8 +1,10 @@
+ @font-face { font-family: Special Elite; src: url('Special Elite regular.ttf'); } 
+ @font-face { font-family: Roboto Condensed; src: url('Roboto Condensed regular.ttf'); } 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-color: black;
+  background-color: white;
 }
 .App {
     text-align: center;
@@ -29,7 +31,7 @@ body {
   flex-flow: column;
   height: 95vh;
   width: 100vw;
-  background-color: black;
+  background-color: white;
 }
 .glyphicon {
   width: 50px;
@@ -44,6 +46,27 @@ body {
 .poseCard {
   height: 85vh;
   
+}
+.fa{
+  color:black;
+}
+.fa:hover{
+    color: #FAC344
+  }
+  .fa-filter-green{
+    color:green
+  }
+  .fa-filter-blue{
+    color:blue
+  }
+  .fa-filter-red{
+    color:red
+  }
+  .fa-filter-purple{
+    color:purple
+  }
+.item.btn.active{
+  color:yellow
 }
 @media (min-width: 450px) and (max-width: 1000px) {
   .poseCard{

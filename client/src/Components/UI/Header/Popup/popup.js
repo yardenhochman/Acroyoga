@@ -21,7 +21,6 @@ class Popup extends Component {
     console.log('Popup updated');
     return (
       <Modal
-        dimmer="blurring"
         style={popupStyle}
         className="Popup"
         size="tiny"

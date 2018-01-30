@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
 import { Card, CardMedia, CardTitle, CardActions } from 'material-ui/Card';
-import { Button } from 'semantic-ui-react';
 import CircularProgress from 'material-ui/CircularProgress';
 import Media from 'react-media';
 import Img from 'react-image';
 
-const MobileCardPortrait = (mode, name, difficulty, img) => {
+const preloadedDefault = {
+  mobile: 5,
+  desktop: 20,
+};
+
+const MobileCardPortrait = (mode, name, difficulty, img, cardIndex, currentSlideIndex) => {
   console.log('set to portrait');
   let imageStyle = {
     height: '70vw',
@@ -17,37 +21,42 @@ const MobileCardPortrait = (mode, name, difficulty, img) => {
   const titleStyle = {
     height: '8vh',
     marginTop: '6vh',
-    color: 'white',
+    color: 'black',
     fontFamily: 'Special Elite',
   };
   const subStyle = {
-    color: 'white',
+    color: 'black',
     marginTop: '1vh',
   };
   const cardStyle = {
     height: '95vh',
     marginTop: '60%',
   };
-  return (
-    <div style={cardStyle}>
-      <CardMedia>
-        <Img
-          src={img}
-          style={imageStyle}
-          alt={'to be added'}
-          loader={<CircularProgress color="red" size={80} thickness={5} />}
+  let display;
+  if (Math.abs(cardIndex - currentSlideIndex) < preloadedDefault.mobile)
+    display = (
+      <div style={cardStyle}>
+        <CardMedia>
+          <Img
+            src={img}
+            style={imageStyle}
+            alt={'to be added'}
+            loader={<CircularProgress color="red" size={80} thickness={5} />}
+          />
+        </CardMedia>
+        <CardTitle
+          title={name}
+          titleStyle={titleStyle}
+          subtitleStyle={subStyle}
+          subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
         />
-      </CardMedia>
-      <CardTitle
-        title={name}
-        titleStyle={titleStyle}
-        subtitleStyle={subStyle}
-        subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
-      />
-    </div>
-  );
+      </div>
+    );
+  else display = <div />;
+
+  return display;
 };
-const MobileCardLandscape = (mode, name, difficulty, img) => {
+const MobileCardLandscape = (mode, name, difficulty, img, cardIndex, currentSlideIndex) => {
   console.log('set to Landscape');
 
   let imageStyle = {
@@ -63,29 +72,46 @@ const MobileCardLandscape = (mode, name, difficulty, img) => {
     fontSize: '4vh',
     fontFamily: 'Special Elite',
   };
-  return (
-    <Fragment>
-      <CardMedia
-        overlayContentStyle={overlayStyle}
-        overlay={
-          <CardTitle
-            title={name}
-            titleStyle={titleStyle}
-            subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+  let display;
+  if (Math.abs(cardIndex - currentSlideIndex) < preloadedDefault.mobile)
+    display = (
+      <Fragment>
+        <CardMedia
+          overlayContentStyle={overlayStyle}
+          overlay={
+            <CardTitle
+              title={name}
+              titleStyle={titleStyle}
+              subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+            />
+          }
+        >
+          <Img
+            src={img}
+            style={imageStyle}
+            alt={'to be added'}
+            loader={<CircularProgress color="red" size={80} thickness={5} />}
           />
-        }
-      >
-        <Img
-          src={img}
-          style={imageStyle}
-          alt={'to be added'}
-          loader={<CircularProgress color="red" size={80} thickness={5} />}
-        />
-      </CardMedia>
-    </Fragment>
-  );
+        </CardMedia>
+      </Fragment>
+    );
+  else display = <div />;
+  return display;
 };
-const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, displayHeart) => {
+const DesktopCard = (
+  id,
+  mode,
+  name,
+  difficulty,
+  img,
+  poses,
+  makeFavorite,
+  unFavorite,
+  isFavorite,
+  displayHeart,
+  cardIndex,
+  currentSlideIndex,
+) => {
   const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -96,7 +122,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
     gridArea: 'title',
     height: '7vh',
     marginTop: '2vh',
-    color: 'white',
+    color: 'black',
     fontFamily: 'Special Elite',
   };
   const textAreaStyle = {
@@ -106,7 +132,7 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
   };
   const subStyle = {
     gridArea: 'sub',
-    color: 'white',
+    color: 'black',
     marginBottom: '0',
     fontFamily: 'Roboto Condensed',
   };
@@ -125,14 +151,26 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
       gridColumnStart: '1',
       gridRow: '2',
       alignItems: 'center',
+      cursor: 'pointer',
+      color: 'black',
+    };
+    const favStyleOnHover = {
+      width: '5vw',
+      height: '5vh',
+      display: 'flex',
+      gridColumnStart: '1',
+      gridRow: '2',
+      alignItems: 'center',
+      cursor: 'pointer',
+      color: 'yellow',
     };
     const emptyHeart = (
-      <a className={`btn btn-light`} style={favStyle} onClick={makeFavorite}>
+      <a style={favStyle} onClick={makeFavorite}>
         <i className={`fa fa-heart-o fa-3x empty-heart${id}`} aria-hidden="true" />
       </a>
     );
     const fullHeart = (
-      <a className="btn btn-light" style={favStyle} onClick={unFavorite}>
+      <a style={favStyle} onClick={unFavorite}>
         <i className={`fa fa-heart fa-3x full-heart${id}`} aria-hidden="true" />
       </a>
     );
@@ -140,52 +178,83 @@ const DesktopCard = (id, mode, name, difficulty, img, poses, makeFavorite, unFav
     if (!isFavorite) return emptyHeart;
     return fullHeart;
   };
-  const getPos = () => poses[this.reactSwipe.getPos(1)];
+  //reactSwipeInstance&&console.log(reactSwipeInstance.getPos(1));
   //const viewedPose = getPos();
-  return (
-    <Fragment>
-      <CardMedia>
-        <Img
-          src={img}
-          style={imageStyle}
-          alt={'to be added'}
-          loader={<CircularProgress color="red" size={80} thickness={5} />}
-        />
-      </CardMedia>
-      <div style={cardInfoStyle}>
-        {renderFavIcon()}
-        <CardTitle
-          style={textAreaStyle}
-          title={name}
-          titleStyle={titleStyle}
-          subtitleStyle={subStyle}
-          subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
-        />
-      </div>
-    </Fragment>
-  );
+  let display;
+  if (Math.abs(cardIndex - currentSlideIndex) < preloadedDefault.desktop)
+    display = (
+      <Fragment>
+        <CardMedia>
+          {Math.abs(cardIndex - currentSlideIndex) < 3 && (
+            <Img
+              src={img}
+              style={imageStyle}
+              alt={'to be added'}
+              loader={<CircularProgress color="red" size={80} thickness={5} />}
+            />
+          )}
+        </CardMedia>
+        <div style={cardInfoStyle}>
+          {renderFavIcon()}
+          <CardTitle
+            style={textAreaStyle}
+            title={name}
+            titleStyle={titleStyle}
+            subtitleStyle={subStyle}
+            subtitle={`${mode === 'all' ? `Difficulty: ${difficulty}` : ''}`}
+          />
+        </div>
+      </Fragment>
+    );
+  else display = <div />;
+  return display;
 };
-const PoseCard = ({ img, name, difficulty, id }, mode, poses, makeFavorite, unFavorite, isFavorite, displayHeart) => {
+const PoseCard = (
+  { img, name, difficulty, id },
+  mode,
+  poses,
+  makeFavorite,
+  unFavorite,
+  isFavorite,
+  displayHeart,
+  cardIndex,
+  currentSlideIndex,
+) => {
   const cardStyle = {
     display: 'flex',
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
     width: '50vw',
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   };
   return (
     <Card style={cardStyle} key={img} className="poseCard Cards">
       <Media query={{ minWidth: 900 }}>
         {matches =>
           matches &&
-          DesktopCard(id, mode, name, difficulty, img, poses, makeFavorite, unFavorite, isFavorite, displayHeart)
+          DesktopCard(
+            id,
+            mode,
+            name,
+            difficulty,
+            img,
+            poses,
+            makeFavorite,
+            unFavorite,
+            isFavorite,
+            displayHeart,
+            cardIndex,
+            currentSlideIndex,
+          )
         }
       </Media>
       <Media query={{ minWidth: 450, maxWidth: 900 }}>
-        {matches => matches && MobileCardLandscape(mode, name, difficulty, img)}
+        {matches => matches && MobileCardLandscape(mode, name, difficulty, img, cardIndex, currentSlideIndex)}
       </Media>
-      <Media query={{ maxWidth: 450 }}>{matches => matches && MobileCardPortrait(mode, name, difficulty, img)}</Media>
+      <Media query={{ maxWidth: 450 }}>
+        {matches => matches && MobileCardPortrait(mode, name, difficulty, img, cardIndex, currentSlideIndex)}
+      </Media>
     </Card>
   );
 };

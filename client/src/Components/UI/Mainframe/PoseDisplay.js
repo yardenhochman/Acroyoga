@@ -5,11 +5,18 @@ import ReactSwipe from 'react-swipe';
 import PoseCard from './PoseCard/poseCard';
 import Media from 'react-media';
 import { isDirty } from 'redux-form';
-import { ItemDescription, Ref } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 class PoseDisplay extends Component {
+  componentDidMount = () => {
+    const { lists, currentSlide, tag } = this.props;
+    const setSlide = () => this.reactSwipe.slide(1, 1000);
+    const resetSlide = () => lists.Favorites.length < currentSlide && setSlide();
+    tag && lists.Favorites && resetSlide();
+  };
+
   makeFavorite = () => {
-    const { poses, unMarkPose, markPose } = this.props;
+    const { poses, unMarkPose, markPose, currentSlide } = this.props;
     const getPos = () => poses[this.reactSwipe.getPos(1)];
     let viewedPose = getPos();
     const $selectedHeart = document.querySelector(`.empty-heart${viewedPose.id}`);
@@ -39,29 +46,68 @@ class PoseDisplay extends Component {
     }
   };
   navButtons = () => {
-    const leftArrow = {
+    const Left_button = styled.a`
+      height: 6vh;
+      gridarea: leftArrow;
+      color: black;
+      cursor: pointer;
+    `;
+    const Right_button = styled.a`
+      height: 6vh;
+      gridarea: rightArrow;
+      color: black;
+      cursor: pointer;
+    `;
+    const buttonInnerStyle = {
+      margin: `0 18vw`,
+      cursor: `pointer`,
+    };
+    const Navigation = styled.div`
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      top: 80vh;
+    `;
+    /*const leftArrow = {
       height: '6vh',
       gridArea: 'leftArrow',
+      color:'black'
     };
     const rightArrow = {
       height: '6vh',
       gridArea: 'rightArrow',
+    };*/
+    const getPos = () => this.reactSwipe.getPos(1);
+
+    const next = () => {
+      this.reactSwipe.next();
+      //const nextPose = this.state.currentSlide + 1;
+      /*this.setState({
+        currentSlide: nextPose === this.props.poses.length ? 0 : nextPose,
+      });*/
     };
-    const next = () => this.reactSwipe.next();
-    const prev = () => this.reactSwipe.prev();
+
+    const prev = () => {
+      this.reactSwipe.prev();
+      //const prevPose = this.state.currentSlide - 1;
+      /*this.setState({
+        currentSlide: prevPose < 0 ? this.props.poses.length - 1 : prevPose,
+      });*/
+    };
+
     return (
-      <Fragment>
-        <a className="btn btn-light" style={leftArrow} onClick={prev}>
-          <i className="fa fa-arrow-circle-o-left fa-4x " />
-        </a>
-        <a className="btn btn-light" style={rightArrow} onClick={next}>
-          <i className="fa fa-arrow-circle-o-right fa-4x " />
-        </a>
-      </Fragment>
+      <Navigation>
+        <Left_button onClick={prev}>
+          <i style={buttonInnerStyle} className="fa fa-arrow-left fa-4x " />
+        </Left_button>
+        <Right_button onClick={next}>
+          <i style={buttonInnerStyle} className="fa fa-arrow-right fa-4x " />
+        </Right_button>
+      </Navigation>
     );
   };
   swipeArea = () => {
-    const { name: userName, poses, mode, lists, tag } = this.props;
+    const { name: userName, poses, mode, lists, tag, setSlide } = this.props;
     const favoritesList = lists && lists.Favorites;
 
     const checkIfFavorite = (poseId, favoritesList) => {
@@ -74,61 +120,82 @@ class PoseDisplay extends Component {
       return true;
     };
 
-    const posesToDisplay = poses.filter(tagCheck).map(pose => {
-      //need to create an empty poseCard view in case there are no favorites
-      const id = Number(pose.id);
-      const isFavorite = checkIfFavorite(pose.id, favoritesList);
-      //const inputRef = el => (this.inputElement = el);
-      const displayHeart = userName && !tag ? true : false;
-      return PoseCard(pose, mode, poses, this.makeFavorite, this.unFavorite, isFavorite, displayHeart);
-    });
-    //const favoritePoses = poses.filter();
+    let reactSwipeInstance;
 
+    const posesToDisplay = reactSwipeInstance => {
+      const { currentSlide } = this.props;
+      return poses.filter(tagCheck).map((pose, index) => {
+        //need to create an empty poseCard view in case there are no favorites
+        const id = Number(pose.id);
+        const isFavorite = checkIfFavorite(pose.id, favoritesList);
+        //const inputRef = el => (this.inputElement = el);
+        const displayHeart = userName && !tag ? true : false;
+        return PoseCard(
+          pose,
+          mode,
+          poses,
+          this.makeFavorite,
+          this.unFavorite,
+          isFavorite,
+          displayHeart,
+          index,
+          currentSlide,
+        );
+      });
+    };
+    //const favoritePoses = poses.filter();
     return (
       <ReactSwipe
         className="PoseDisplay"
-        ref={reactSwipe => (this.reactSwipe = reactSwipe)}
-        swipeOptions={{ continuous: true }}
+        ref={reactSwipe => {
+          this.reactSwipe = reactSwipe;
+        }}
+        swipeOptions={{
+          continuous: true,
+          transitionEnd: (index, elem) => {
+            setSlide(index);
+          },
+        }}
         key={poses.length + tag}
       >
-        {posesToDisplay}
+        {posesToDisplay(this.reactSwipe)}
       </ReactSwipe>
     );
   };
   //PoseCard(pose, mode, poses, lists)
   render = () => {
-    const { poses, markPose, lists } = this.props;
+    const { poses, markPose, lists, currentSlide, tag } = this.props;
     console.log('poseDisplay updated');
-    let cardActionsStyle = {
-      display: 'grid',
-      gridTemplateColumns: '25% auto 10% 10% auto 25% ',
-      gridTemplateAreas: `". favStyle leftArrow rightArrow . ."`,
-    };
-    cardActionsStyle = {};
 
-    const setSlide = () => this.reactSwipe.slide(1, 1000);
     const checkMatch = (id, poseList, name) => {
       markPose(id, name);
       const favorites = poseList.Favorites;
-      console.log(id, poseList);
-      console.log(favorites.indexOf(id.Number));
     };
 
     return (
       <div className="poses-container">
         <div className="carousel-container">
           {this.swipeArea()}
-          <Media query={{ minWidth: 1000 }}>
-            {matches => matches && <div style={cardActionsStyle}>{this.navButtons()}</div>}
-          </Media>
+          <Media query={{ minWidth: 1000 }}>{matches => matches && <div>{this.navButtons()}</div>}</Media>
         </div>
       </div>
     );
   };
 }
 const mapStateToProps = state => {
-  const { pose: { poses }, view: { mode, filter, filterValue, tag }, user: { name, lists } } = state;
-  return { poses, mode, filter, filterValue, lists, name, tag };
+  const { pose: { poses }, view: { mode, filter, filterValue, tag, currentSlide }, user: { name, lists } } = state;
+  return { poses, mode, filter, filterValue, lists, name, tag, currentSlide };
 };
 
-export default connect(mapStateToProps)(PoseDisplay);
+const mapDispatchToProps = dispatch => {
+  const { SET_SLIDE_INDEX } = actionTypes;
+  return {
+    setSlide: currentSlide =>
+      dispatch({
+        type: SET_SLIDE_INDEX,
+        currentSlide,
+      }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PoseDisplay);

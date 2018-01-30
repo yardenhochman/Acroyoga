@@ -47,9 +47,27 @@ body {
   height: 85vh;
   
 }
+.fa{
+  color:black;
+}
 .fa:hover{
     color: #FAC344
   }
+  .fa-filter-green{
+    color:green
+  }
+  .fa-filter-blue{
+    color:blue
+  }
+  .fa-filter-red{
+    color:red
+  }
+  .fa-filter-purple{
+    color:purple
+  }
+.item.btn.active{
+  color:yellow
+}
 @media (min-width: 450px) and (max-width: 1000px) {
   .poseCard{
       height: 100vh;

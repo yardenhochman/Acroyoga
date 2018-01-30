@@ -49,13 +49,11 @@ class PoseDisplay extends Component {
     const Left_button = styled.a`
       height: 6vh;
       gridarea: leftArrow;
-      color: black;
       cursor: pointer;
     `;
     const Right_button = styled.a`
       height: 6vh;
       gridarea: rightArrow;
-      color: black;
       cursor: pointer;
     `;
     const buttonInnerStyle = {
@@ -79,21 +77,9 @@ class PoseDisplay extends Component {
     };*/
     const getPos = () => this.reactSwipe.getPos(1);
 
-    const next = () => {
-      this.reactSwipe.next();
-      //const nextPose = this.state.currentSlide + 1;
-      /*this.setState({
-        currentSlide: nextPose === this.props.poses.length ? 0 : nextPose,
-      });*/
-    };
+    const next = () => this.reactSwipe.next();
 
-    const prev = () => {
-      this.reactSwipe.prev();
-      //const prevPose = this.state.currentSlide - 1;
-      /*this.setState({
-        currentSlide: prevPose < 0 ? this.props.poses.length - 1 : prevPose,
-      });*/
-    };
+    const prev = () => this.reactSwipe.prev();
 
     return (
       <Navigation>

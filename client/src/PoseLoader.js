@@ -8,99 +8,97 @@ import Header from './Components/UI/Header/header';
 import { CardHeader } from 'material-ui';
 import FeedSummary from 'semantic-ui-react/dist/commonjs/views/Feed/FeedSummary';
 
-//import './PoseLoader.css';
-
-//Progressive app helpers
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js').then(() => console.log('Service Worker Registered'));
-}
-
-const storeFavoritesLocally = poses => {
-  const posesToLocal = JSON.stringify(poses);
-  localStorage.favorites = posesToLocal;
-};
-const retreiveLocalFavoritePoses = () => {
-  let locallyStoredPoses = localStorage.favorites;
-  if (locallyStoredPoses) {
-    locallyStoredPoses = JSON.parse(locallyStoredPoses);
-    console.log('local favorite poses retreived');
-  }
-  return locallyStoredPoses;
-};
-
-const storeLocally = poses => {
-  const posesToLocal = JSON.stringify(poses);
-  localStorage.poses = posesToLocal;
-};
-const retreiveLocalPoses = () => {
-  let locallyStoredPoses = localStorage.poses;
-  if (locallyStoredPoses) {
-    locallyStoredPoses = JSON.parse(locallyStoredPoses);
-    console.log('local poses retreived');
-  }
-  return locallyStoredPoses;
-};
-
-const locallyStoredAllPoses = retreiveLocalPoses();
-
-const headers = { authorization: `${localStorage.getItem('token')}` };
-
 class PoseLoader extends Component {
+  state = { localPoses: null, headers: null };
+  componentWillMount = () => {
+    const retreiveLocalPoses = () => {
+      let locallyStoredPoses = localStorage.poses;
+      if (locallyStoredPoses) {
+        locallyStoredPoses = JSON.parse(locallyStoredPoses);
+        console.log('local poses retreived');
+      }
+      return locallyStoredPoses;
+    };
+    const localPoses = retreiveLocalPoses();
+    localPoses && this.setState({ localPoses });
+    const headers = { authorization: `${localStorage.getItem('token')}` };
+    this.setState({ headers });
+  };
   componentDidMount = async () => {
     const { UserLogin } = this.props;
-    try {
+    const { headers } = this.state;
+    console.log('here');
+    const checkTokenWithServer = async () => {
       const baseURL = '/users/token';
       const res = await axios({ method: 'get', baseURL, headers });
-      const { data: { user } } = res;
+      return res;
+    };
+    try {
+      const userFromServer = await checkTokenWithServer();
+      const { data: { user } } = userFromServer;
       UserLogin(user);
     } catch (err) {
       console.log(err);
     }
   };
   markPose = async (pose_id, list_name) => {
-    const { user_id, addToUser } = this.props;
-    addToUser(pose_id, list_name);
-    try {
+    const { user_id, addPoseToUserFavorites } = this.props;
+    const { headers } = this.state;
+    addPoseToUserFavorites(pose_id, list_name);
+    const addPoseToUserOnServer = async () => {
       const data = { pose_id, user_id, list_name };
       const baseURL = '/users/addPose';
-      const pose = await axios({ method: 'post', baseURL, headers, data }); //requestPosesFromServer(myRequest);
+      await axios({ method: 'post', baseURL, headers, data });
+    };
+    try {
+      addPoseToUserOnServer();
     } catch (err) {
       console.log(err);
     }
   };
   unMarkPose = async (pose_id, list_name) => {
-    const { user_id, removeFromUser } = this.props;
-    removeFromUser(pose_id, list_name); //2, Favorites
-    try {
-      console.log('here');
+    const { user_id, removeFromUserFavorites } = this.props;
+    const { headers } = this.state;
+    removeFromUserFavorites(pose_id, list_name);
+    const removePoseFromUserOnServer = async () => {
       const data = { pose_id, user_id, list_name };
       const baseURL = '/users/removePose';
-      const pose = await axios({ method: 'delete', baseURL, headers, data }); //requestPosesFromServer(myRequest);
+      await axios({ method: 'delete', baseURL, headers, data });
+    };
+    try {
+      removePoseFromUserOnServer();
     } catch (err) {
       console.log(err);
     }
   };
-  logOut = () => {
-    localStorage.removeItem('token');
-    this.props.UserLogout();
-  };
   renderDisplay = () => {
-    const { posesLoaded, lists: { Favorites },tag,poses } = this.props;
-    if (!posesLoaded) {
+    const { posesLoaded, lists: { Favorites }, tag, poses } = this.props;
+    const preparePoses = () => {
       this.prepareToFetchPoses();
       return '';
-    }
-    return (
+    };
+    const posesReady = (
       <div className="display-space">
-        <PoseDisplay key={posesLoaded+tag+poses}  userPoselists={Favorites} markPose={this.markPose} unMarkPose={this.unMarkPose} />
+        <PoseDisplay
+          key={posesLoaded + tag + poses}
+          userPoselists={Favorites}
+          markPose={this.markPose}
+          unMarkPose={this.unMarkPose}
+        />
       </div>
     );
+    let display = !posesLoaded ? preparePoses() : posesReady;
+    return display;
   };
   requestPosesFromServer = async (url, makeFetch) => {
-    const { storePosesFromServer, setLoaded, mode } = this.props;
+    const { storePoses, setLoaded, mode } = this.props;
+    const storeLocally = poses => {
+      const posesToLocal = JSON.stringify(poses);
+      localStorage.poses = posesToLocal;
+    };
 
     const serverRequest = async () => {
+      const { headers } = this.state;
       try {
         const pose = await axios.get(url, headers);
         return pose.data.data;
@@ -111,40 +109,20 @@ class PoseLoader extends Component {
     const serverCase = async () => {
       try {
         const poses = await serverRequest();
-        storePosesFromServer(poses);
+        storePoses(poses);
         mode === 'all' && storeLocally(poses);
         console.log('poses retreived from the server');
       } catch (err) {
         console.log(err);
       }
     };
-    const localMemoryCase = () => {
-      storePosesFromServer(locallyStoredAllPoses);
-    };
+    const localMemoryCase = () => storePoses(this.state.localPoses);
     try {
       makeFetch ? serverCase() : localMemoryCase();
       setLoaded();
     } catch (err) {
       console.log(err);
     }
-  };
-  renderHeader = () => {
-    const { mode, setMode, filterValue, filter, setFilter, userName, lists, setTag, tag } = this.props;
-    return (
-      <Header
-        mode={mode}
-        setMode={setMode}
-        filterValue={filterValue}
-        filter={filter}
-        setFilter={setFilter}
-        userName={userName}
-        logOut={this.logOut}
-        lists={Object.keys(lists)}
-        setTag={setTag}
-        tag={tag}
-        key={tag}
-      />
-    );
   };
   prepareToFetchPoses = () => {
     console.log('preparing requestPosesFromServer setting');
@@ -154,7 +132,7 @@ class PoseLoader extends Component {
     switch (mode) {
       case 'all':
         url = `/index/all`;
-        if (locallyStoredAllPoses) makeFetch = false;
+        if (this.state.localPoses) makeFetch = false;
         break;
       case 'filtered':
         url = `/index/filter/${filter}/${filterValue}`;
@@ -164,7 +142,7 @@ class PoseLoader extends Component {
     return this.requestPosesFromServer(url, makeFetch);
   };
   render = () => {
-    const header = this.renderHeader();
+    const header = <Header logOut={this.logOut} />;
     const display = this.renderDisplay();
     console.log('PoseLoader updated');
     return (
@@ -182,76 +160,36 @@ const mapStateToProps = state => {
 };
 //Redux functions
 const mapDispatchToProps = dispatch => {
-  const {
-    FILL_USER,
-    LOG_OUT,
-    SETMODE,
-    POSES_LOADED,
-    RELOAD,
-    FILTER,
-    SET_TAG,
-    STORE_POSE,
-    COLLECT_POSE,
-    DUMP_POSE,
-  } = actionTypes;
+  const { FILL_USER, POSES_LOADED, RELOAD, FILTER, SET_TAG, STORE_POSE, COLLECT_POSE, DUMP_POSE } = actionTypes;
   return {
     UserLogin: user =>
       dispatch({
         type: FILL_USER,
         user,
       }),
-    UserLogout: () =>
-      dispatch({
-        type: LOG_OUT,
-      }),
-    storePosesFromServer: pose =>
+
+    storePoses: pose =>
       dispatch({
         type: STORE_POSE,
         pose,
       }),
-    addToUser: (pose_id, listName) =>
+    addPoseToUserFavorites: (pose_id, listName) =>
       dispatch({
         type: COLLECT_POSE,
         pose_id,
         listName,
       }),
-    removeFromUser: (pose_id, listName) =>
+    removeFromUserFavorites: (pose_id, listName) =>
       dispatch({
         type: DUMP_POSE,
         pose_id,
         listName,
       }),
-    setMode: mode =>
-      dispatch({
-        type: SETMODE,
-        mode,
-      }),
-    setTag: (tag,currentSlide) =>
-      dispatch({
-        type: SET_TAG,
-        tag,
-        currentSlide,
-      }),
     setLoaded: () =>
       dispatch({
         type: POSES_LOADED,
-      }),
-    setFilter: (filters, value) =>
-      dispatch({
-        type: FILTER,
-        filters,
-        value,
       }),
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseLoader);
-//http://localhost:3001/index/all
-
-/* 
-
-options:
--load all pose
--load from category (DB)
-
- */

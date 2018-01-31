@@ -27,7 +27,6 @@ class PoseLoader extends Component {
   componentDidMount = async () => {
     const { UserLogin } = this.props;
     const { headers } = this.state;
-    console.log('here');
     const checkTokenWithServer = async () => {
       const baseURL = '/users/token';
       const res = await axios({ method: 'get', baseURL, headers });

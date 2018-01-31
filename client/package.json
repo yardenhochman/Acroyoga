@@ -22,6 +22,7 @@
     "react-scripts": "1.0.17",
     "react-slick": "^0.16.0",
     "react-swipe": "^5.1.1",
+    "react-visibility-sensor": "^3.11.0",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
     "redux-form-material-ui": "^4.3.3",

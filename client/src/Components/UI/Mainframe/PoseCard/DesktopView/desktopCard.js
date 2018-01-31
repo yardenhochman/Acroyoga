@@ -3,13 +3,9 @@ import { CardMedia, CardTitle } from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
 import Img from 'react-image';
 import loader from '../loader';
+import VisibilitySensor from 'react-visibility-sensor';
 
-const DesktopCard = (
-  { img, name },
-  closeToCurrentView,
-  heart,
-  subtitle,
-) => {
+const DesktopCard = ({ img, name }, closeToCurrentView, heart, subtitle) => {
   const imageStyle = {
     height: '50vw',
     maxHeight: '70vh',
@@ -40,10 +36,13 @@ const DesktopCard = (
     gridTemplateColumns: '15% auto 15%',
     gridTemplateRows: '10% auto 10%',
   };
+  const image = 'https://res.cloudinary.com/dz2nxhscn/image/upload/v1514931173/npfueqh4xjjyvu4a0byx.jpg';
   const displayCard = (
     <Fragment>
       <CardMedia>
-        <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+        <VisibilitySensor>
+          <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+        </VisibilitySensor>  
       </CardMedia>
       <div style={cardInfoStyle}>
         {heart}
@@ -58,5 +57,6 @@ const DesktopCard = (
     </Fragment>
   );
   return closeToCurrentView ? displayCard : <div />;
+  //return displayCard;
 };
 export default DesktopCard;

@@ -26,8 +26,8 @@ const PoseCard = (
     backgroundColor: 'white',
   };
   const preloadedDefault = {
-    mobile: 15,
-    desktop: 30,
+    mobile: 2,
+    desktop: 2,
   };
   const renderPic = preload => {
     const differenceFromCurrentCard = Math.abs(cardIndex - currentSlideIndex);

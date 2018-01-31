@@ -41,8 +41,8 @@ const DesktopCard = ({ img, name }, closeToCurrentView, heart, subtitle) => {
     <Fragment>
       <CardMedia>
         <VisibilitySensor>
-          <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
-        </VisibilitySensor>  
+          <Img src={image} style={imageStyle} alt={'to be added!'} loader={loader} />
+        </VisibilitySensor>
       </CardMedia>
       <div style={cardInfoStyle}>
         {heart}

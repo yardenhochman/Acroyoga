@@ -43,7 +43,7 @@ class PoseLoader extends Component {
   markPose = async (pose_id, list_name) => {
     const { user_id, addPoseToUserFavorites } = this.props;
     const { headers } = this.state;
-    addPoseToUserFavorites(pose_id, list_name);
+    addPoseToUserFavorites(Number(pose_id), list_name);
     const addPoseToUserOnServer = async () => {
       const data = { pose_id, user_id, list_name };
       const baseURL = '/users/addPose';

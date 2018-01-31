@@ -11,8 +11,8 @@ class PoseDisplay extends Component {
   componentDidMount = () => {
     const { lists, currentSlide, tag } = this.props;
     const setSlide = () => this.reactSwipe.slide(1, 1000);
-    const resetSlide = () => lists.Favorites.length < currentSlide && setSlide();
-    tag && lists.Favorites && resetSlide();
+    const resetSlide = () => setSlide();
+    tag && resetSlide();
   };
 
   makeFavorite = () => {

@@ -10,7 +10,7 @@ const MobileCardLandscape = (
   subtitle
 ) => {
 
-  let imageStyle = {
+  const imageStyle = {
     height: '95vh',
     width: 'auto',
     borderRadius: '5px',

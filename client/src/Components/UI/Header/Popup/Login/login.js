@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../../store/actions';
-
+import api from '../../../../../api';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
 class LoginForm extends Component {
@@ -12,7 +12,7 @@ class LoginForm extends Component {
   };
   formSubmit = async () => {
     const { email, password } = this.state;
-    const url = 'users/login';
+    const url = 'user/login';
     const data = {};
     data.email = email;
     data.password = password;
@@ -20,7 +20,7 @@ class LoginForm extends Component {
     try {
       const res = await axios({ method: 'POST', url, data });
       localStorage.setItem('token', res.data.token);
-      const newUser = res.data.user;
+      const newUser = await api.user.get();
       this.props.UserLogin(newUser);
     } catch (err) {
       console.log(err);

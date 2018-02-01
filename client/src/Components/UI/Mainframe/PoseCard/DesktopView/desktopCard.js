@@ -36,12 +36,12 @@ const DesktopCard = ({ img, name }, closeToCurrentView, heart, subtitle) => {
     gridTemplateColumns: '15% auto 15%',
     gridTemplateRows: '10% auto 10%',
   };
-  const image = 'https://res.cloudinary.com/dz2nxhscn/image/upload/v1514931173/npfueqh4xjjyvu4a0byx.jpg';
+  //const image = 'https://res.cloudinary.com/dz2nxhscn/image/upload/v1514931173/npfueqh4xjjyvu4a0byx.jpg';
   const displayCard = (
     <Fragment>
       <CardMedia>
         <VisibilitySensor>
-          <Img src={image} style={imageStyle} alt={'to be added!'} loader={loader} />
+          <Img src={img} style={imageStyle} alt={'to be added!'} loader={loader} />
         </VisibilitySensor>
       </CardMedia>
       <div style={cardInfoStyle}>

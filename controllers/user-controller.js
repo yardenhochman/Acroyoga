@@ -1,120 +1,115 @@
 const User = require('../models/users.js');
 const jwt = require('jsonwebtoken');
-const UserDetails = require('../services/userClass');
+const _ = require('lodash');
 
 const usersController = {};
-class TokenSet {
-  constructor({ name, lists, difficulty }, id) {
-    this.token = jwt.sign({ name, id }, process.env.SECRET, { expiresIn: 60000 });
-    this.user = { name, difficulty, lists, id };
+
+function sendError(res, message) {
+  res.status(403).json({
+    success: false,
+    message,
+  });
+}
+
+function sendSuccess(res, message) {
+  res.status(200).json({
+    success: true,
+    message,
+  });
+}
+
+async function tryRequest(res, request) {
+  try {
+    request();
+  } catch (err) {
+    res.status(500).json({ err });
   }
 }
-const sortList = list => {
-  let poseList = {};
-  list.map(line => {
-    console.log(line.list_name);
-    if (!poseList[line.list_name]) return (poseList[line.list_name] = [line.pose_id]);
-    else return poseList[line.list_name].push(line.pose_id);
-  });
-  return poseList;
-};
+
 usersController.create = async (req, res, next) => {
-  console.log('create (poses-controller)');
-  const { name, password, email } = req.body;
-  try {
-    const user = new UserDetails(name, password, email);
+  tryRequest(res, async () => {
     const newUser = await User.create(user);
-    console.log(`user ${newUser.name} created`);
-
-    res.json(new TokenSet(user, newUser.id));
-
-    /* req.login(user, err => err && next(err), res.json(new response(user, 'user profile message'))); */
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
-  }
+    res.json(User.createToken(newUser));
+  });
 };
+
 usersController.login = async (req, res) => {
-  console.log('login (poses-controller)');
   const { email, password } = req.body;
-  try {
+  tryRequest(res, async () => {
     const user = await User.findByMail(email);
-    console.log(user);
-    if (user === null) res.status(405).json({ message: 'Authentication failed. User not found' });
-    else if (!User.comparePassword(password, user.password_digest))
-      res.status(403).json({ message: 'Authentication failed. Wrong password' });
-    else {
-      console.log('found & verified User (login)');
-      const newList = await User.poseList(user.id);
-      const sorted = sortList(newList);
-      user.lists = sorted;
-      console.log('user', user);
-      res.json(new TokenSet(user, user.id));
+
+    if (!user) {
+      return sendError(res, 'Authentication failed. User not found');
     }
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
-  }
+
+    if (!User.comparePassword(password, user.password_digest)) {
+      return sendError(res, 'Authentication failed. Wrong password');
+    }
+
+    res.json(User.createToken(user));
+  });
 };
+
+function verifyUser(req, cb) {
+  const token = req.headers && req.headers.authorization;
+
+  if (!token) {
+    throw 'No token provided.';
+  }
+
+  jwt.verify(token, process.env.SECRET, (err, decoded) => {
+    if (err) {
+      throw 'Failed to authenticate token.';
+    }
+
+    cb(decoded.id);
+  });
+}
+
 usersController.findUser = async (req, res) => {
-  console.log('findUser (poses-controller)');
-  let token;
-  if (req.headers) token = req.headers.authorization;
-  if (token !== 'null') {
-    jwt.verify(token, process.env.SECRET, (err, decoded) => {
-      if (err) return res.json({ success: false, message: 'Failed to authenticate token.' });
-      req.userID = decoded.id;
-      console.log('found & verified User (token load)');
+  tryRequest(res, () => {
+    verifyUser(req, async id => {
+      console.log(id);
+      const user = await User.findByID(id);
+
+      if (!user) {
+        sendError(res, 'No such user.');
+        return;
+      }
+
+      user.lists = await User.getPoseList(user.id);
+
+      res.json(user);
     });
-    const user = await User.findByID(req.userID);
-    const newList = await User.poseList(user.id);
-    const sorted = sortList(newList);
-    user.lists = sorted;
-    console.log(user);
-    res.json(new TokenSet(user, user.id));
-  } else {
-    return res.json(403).send({
-      success: false,
-      message: 'No token provided.',
-    });
-  }
+  });
 };
-usersController.addPose = async (req, res) => {
-  console.log('addPose (poses-controller)');
-  const { pose_id, user_id, list_name = 'Favorites' } = req.body;
-  try {
-    await User.addPose(pose_id, user_id, list_name);
-    const newList = await User.poseList(user_id);
-    const sorted = sortList(newList);
-    console.log(newList);
-    console.log(sorted);
-    res.status(200).send({
-      success: true,
-      message: 'pose Added.',
+
+usersController.addPoseToList = async (req, res) => {
+  tryRequest(res, async () => {
+    verifyUser(req, async id => {
+      if (id !== req.user_id) {
+        sendError(res, "userId doesn't match");
+      }
+
+      await User.addPoseToList(req.body);
+
+      sendSuccess(res, 'Pose Added');
     });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
-  }
+  });
 };
-usersController.removePose = async (req, res) => {
-  console.log('removePose (poses-controller)');
-  const { pose_id, user_id, list_name = 'Favorites' } = req.body;
-  try {
-    await User.removePose(pose_id, user_id, list_name);
-    /*
-    const newList = await User.poseList(user_id);
-    const sorted = sortList(newList);
-    console.log(newList);
-    console.log(sorted);
-    */
-    res.status(200).send({
-      success: true,
-      message: 'pose Removed.',
+
+usersController.removePoseFromList = async (req, res) => {
+  tryRequest(res, async () => {
+    verifyUser(req, async id => {
+      if (id !== req.user_id) {
+        sendError(res, "userId doesn't match");
+      }
+
+      await User.removePoseFromList(req.body);
+
+      sendSuccess(res, 'Pose Removed');
     });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
-  }
+  });
 };
+
 module.exports = usersController;

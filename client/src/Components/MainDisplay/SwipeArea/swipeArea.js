@@ -4,8 +4,7 @@ import ReactSwipe from 'react-swipe';
 import * as actionTypes from '../../../store/actions';
 import PosesDisplay from './PosesDisplay/PosesDisplay';
 
-const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide }) => {
-  tag && resetSlide();
+const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide, difficulty }) => {
   if (!poses) return <div />;
   return (
     <ReactSwipe
@@ -14,16 +13,16 @@ const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide }) => {
         continuous: true,
         transitionEnd: (index, elem) => setSlide(index),
       }}
-      key={poses.length + tag}
+      key={poses.length + tag + difficulty}
     >
-      <PosesDisplay />
+      <PosesDisplay resetSlide={resetSlide} />
     </ReactSwipe>
   );
 };
 
 const mapStateToProps = state => {
-  const { pose: { poses }, view: { tag } } = state;
-  return { poses, tag };
+  const { pose: { poses }, view: { tag, difficulty } } = state;
+  return { poses, tag, difficulty };
 };
 
 const mapDispatchToProps = dispatch => {

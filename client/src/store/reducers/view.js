@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
   let setState;
   switch (type) {
     case SET_TAG:
-      setState = { tag };
+      setState = { tag, currentSlide };
       return updateObject(state, setState);
     case POSES_LOADED:
       setState = { posesLoaded: true };
@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
       setState = { posesLoaded: false };
       return updateObject(state, setState);
     case FILTER:
-      setState = { filters, difficulty: value, posesLoaded: false };
+      setState = { filters, difficulty: value, posesLoaded: false, currentSlide };
       return updateObject(state, setState);
     case SET_SLIDE_INDEX:
       setState = { currentSlide };

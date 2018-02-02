@@ -11,7 +11,7 @@ const DifficultyList = ({ difficultySetting, setFilter }) => {
       key={i + difficulty}
       className={`btn ${difficultySetting === difficulty ? ' active' : ' inactive'}`}
       name={difficulty}
-      onClick={difficult => setFilter('difficulty', difficulty)}
+      onClick={difficult => setFilter('difficulty', difficulty, 0)}
     />
   ));
 };
@@ -23,11 +23,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   const { FILTER } = actionTypes;
   return {
-    setFilter: (filters, value) =>
+    setFilter: (filters, value, currentSlide) =>
       dispatch({
         type: FILTER,
         filters,
         value,
+        currentSlide,
       }),
   };
 };

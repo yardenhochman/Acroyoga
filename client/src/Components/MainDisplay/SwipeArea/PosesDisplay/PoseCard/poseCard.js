@@ -13,7 +13,8 @@ class PoseCard extends Component {
   checkCloseness = preload => {
     const { cardIndex, currentSlide } = this.props;
     const distance = Math.abs(cardIndex - currentSlide);
-    return distance < preload || distance > 105 - preload ? true : false;
+    if (cardIndex===105) console.log(distance > 105-preload)
+    return distance < preload || distance > 105 - preload;
   };
   subtitle = () => {
     const { difficultySetting, pose: { difficulty } } = this.props;
@@ -28,6 +29,11 @@ class PoseCard extends Component {
       justifyContent: 'center',
       width: '50vw',
       backgroundColor: 'white',
+      float: 'left',
+      position: 'relative',
+      display: 'flex',
+      alignItems: 'center',
+      placeContent: 'center',
     };
 
     const cardDetails = { pose, isClose: this.checkCloseness(2), subtitle: this.subtitle() };

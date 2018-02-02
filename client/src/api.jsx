@@ -11,7 +11,6 @@ function getOptions() {
 async function get(url) {
   try {
     const res = await axios.get(url, getOptions());
-    console.log(res.data);
     return res.data;
   } catch (e) {
     console.log(e);

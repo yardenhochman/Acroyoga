@@ -16,7 +16,7 @@ class Heart extends Component {
   };
   checkIfFavorite = () => {
     const { lists, poseID } = this.props;
-    lists && lists.Favorites && lists.Favorites.indexOf(poseID) !== -1 && this.setState({ isFavorite: true });
+    lists && lists.Favorites && lists.Favorites.indexOf(Number(poseID)) !== -1 && this.setState({ isFavorite: true });
   };
   onClick = e => {
     e.preventDefault();

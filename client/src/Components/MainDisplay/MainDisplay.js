@@ -7,16 +7,20 @@ import SwipeArea from './SwipeArea/swipeArea';
 class MainDisplay extends Component {
   next = () => this.reactSwipe.next();
   prev = () => this.reactSwipe.prev();
-  resetSlide = () => this.reactSwipe.slide(1, 1000);
+  resetSlide = () => this.reactSwipe&&this.reactSwipe.slide(1, 1000);
   getPos = () => this.reactSwipe.getPos(1);
   render = () => {
     return (
       <div className="poses-container">
         <div className="carousel-container">
-          <SwipeArea reactSwipe={reactSwipe => (this.reactSwipe = reactSwipe)} resetSlide={this.resetSlide} getPose={this.getPos} />
+          <SwipeArea
+            reactSwipe={reactSwipe => (this.reactSwipe = reactSwipe)}
+            resetSlide={this.resetSlide}
+            getPose={this.getPos}
+          />
           <Media query={{ minWidth: 1000 }}>
-            {matches =>
-              matches && (
+            {yes =>
+              yes && (
                 <div>
                   <Navigation next={this.next} prev={this.prev} />
                 </div>

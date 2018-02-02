@@ -15,7 +15,7 @@ const Header = () => {
             </Menu>
           )
         }
-      </Media>;
+      </Media>
       <Media query={{ maxWidth: 450 }}>
         {yes =>
           yes && (

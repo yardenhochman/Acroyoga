@@ -7,7 +7,7 @@ userRouter.route('/login').post(usersController.login);
 userRouter.route('/').get(usersController.findUser);
 
 userRouter.route('/addPose').post(usersController.addPoseToList);
-userRouter.route('/removePose').delete(usersController.removePoseFromList);
+userRouter.route('/removePose/:user_id/:list_name/:pose_id').delete(usersController.removePoseFromList);
 
 userRouter.route('/register').post(usersController.create);
 userRouter.route('/logout').get((req, res) => {

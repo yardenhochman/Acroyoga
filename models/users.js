@@ -29,7 +29,7 @@ const User = {
       INSERT INTO users
       (name, email, password_digest,difficulty)
       VALUES ($/name/, $/email/, $/pw_digest/,$/difficulty/)
-      RETURNING *`,
+      RETURNING (name, email,difficulty)`,
       user,
     );
   },
@@ -86,16 +86,15 @@ const User = {
     );
   },
 
-  getPoseList: userID => {
+  getPoseList: async (userID) => {
     console.log('poseList DB query for userId', userID);
-    const poses = db.query(
+    const poses = await db.query(
       `
     SELECT * FROM user2pose
     WHERE user_id = $1
     `,
       [userID],
     );
-
     return _(poses)
       .groupBy('list_name')
       .mapValues(list => {

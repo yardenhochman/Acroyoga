@@ -1,24 +1,20 @@
 import * as actionTypes from '../actions';
 import { updateObject } from '../utility';
 const initialState = {
-  mode: 'all',
   posesLoaded: false,
-  filter: 'difficulty',
-  filterValue: 'All',
+  difficulty: 'All',
   tag: '',
   currentSlide: 0,
-}; //turn into filters, values object which will turn into two arrays on model db request
+  device: 'Portrait',
+};
 
 const reducer = (state = initialState, action) => {
-  const { type, mode, filters, value, tag, currentSlide } = action;
-  const { SETMODE, POSES_LOADED, RELOAD, FILTER, SET_TAG, SET_SLIDE_INDEX } = actionTypes;
+  const { type, filters, value, tag, currentSlide, device } = action;
+  const { POSES_LOADED, RELOAD, FILTER, SET_TAG, SET_SLIDE_INDEX, SET_VIEW } = actionTypes;
   let setState;
   switch (type) {
     case SET_TAG:
       setState = { tag };
-      return updateObject(state, setState);
-    case SETMODE:
-      setState = { mode, posesLoaded: false };
       return updateObject(state, setState);
     case POSES_LOADED:
       setState = { posesLoaded: true };
@@ -27,13 +23,13 @@ const reducer = (state = initialState, action) => {
       setState = { posesLoaded: false };
       return updateObject(state, setState);
     case FILTER:
-      setState = { filters, filterValue: value, mode: 'filtered', posesLoaded: false };
-      return updateObject(state, setState);
-    case SET_TAG: 
-      setState = { tag, currentSlide };
+      setState = { filters, difficulty: value, posesLoaded: false };
       return updateObject(state, setState);
     case SET_SLIDE_INDEX:
       setState = { currentSlide };
+      return updateObject(state, setState);
+    case SET_VIEW:
+      setState = { device };
       return updateObject(state, setState);
     default:
   }
@@ -41,3 +37,9 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+
+/*
+
+    case SETMODE:
+      setState = { mode, posesLoaded: false };
+*/

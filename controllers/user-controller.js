@@ -5,14 +5,14 @@ const _ = require('lodash');
 const usersController = {};
 
 function sendError(res, message) {
-  res.status(403).json({
+  res.status(403).send({
     success: false,
     message,
   });
 }
 
 function sendSuccess(res, message) {
-  res.status(200).json({
+  res.status({
     success: true,
     message,
   });
@@ -22,7 +22,7 @@ async function tryRequest(res, request) {
   try {
     request();
   } catch (err) {
-    res.status(500).json({ err });
+    res.status(500).send({ err });
   }
 }
 
@@ -67,18 +67,16 @@ function verifyUser(req, cb) {
 }
 
 usersController.findUser = async (req, res) => {
-  tryRequest(res, () => {
+  tryRequest(res, async () => {
     verifyUser(req, async id => {
-      console.log(id);
       const user = await User.findByID(id);
-
       if (!user) {
         sendError(res, 'No such user.');
         return;
       }
 
       user.lists = await User.getPoseList(user.id);
-
+      delete user.password_digest;
       res.json(user);
     });
   });
@@ -105,7 +103,7 @@ usersController.removePoseFromList = async (req, res) => {
         sendError(res, "userId doesn't match");
       }
 
-      await User.removePoseFromList(req.body);
+      await User.removePoseFromList(req.params);
 
       sendSuccess(res, 'Pose Removed');
     });

@@ -1,13 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { CardMedia, CardTitle } from 'material-ui/Card';
 import Img from 'react-image';
-import loader from '../loader';
+import VisibilitySensor from 'react-visibility-sensor';
+import loader from '../../../../../../UI/Loader/loader';
 
-const MobileCardPortrait = (
-  { img, name },
-  closeToCurrentView,
-  subtitle,
-) => {
+const Portrait = ({ cardDetails: { pose: { img, name }, isClose, subtitle } }) => {
   const imageStyle = {
     height: '70vw',
     width: 'auto',
@@ -32,12 +29,14 @@ const MobileCardPortrait = (
   const displayCard = (
     <div style={cardStyle}>
       <CardMedia>
-        <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+        <VisibilitySensor>
+          <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+        </VisibilitySensor>
       </CardMedia>
       <CardTitle title={name} titleStyle={titleStyle} subtitleStyle={subStyle} subtitle={subtitle} />
     </div>
   );
-  return closeToCurrentView ? displayCard : <div />;
+  return isClose ? displayCard : <div />;
 };
 
-export default MobileCardPortrait;
+export default Portrait;

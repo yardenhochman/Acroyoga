@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../../store/actions';
+import * as actionTypes from '../../../../store/actions';
 
 const MessageExampleError = () => (
   <Message

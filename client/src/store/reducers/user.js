@@ -2,14 +2,11 @@ import * as actionTypes from '../actions';
 import { updateObject, updateList, addToInnerList, makeNewList } from '../utility';
 
 const initialState = {
-  name: '',
-  difficulty: '',
-  lists: {},
 };
 const reducer = (state = initialState, action) => {
-  let setState, lists;
+  let setState;
   let listOfTags = {};
-  const { user, listName, poses, pose_id, type } = action;
+  const { user, listName, pose_id, type } = action;
   const { FILL_USER, LOG_OUT, COLLECT_POSE, DUMP_POSE } = actionTypes;
 
   switch (type) {

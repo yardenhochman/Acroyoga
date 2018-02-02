@@ -1,6 +1,5 @@
 export const STORE_POSE = 'STORE_POSE';
 export const POSES_LOADED = 'POSES_LOADED';
-export const SETMODE = 'SETMODE';
 export const RELOAD = 'RELOAD';
 export const FILTER = 'FILTER';
 export const FILL_USER = 'FILL_USER';
@@ -9,3 +8,4 @@ export const COLLECT_POSE = 'COLLECT_POSE';
 export const DUMP_POSE = 'DUMP_POSE';
 export const SET_TAG = 'SET_TAG';
 export const SET_SLIDE_INDEX = 'SET_SLIDE_INDEX';
+export const SET_VIEW = 'SET_VIEW';

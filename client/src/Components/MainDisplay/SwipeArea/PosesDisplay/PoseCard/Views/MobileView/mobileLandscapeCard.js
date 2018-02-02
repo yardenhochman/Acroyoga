@@ -1,15 +1,10 @@
 import React, { Fragment } from 'react';
 import { CardMedia, CardTitle } from 'material-ui/Card';
-import CircularProgress from 'material-ui/CircularProgress';
 import Img from 'react-image';
-import loader from '../loader';
+import VisibilitySensor from 'react-visibility-sensor';
+import loader from '../../../../../../UI/Loader/loader';
 
-const MobileCardLandscape = (
-  { img, name },
-  closeToCurrentView,
-  subtitle
-) => {
-
+const Landscape = ({ cardDetails: { pose: { img, name }, isClose, subtitle } }) => {
   let imageStyle = {
     height: '95vh',
     width: 'auto',
@@ -23,17 +18,18 @@ const MobileCardLandscape = (
     fontSize: '4vh',
     fontFamily: 'Special Elite',
   };
-
   const displayCard = (
     <Fragment>
       <CardMedia
         overlayContentStyle={overlayStyle}
         overlay={<CardTitle title={name} titleStyle={titleStyle} subtitle={subtitle} />}
       >
-        <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+        <VisibilitySensor>
+          <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+        </VisibilitySensor>
       </CardMedia>
     </Fragment>
   );
-  return closeToCurrentView ? displayCard : <div />;
+  return isClose ? displayCard : <div />;
 };
-export default MobileCardLandscape;
+export default Landscape;

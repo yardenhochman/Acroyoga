@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../../store/actions';
-import api from '../../../../../api';
+import * as actionTypes from '../../../../store/actions';
+import api from '../../../../api';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
 class LoginForm extends Component {

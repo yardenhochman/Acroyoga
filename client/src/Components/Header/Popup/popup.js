@@ -3,7 +3,6 @@ import { Menu, Modal } from 'semantic-ui-react';
 
 import RegisterForm from './Register/register';
 import LoginForm from './Login/login';
-import Media from 'react-media';
 
 class Popup extends Component {
   state = { form: 'register' };

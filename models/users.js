@@ -98,7 +98,7 @@ const User = {
     return _(poses)
       .groupBy('list_name')
       .mapValues(list => {
-        return _.map(list, 'pose_id');
+        return _.map(list, 'pose_id').map(Number);
       })
       .value();
   },

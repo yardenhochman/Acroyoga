@@ -11,16 +11,16 @@ import Landscape from './Views/MobileView/mobileLandscapeCard';
 
 class PoseCard extends Component {
   checkCloseness = preload => {
-    const { cardIndex, currentSlide } = this.props;
+    const { cardIndex, currentSlide, filteredPoses } = this.props;
     const distance = Math.abs(cardIndex - currentSlide);
-    if (cardIndex===105) console.log(distance > 105-preload)
-    return distance < preload || distance > 105 - preload;
+    return distance < preload || distance > filteredPoses.length - preload;
   };
   subtitle = () => {
     const { difficultySetting, pose: { difficulty } } = this.props;
     return `${difficultySetting === 'All' ? `Difficulty: ${difficulty}` : ''}`;
   };
   render = () => {
+    console.log('PoseCard updates')
     const { pose } = this.props;
     const cardStyle = {
       display: 'flex',
@@ -39,9 +39,9 @@ class PoseCard extends Component {
     const cardDetails = { pose, isClose: this.checkCloseness(2), subtitle: this.subtitle() };
     return (
       <Card style={cardStyle} key={pose.img} className="poseCard Cards">
-        <Media query={{ minWidth: 900 }}>{yes => yes && <PC cardDetails={cardDetails} />}</Media>;
-        <Media query={{ minWidth: 450, maxWidth: 900 }}>{yes => yes && <Landscape cardDetails={cardDetails} />}</Media>
-        <Media query={{ maxWidth: 450 }}>{yes => yes && <Portrait cardDetails={cardDetails} />}</Media>
+        <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>;
+        <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
+        <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>
       </Card>
     );
   };

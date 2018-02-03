@@ -20,7 +20,7 @@ function sendSuccess(res, message) {
 
 async function tryRequest(res, request) {
   try {
-    request();
+    await request();
   } catch (err) {
     res.status(500).send({ err });
   }

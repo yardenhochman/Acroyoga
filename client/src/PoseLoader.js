@@ -6,14 +6,17 @@ import * as actionTypes from './store/actions';
 import MainDisplay from './Components/MainDisplay/MainDisplay';
 import Header from './Components/Header/Header';
 import api from './api';
-import DetermineView from './DetermineView';
 class PoseLoader extends Component {
   componentWillMount = async () => {
+    this.props.UserLogin(await api.user.get(true));
+    this.props.storePoses(await api.poses.get(true));
+
     this.props.UserLogin(await api.user.get());
     this.props.storePoses(await api.poses.get());
   };
 
   render = () => {
+    console.log('poseLoader updates');
     return (
       <div className="App">
         <Header logOut={this.logOut} />
@@ -23,7 +26,8 @@ class PoseLoader extends Component {
       </div>
     );
   };
-}
+};
+
 const mapStateToProps = state => {
   return;
 };

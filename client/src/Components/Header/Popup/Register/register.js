@@ -3,6 +3,7 @@ import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/actions';
+import api from '../../../../api';
 
 const MessageExampleError = () => (
   <Message
@@ -41,17 +42,12 @@ class RegisterForm extends Component {
     isSignup: true,
   };
   formSubmit = async () => {
-    const { email, password, name } = this.state.controls;
+    const { email: { value: email }, password: { value: password }, name: { value: name } } = this.state.controls;
     if (!email.valid || !password.valid || !name.valid) return; //add error message
-    const url = 'users/register';
-    const data = {};
-    data.email = email.value;
-    data.password = password.value;
-    data.name = name.value;
     try {
-      const res = await axios({ method: 'POST', url, data });
-      console.log(res.data);
-      this.props.UserLogin(res.data.user);
+      const res = await api.user.register({ email, password, name });
+      //const res = await axios({ method: 'POST', url, data });
+      this.props.UserLogin(res.user);
     } catch (err) {
       console.log(err);
     }

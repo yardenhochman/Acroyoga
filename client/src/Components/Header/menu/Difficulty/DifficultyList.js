@@ -4,14 +4,14 @@ import * as actionTypes from '../../../../store/actions';
 
 import { Menu } from 'semantic-ui-react';
 
-const DifficultyList = ({ difficultySetting, setFilter }) => {
+const DifficultyList = ({ difficultySetting, setDifficulty }) => {
   const difficulties = ['All', 'Easy', 'Intermediate', 'Hard', 'Expert'];
   return difficulties.map((difficulty, i) => (
     <Menu.Item
       key={i + difficulty}
       className={`btn ${difficultySetting === difficulty ? ' active' : ' inactive'}`}
       name={difficulty}
-      onClick={difficult => setFilter('difficulty', difficulty, 0)}
+      onClick={difficult => setDifficulty(difficulty, 0)}
     />
   ));
 };
@@ -21,13 +21,12 @@ const mapStateToProps = state => {
   return { difficultySetting: difficulty };
 };
 const mapDispatchToProps = dispatch => {
-  const { FILTER } = actionTypes;
+  const { FILTER_DIFFICULTY } = actionTypes;
   return {
-    setFilter: (filters, value, currentSlide) =>
+    setDifficulty: (difficulty, currentSlide) =>
       dispatch({
-        type: FILTER,
-        filters,
-        value,
+        type: FILTER_DIFFICULTY,
+        difficulty,
         currentSlide,
       }),
   };

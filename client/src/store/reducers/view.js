@@ -1,7 +1,6 @@
 import * as actionTypes from '../actions';
 import { updateObject } from '../utility';
 const initialState = {
-  posesLoaded: false,
   difficulty: 'All',
   tag: '',
   currentSlide: 0,
@@ -9,21 +8,15 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  const { type, filters, value, tag, currentSlide, device } = action;
-  const { POSES_LOADED, RELOAD, FILTER, SET_TAG, SET_SLIDE_INDEX, SET_VIEW } = actionTypes;
+  const { type, difficulty, tag, currentSlide, device } = action;
+  const { FILTER_DIFFICULTY, SET_TAG, SET_SLIDE_INDEX, SET_VIEW } = actionTypes;
   let setState;
   switch (type) {
     case SET_TAG:
       setState = { tag, currentSlide };
       return updateObject(state, setState);
-    case POSES_LOADED:
-      setState = { posesLoaded: true };
-      return updateObject(state, setState);
-    case RELOAD:
-      setState = { posesLoaded: false };
-      return updateObject(state, setState);
-    case FILTER:
-      setState = { filters, difficulty: value, posesLoaded: false, currentSlide };
+    case FILTER_DIFFICULTY:
+      setState = { difficulty, currentSlide };
       return updateObject(state, setState);
     case SET_SLIDE_INDEX:
       setState = { currentSlide };

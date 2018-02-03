@@ -11,15 +11,9 @@ class LoginForm extends Component {
     password: '',
   };
   formSubmit = async () => {
-    const { email, password } = this.state;
-    const url = 'user/login';
-    const data = {};
-    data.email = email;
-    data.password = password;
-
     try {
-      const res = await axios({ method: 'POST', url, data });
-      localStorage.setItem('token', res.data.token);
+      const res = await api.user.login(this.state);
+      localStorage.setItem('token', res.token);
       const newUser = await api.user.get();
       this.props.UserLogin(newUser);
     } catch (err) {

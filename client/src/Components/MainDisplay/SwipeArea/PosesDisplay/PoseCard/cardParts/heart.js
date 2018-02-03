@@ -11,12 +11,12 @@ class Heart extends Component {
   };
   checkIfLoggedIn = () => {
     const { userName, tag } = this.props;
-    if (userName && !tag) this.setState({ display: true });
+    if (userName) this.setState({ display: true });
     else this.setState({ display: false });
   };
   checkIfFavorite = () => {
     const { lists, poseID } = this.props;
-    lists && lists.Favorites && lists.Favorites.indexOf(Number(poseID)) !== -1 && this.setState({ isFavorite: true });
+    lists && lists.Favorites && lists.Favorites.indexOf(poseID) !== -1 && this.setState({ isFavorite: true });
   };
   onClick = e => {
     e.preventDefault();
@@ -29,9 +29,10 @@ class Heart extends Component {
     this.setState({ isFavorite: true });
   };
   removeFromFavorites = () => {
-    const { poseID, userID, removeFromUserList } = this.props;
+    const { poseID, userID, removeFromUserList, tag, sideStep, currentSlide } = this.props;
     api.list.remove(poseID, userID, 'Favorites');
     removeFromUserList(poseID, 'Favorites');
+    //tag && sideStep(0, currentSlide);
     this.setState({ isFavorite: false });
   };
   render = () => {
@@ -60,12 +61,12 @@ class Heart extends Component {
 }
 
 const mapStateToProps = state => {
-  const { view: { tag }, user: { name, id, lists } } = state;
+  const { view: { tag, currentSlide }, user: { name, id, lists } } = state;
   return { tag, userName: name, userID: id, lists };
 };
 
 const mapDispatchToProps = dispatch => {
-  const { COLLECT_POSE, DUMP_POSE } = actionTypes;
+  const { COLLECT_POSE, DUMP_POSE, SET_SLIDE_INDEX, REFRESH_POSE_DISPLAY } = actionTypes;
   return {
     addToUserList: (pose_id, listName) =>
       dispatch({
@@ -78,6 +79,11 @@ const mapDispatchToProps = dispatch => {
         type: DUMP_POSE,
         pose_id,
         listName,
+      }),
+    sideStep: currentSlide =>
+      dispatch({
+        type: REFRESH_POSE_DISPLAY,
+        currentSlide,
       }),
   };
 };

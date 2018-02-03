@@ -1,7 +1,5 @@
 export const STORE_POSE = 'STORE_POSE';
-export const POSES_LOADED = 'POSES_LOADED';
-export const RELOAD = 'RELOAD';
-export const FILTER = 'FILTER';
+export const FILTER_DIFFICULTY = 'FILTER_DIFFICULTY';
 export const FILL_USER = 'FILL_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const COLLECT_POSE = 'COLLECT_POSE';
@@ -9,3 +7,4 @@ export const DUMP_POSE = 'DUMP_POSE';
 export const SET_TAG = 'SET_TAG';
 export const SET_SLIDE_INDEX = 'SET_SLIDE_INDEX';
 export const SET_VIEW = 'SET_VIEW';
+export const REFRESH_POSE_DISPLAY = 'REFRESH_POSE_DISPLAY';

@@ -2,6 +2,11 @@ import * as actionTypes from '../actions';
 import { updateObject, updateList, addToInnerList, makeNewList } from '../utility';
 
 const initialState = {
+  id: null,
+  name: null,
+  email: null,
+  difficulty: "0",
+  lists: {}
 };
 const reducer = (state = initialState, action) => {
   let setState;

@@ -14,7 +14,7 @@ class DifficultyMenu extends Component {
     };
 
     return (
-      <Dropdown item text={<i className={`fa fa-filter fa-filter-${colors[this.props.difficultySetting]}`} aria-hidden="true" />}>
+      <Dropdown item icon={<i className={`fa fa-filter fa-filter-${colors[this.props.difficultySetting]}`} aria-hidden="true" />}>
         <Dropdown.Menu>
           <DifficultyList />
         </Dropdown.Menu>

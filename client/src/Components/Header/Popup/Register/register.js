@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../../store/actions';
 import api from '../../../../api';
@@ -42,10 +41,10 @@ class RegisterForm extends Component {
     isSignup: true,
   };
   formSubmit = async () => {
-    const { email: { value: email }, password: { value: password }, name: { value: name } } = this.state.controls;
+    const { email, password, name } = this.state.controls;
     if (!email.valid || !password.valid || !name.valid) return; //add error message
     try {
-      const res = await api.user.register({ email, password, name });
+      const res = await api.user.register(email.value, password.value, name.value);
       //const res = await axios({ method: 'POST', url, data });
       this.props.UserLogin(res.user);
     } catch (err) {

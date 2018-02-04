@@ -10,7 +10,7 @@ class MainDisplay extends Component {
   resetSlide = () => this.reactSwipe&&this.reactSwipe.slide(1, 1000);
   getPos = () => this.reactSwipe.getPos(1);
   render = () => {
-    console.log('mainDisplay updates')
+    //console.log('mainDisplay updates')
     return (
       <div className="poses-container">
         <div className="carousel-container">

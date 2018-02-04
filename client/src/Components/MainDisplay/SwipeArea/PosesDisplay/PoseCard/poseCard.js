@@ -20,7 +20,7 @@ class PoseCard extends Component {
     return `${difficultySetting === 'All' ? `Difficulty: ${difficulty}` : ''}`;
   };
   render = () => {
-    console.log('PoseCard updates')
+    //console.log('PoseCard updates')
     const { pose } = this.props;
     const cardStyle = {
       display: 'flex',
@@ -31,8 +31,6 @@ class PoseCard extends Component {
       backgroundColor: 'white',
       float: 'left',
       position: 'relative',
-      display: 'flex',
-      alignItems: 'center',
       placeContent: 'center',
     };
 

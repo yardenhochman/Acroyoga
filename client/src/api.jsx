@@ -10,14 +10,11 @@ function getOptions() {
 
 async function get(url, offline) {
   if (offline) {
-    console.log('loading offline poses');
-    console.log(localStorage.getItem(url));
     return JSON.parse(localStorage.getItem(url));
   }
 
   try {
     const res = await axios.get(url, getOptions());
-    console.log('loading server poses');
     localStorage.setItem(url, JSON.stringify(res.data));
     return res.data;
   } catch (e) {
@@ -25,12 +22,22 @@ async function get(url, offline) {
   }
 }
 
-async function post(url, data) {
-  try {
-    const res = await axios.post(url, data, getOptions());
-    return res.data;
-  } catch (e) {
-    console.log(e);
+async function post(url, data, withoutToken) {
+  if (!withoutToken) {
+    try {
+      const res = await axios.post(url, data, getOptions());
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
+  } else {
+    try {
+      console.log('here')
+      const res = await axios.post(url, data);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
@@ -46,8 +53,8 @@ async function remove(url) {
 export default {
   user: {
     get: async offline => get('/user', offline),
-    login: async ({ email, password }) => post('/user/login', { email, password }),
-    register: async data => post('/user/register', data),
+    login: async ({ email, password }) => post('/user/login', { email, password }, true),
+    register: async (email, password, name) => post('/user/register', { email, password, name }, true),
   },
 
   poses: {

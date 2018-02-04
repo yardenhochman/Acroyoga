@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const User = {
   createToken: user => {
+    console.log('create token')
     const { name, id } = user;
 
     return {
@@ -12,25 +13,25 @@ const User = {
     };
   },
 
-  create: user => {
-    Object.assign(
+  create: async user => {
+    const newUser = Object.assign(
       {
         lists: [],
         difficulty: 0,
-        pw_digest: this.encrypt(password),
+        pw_digest: User.encrypt(user.password),
       },
       user,
     );
-
     delete user.password;
-
-    return db.one(
+    console.log(newUser)
+    return await db.one(
       `
       INSERT INTO users
       (name, email, password_digest,difficulty)
       VALUES ($/name/, $/email/, $/pw_digest/,$/difficulty/)
-      RETURNING (name, email,difficulty)`,
-      user,
+      RETURNING *
+      `,
+      newUser,
     );
   },
 
@@ -86,7 +87,7 @@ const User = {
     );
   },
 
-  getPoseList: async (userID) => {
+  getPoseList: async userID => {
     console.log('poseList DB query for userId', userID);
     const poses = await db.query(
       `

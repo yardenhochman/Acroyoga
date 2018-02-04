@@ -28,7 +28,8 @@ async function tryRequest(res, request) {
 
 usersController.create = async (req, res, next) => {
   tryRequest(res, async () => {
-    const newUser = await User.create(user);
+    const newUser = await User.create(req.body);
+    console.log('got back from User Creation')
     res.json(User.createToken(newUser));
   });
 };

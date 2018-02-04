@@ -17,7 +17,7 @@ class Popup extends Component {
   };
   render = () => {
     let popupStyle = { height: '400px' };
-    console.log('Popup updated');
+    //console.log('Popup updated');
     return (
       <Modal
         style={popupStyle}

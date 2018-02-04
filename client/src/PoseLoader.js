@@ -16,7 +16,7 @@ class PoseLoader extends Component {
   };
 
   render = () => {
-    console.log('poseLoader updates');
+    //console.log('poseLoader updates');
     return (
       <div className="App">
         <Header logOut={this.logOut} />
@@ -29,7 +29,7 @@ class PoseLoader extends Component {
 };
 
 const mapStateToProps = state => {
-  return;
+  return {};
 };
 const mapDispatchToProps = dispatch => {
   const { FILL_USER, STORE_POSE } = actionTypes;

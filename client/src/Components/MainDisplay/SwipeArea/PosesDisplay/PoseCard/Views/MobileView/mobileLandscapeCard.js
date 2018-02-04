@@ -3,7 +3,7 @@ import { CardMedia, CardTitle } from 'material-ui/Card';
 import Img from 'react-image';
 import VisibilitySensor from 'react-visibility-sensor';
 import loader from '../../../../../../UI/Loader/loader';
-import Heart from '../../cardParts/heart';
+//import Heart from '../../cardParts/heart';
 
 const Landscape = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => {
   let imageStyle = {

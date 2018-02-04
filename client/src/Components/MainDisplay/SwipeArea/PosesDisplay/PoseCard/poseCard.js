@@ -22,25 +22,32 @@ class PoseCard extends Component {
   render = () => {
     //console.log('PoseCard updates')
     const { pose } = this.props;
-    const cardStyle = {
+    let cardStyle = {
       display: 'flex',
       alignItems: 'center',
       alignContent: 'center',
       justifyContent: 'center',
-      width: '50vw',
+      width: '100%',
       backgroundColor: 'white',
       float: 'left',
       position: 'relative',
       placeContent: 'center',
     };
-
     const cardDetails = { pose, isClose: this.checkCloseness(2), subtitle: this.subtitle() };
+    /*
     return (
       <Card style={cardStyle} key={pose.img} className="poseCard Cards">
         <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>;
         <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
         <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>
       </Card>
+    );*/
+    return (
+      <div key={pose.img} style={cardStyle}className="poseCard Cards">
+        <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>;
+        <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
+        <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>
+      </div>
     );
   };
 }

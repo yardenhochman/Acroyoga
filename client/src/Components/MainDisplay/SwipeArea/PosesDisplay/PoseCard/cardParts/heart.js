@@ -11,7 +11,7 @@ class Heart extends Component {
   };
   checkIfLoggedIn = () => {
     const { userName, tag } = this.props;
-    if (userName&&tag) this.setState({ display: true });
+    if (userName&&!tag) this.setState({ display: true });
     else this.setState({ display: false });
   };
   checkIfFavorite = () => {
@@ -38,7 +38,7 @@ class Heart extends Component {
     const { poseID } = this.props;
     const { isFavorite, display } = this.state;
 
-    const favStyle = {
+    let favStyle = {
       width: '5vw',
       height: '5vh',
       display: 'flex',
@@ -48,6 +48,7 @@ class Heart extends Component {
       cursor: 'pointer',
       color: 'black',
     };
+    favStyle={}
     const fullHeart = `fa fa-heart fa-3x full-heart${poseID}`;
     const emptyHeart = `fa fa-heart-o fa-3x empty-heart${poseID}`;
     if (!display) return <div />;

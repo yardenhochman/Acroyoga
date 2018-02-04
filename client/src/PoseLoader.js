@@ -12,6 +12,8 @@ class PoseLoader extends Component {
     this.props.storePoses(await api.poses.get(true));
 
     this.props.UserLogin(await api.user.get());
+    //const serverPoses = api.poses.get();
+    //if (serverPoses.length !== this.props.poses.length) this.props.storePoses(serverPoses)
     this.props.storePoses(await api.poses.get());
   };
 
@@ -29,7 +31,8 @@ class PoseLoader extends Component {
 };
 
 const mapStateToProps = state => {
-  return {};
+    const { pose: {poses} } = state;
+  return { poses };
 };
 const mapDispatchToProps = dispatch => {
   const { FILL_USER, STORE_POSE } = actionTypes;

@@ -1,10 +1,10 @@
 import React from 'react';
-import { CardMedia, CardTitle } from 'material-ui/Card';
 import Img from 'react-image';
 import VisibilitySensor from 'react-visibility-sensor';
 import loader from '../../../../../../UI/Loader/loader';
+import Heart from "../../cardParts/heart";
 
-const Portrait = ({ cardDetails: { pose: { img, name }, isClose, subtitle } }) => {
+const Portrait = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => {
   const imageStyle = {
     height: '70vw',
     width: 'auto',
@@ -22,20 +22,31 @@ const Portrait = ({ cardDetails: { pose: { img, name }, isClose, subtitle } }) =
     color: 'black',
     marginTop: '1vh',
   };
-  const cardStyle = {
+  let cardStyle = {
     height: '95vh',
     marginTop: '60%',
   };
-  const displayCard = (
-    <div style={cardStyle}>
-      <CardMedia>
+  cardStyle = {};
+  const cardDetails = { 
+    display: "grid", 
+    gridTemplateColumns: "5vw auto 5vw", 
+    gridTemplateRows: "20% auto", 
+    gridTemplateArea: `'heart | text | .|''.|text|.'` 
+  };
+  const displayCard = <div style={cardStyle}>
+      <div>
         <VisibilitySensor>
-          <Img src={img} style={imageStyle} alt={'to be added'} loader={loader} />
+          <Img src={img} style={imageStyle} alt={"to be added"} loader={loader} />
         </VisibilitySensor>
-      </CardMedia>
-      <CardTitle title={name} titleStyle={titleStyle} subtitleStyle={subStyle} subtitle={subtitle} />
-    </div>
-  );
+      </div>
+      <div style={cardDetails}>
+        <Heart key={id + "heart"} poseID={id} />
+        <div>
+          <h1 style={titleStyle}>{name}</h1>
+          <p style={subStyle}>{subtitle}</p>
+        </div>
+      </div>
+    </div>;
   return isClose ? displayCard : <div />;
 };
 

@@ -12,9 +12,11 @@ class PoseLoader extends Component {
     this.props.storePoses(await api.poses.get(true));
 
     this.props.UserLogin(await api.user.get());
-    //const serverPoses = api.poses.get();
-    //if (serverPoses.length !== this.props.poses.length) this.props.storePoses(serverPoses)
-    this.props.storePoses(await api.poses.get());
+    const serverPoses = await api.poses.get();
+    console.log(this.props.poses,serverPoses)
+    if (serverPoses.length !== this.props.poses.length) {
+      this.props.storePoses(serverPoses)
+    }
   };
 
   render = () => {

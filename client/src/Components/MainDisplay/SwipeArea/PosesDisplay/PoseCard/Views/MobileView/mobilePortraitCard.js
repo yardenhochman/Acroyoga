@@ -6,9 +6,9 @@ import Heart from "../../cardParts/heart";
 
 const Portrait = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => {
   const imageStyle = {
-    height: '70vw',
+    maxHeight: '60vh',
     width: 'auto',
-    maxWidth: '55vh',
+    maxWidth: '100vw',
     borderRadius: '5px',
     minWidth: 'auto',
   };
@@ -46,8 +46,8 @@ const Portrait = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } 
           <p style={subStyle}>{subtitle}</p>
         </div>
       </div>
-    </div>;
-  return isClose ? displayCard : <div />;
+    </div>
+  return isClose ? displayCard : <div />
 };
 
 export default Portrait;

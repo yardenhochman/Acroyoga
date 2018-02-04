@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actionTypes from '../../../../../store/actions';
 
 import Media from 'react-media';
-import { Card } from 'material-ui/Card';
 
 import PC from './Views/DesktopView/desktopCard';
 import Portrait from './Views/MobileView/mobilePortraitCard';
@@ -44,7 +43,7 @@ class PoseCard extends Component {
     );*/
     return (
       <div key={pose.img} style={cardStyle}className="poseCard Cards">
-        <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>;
+        <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>
         <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
         <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>
       </div>

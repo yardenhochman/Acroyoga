@@ -8,13 +8,10 @@ body {
 }
 .App {
     text-align: center;
-
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start;
-  align-content: center;
+  height: 100vh;
+}
+.display-space {
+  height: 100vh
 }
 .header {
   width:100vw;
@@ -24,14 +21,6 @@ body {
   margin: 0;
   justify-content: center;
   background-color:white;
-}
-.display-space {
-  display: flex;
-  flex-wrap:nowrap;
-  flex-flow: column;
-  height: 95vh;
-  width: 100vw;
-  background-color: white;
 }
 .glyphicon {
   width: 50px;

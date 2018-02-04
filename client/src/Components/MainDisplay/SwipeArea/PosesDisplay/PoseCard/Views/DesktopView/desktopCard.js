@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Img from 'react-image';
 import VisibilitySensor from 'react-visibility-sensor';
 import loader from '../../../../../../UI/Loader/loader';
@@ -29,16 +29,8 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
     marginBottom: '0',
     fontFamily: 'Roboto Condensed',
   };
-  const cardInfoStyle = {
-    display: 'grid',
-    height: '15vh',
-    gridTemplateColumns: '15% auto 15%',
-    gridTemplateRows: '10% auto 10%',
-  };
-  const cardDetails = { display: "grid", gridTemplateColumns: "5vw auto 5vw", gridTemplateRows: "20% auto", gridTemplateArea: `'heart | text | .|''.|text|.'` };
-  const textBox = {
-
-  }
+  const cardDetails = { display: "grid", gridTemplateColumns: "5vw auto 5vw", gridTemplateRows: "20% auto", 
+  gridTemplateArea: `'. | text | .|''heart|text|.'` };
   const displayCard = <div>
       <div>
         <VisibilitySensor>
@@ -47,7 +39,7 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
       </div>
       <div style={cardDetails}>
         <Heart key={id + "heart"} poseID={id} />
-        <div style={textBox}>
+        <div style={textAreaStyle}>
           <h1 style={titleStyle}>{name}</h1>
           <p style={subStyle}>{subtitle}</p>
         </div>
@@ -56,7 +48,7 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
   return isClose ? displayCard : <div />
 };
 export default PC;
-{
+
   /* <CardMedia>
         <VisibilitySensor>
           <Img src={img} style={imageStyle} alt={'to be added!'} loader={loader} />
@@ -72,4 +64,3 @@ export default PC;
           subtitle={subtitle}
         />
       </div> */
-}

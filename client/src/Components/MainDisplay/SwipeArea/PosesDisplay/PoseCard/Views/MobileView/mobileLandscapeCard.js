@@ -7,7 +7,7 @@ import loader from '../../../../../../UI/Loader/loader';
 
 const Landscape = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => {
   let imageStyle = {
-    height: '95vh',
+    height: '100vh',
     width: 'auto',
     borderRadius: '5px',
   };

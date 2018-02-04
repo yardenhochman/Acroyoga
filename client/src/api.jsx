@@ -32,7 +32,6 @@ async function post(url, data, withoutToken) {
     }
   } else {
     try {
-      console.log('here')
       const res = await axios.post(url, data);
       return res.data;
     } catch (e) {

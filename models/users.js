@@ -10,6 +10,7 @@ const User = {
 
     return {
       token: jwt.sign({ name, id }, process.env.SECRET, { expiresIn: 60000 }),
+      user
     };
   },
 

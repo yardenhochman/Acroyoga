@@ -46,6 +46,8 @@ class RegisterForm extends Component {
     try {
       const res = await api.user.register(email.value, password.value, name.value);
       //const res = await axios({ method: 'POST', url, data });
+      console.log('response from server',res)
+      localStorage.setItem("token", res.token);
       this.props.UserLogin(res.user);
     } catch (err) {
       console.log(err);

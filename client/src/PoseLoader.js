@@ -8,19 +8,17 @@ import Header from './Components/Header/Header';
 import api from './api';
 class PoseLoader extends Component {
   componentWillMount = async () => {
-    const {UserLogin,storePoses,poses} = this.props;
-    UserLogin(await api.user.get(true));
-    storePoses(await api.poses.get(true));
+    this.props.UserLogin(await api.user.get(true));
+    this.props.storePoses(await api.poses.get(true));
 
-    UserLogin(await api.user.get());
-    const serverPoses = await api.poses.get();
-    if (serverPoses.length !== poses.length) {
-      storePoses(serverPoses)
+    this.props.UserLogin(await api.user.get());
+    const serverPoses = await api.poses.get()
+    if (serverPoses.length !== this.props.poses.length) {
+      this.props.storePoses(serverPoses);
     }
   };
 
   render = () => {
-    //console.log('poseLoader updates');
     return (
       <div className="App">
         <Header logOut={this.logOut} />

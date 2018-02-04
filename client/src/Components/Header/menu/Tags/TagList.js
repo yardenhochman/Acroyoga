@@ -5,15 +5,14 @@ import * as actionTypes from '../../../../store/actions';
 
 const TagList = ({ tag, userLists, setTag }) => {
   return userLists.map((list, i) => {
-    const favorites = (
-      <i className="fa fa-heart-o text-danger" aria-hidden="true" onClick={() => setTag('favorites',0)} />
-    );
-    const favoritesChosen = <i className="tags icon" aria-hidden="true" onClick={() => setTag('',0)} />;
-    return (
-      <Menu.Item key={i} name={list}>
-        {!tag ? favorites : favoritesChosen}
-      </Menu.Item>
-    );
+    const favorites = <Menu.Item key={i} name={list} onClick={() => setTag("favorites", 0)}>
+        <i className="fa fa-heart-o text-danger" aria-hidden="true" />
+      </Menu.Item>;
+    const favoritesChosen = <Menu.Item key={i} name={list}>
+        <i className="tags icon" aria-hidden="true" onClick={() => setTag("", 0)} />
+      </Menu.Item>;
+
+    return !tag ? favorites : favoritesChosen
   });
 };
 const mapStateToProps = state => {

@@ -1,7 +1,8 @@
 # Acroyoga Pose Index
 
 ## Stack:
-Stack: Express, PostgresQL, React, Redux,
+Stack: Express, PostgresQL, React, Redux.
+Front-End: CSS-Grid, Flexbox, Component Libraries outlined below
 
 ## Features:
 

@@ -33,16 +33,8 @@ class PoseCard extends Component {
       placeContent: 'center',
     };
     const cardDetails = { pose, isClose: this.checkCloseness(2), subtitle: this.subtitle() };
-    /*
     return (
-      <Card style={cardStyle} key={pose.img} className="poseCard Cards">
-        <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>;
-        <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
-        <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>
-      </Card>
-    );*/
-    return (
-      <div key={pose.img} style={cardStyle}className="poseCard Cards">
+      <div key={pose.img} style={cardStyle}className="poseCard">
         <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>
         <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
         <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>

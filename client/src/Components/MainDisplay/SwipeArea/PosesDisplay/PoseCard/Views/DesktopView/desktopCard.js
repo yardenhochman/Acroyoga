@@ -13,7 +13,7 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
   };
   const titleStyle = {
     gridArea: 'title',
-    height: '7vh',
+    //height: '7vh',
     marginTop: '2vh',
     color: 'black',
     fontFamily: 'Special Elite',
@@ -25,6 +25,7 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
   };
   const subStyle = {
     gridArea: 'sub',
+    fontSize: '2vh',
     color: 'black',
     marginBottom: '0',
     fontFamily: 'Roboto Condensed',

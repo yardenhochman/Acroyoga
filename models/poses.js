@@ -75,7 +75,6 @@ Poses.AllPoses = async () => {
           'Mermaid',
           'Reverse Tittibhasana',
           'Reverse Prayer',
-          'Side Star',
           'Little Mermaid',
           'Nataraj',
           'Straddle Bat',

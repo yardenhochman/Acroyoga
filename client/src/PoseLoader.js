@@ -21,7 +21,7 @@ class PoseLoader extends Component {
   render = () => {
     return (
       <div className="App">
-        <Header logOut={this.logOut} />
+        <Header />
         <div className="display-space">
           <MainDisplay />
         </div>

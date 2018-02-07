@@ -71,7 +71,6 @@ Poses.AllPoses = async () => {
           'Super Yogi Twist',
           'Reverse Back Plank',
           'Whale',
-          'Reverse Shoulder Stand',
           'Mermaid',
           'Reverse Tittibhasana',
           'Reverse Prayer',

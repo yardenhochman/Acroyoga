@@ -16,7 +16,6 @@ Poses.AllPoses = async () => {
     .filter(
       pose =>
         ![
-          'Double Throne',
           'Side Back Bird',
           'Double Couch',
           'Back Bow',

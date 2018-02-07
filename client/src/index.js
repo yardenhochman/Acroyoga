@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
-import './index.css';
+//import './index.css';
 import 'font-awesome/css/font-awesome.min.css';
 import PoseLoader from './PoseLoader';
 import registerServiceWorker from './registerServiceWorker';

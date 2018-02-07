@@ -7,8 +7,8 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <title>AcroPoses</title>
     <style>
-      @font-face { font-family: Special Elite; src: url('Special Elite regular.ttf'); } 
-      @font-face { font-family: Roboto Condensed; src: url('Roboto Condensed regular.ttf'); } 
+      @font-face { font-family: Special Elite; src: url('%PUBLIC_URL%/Special Elite regular.ttf') format('truetype'), ; } 
+      @font-face { font-family: Roboto Condensed; src: url('%PUBLIC_URL%/Roboto Condensed regular.ttf') format('truetype'),; } 
       body {
         margin: 0;
         padding: 0;
@@ -54,6 +54,22 @@
       }
     .item.btn.active{
       color:yellow
+    }
+    .control{
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      top: 80vh;
+    }
+    .left_button {
+      height: 6vh;
+      grid-area: leftArrow;
+      cursor: pointer;
+    }
+    .left_button {
+      height: 6vh;
+      grid-area: rightArrow;
+      cursor: pointer;
     }
     @media (min-width: 450px) and (max-width: 1000px) {
       .poseCard{

@@ -7,24 +7,26 @@ import MainDisplay from './Components/MainDisplay/MainDisplay';
 import Header from './Components/Header/Header';
 import api from './api';
 class PoseLoader extends Component {
-  componentWillMount = async () => {
-    this.props.UserLogin(await api.user.get(true));
-    this.props.storePoses(await api.poses.get(true));
+  componentDidMount = async () => {
+    this.props.UserLogin(api.user.get(true));
+    this.props.storePoses(api.poses.get(true));
 
     this.props.UserLogin(await api.user.get());
-    const serverPoses = await api.poses.get()
-    if (serverPoses.length !== this.props.poses.length) {
-      this.props.storePoses(serverPoses);
-    }
+
+    this.props.storePoses(await api.poses.get());
   };
 
   render = () => {
     return (
       <div className="App">
-        <Header />
-        <div className="display-space">
-          <MainDisplay />
-        </div>
+        {this.props.poses.length &&
+        <React.Fragment> 
+          <Header />
+          <div className="display-space">
+            <MainDisplay />
+          </div>
+        </React.Fragment>
+      }  
       </div>
     );
   };

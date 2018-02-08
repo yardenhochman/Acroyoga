@@ -20,7 +20,7 @@ class PosesDisplay extends Component {
     return this.difficultyMatch(pose.difficulty);
   };
   render = () => {
-    if (!this.props.poses) return;
+    if (!this.props.poses.length) return <div />;
     const filteredPoses = this.props.poses.filter(this.checks);
     return filteredPoses.map((pose, cardIndex) => (
       <PoseCard key={cardIndex + pose.name} pose={pose} cardIndex={cardIndex} filteredPoses={filteredPoses} />

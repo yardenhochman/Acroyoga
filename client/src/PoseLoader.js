@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import * as actionTypes from './store/actions/actions';
+import { storeUser, store_Poses } from './store/actions/actions';
+
 import MainDisplay from './Components/MainDisplay/MainDisplay';
 import Header from './Components/Header/Header';
 import api from './api';
+
+const appStyle = {
+  textAlign:'center'
+}
+
 class PoseLoader extends Component {
   componentDidMount = async () => {
     this.props.UserLogin(api.user.get(true));
@@ -17,18 +23,14 @@ class PoseLoader extends Component {
   };
 
   render = () => {
-    return (
-      <div className="App">
-        {this.props.poses.length &&
-        <React.Fragment> 
-          <Header />
-          <div className="display-space">
-            <MainDisplay />
-          </div>
-        </React.Fragment>
-      }  
-      </div>
-    );
+    return <div style={appStyle}>
+        {this.props.poses && this.props.poses.length && <React.Fragment>
+              <Header />
+              <div>
+                <MainDisplay />
+              </div>
+            </React.Fragment>}
+      </div>;
   };
 };
 
@@ -37,20 +39,7 @@ const mapStateToProps = state => {
   return { poses };
 };
 const mapDispatchToProps = dispatch => {
-  const { FILL_USER, STORE_POSE } = actionTypes;
-  return {
-    UserLogin: user =>
-      dispatch({
-        type: FILL_USER,
-        user,
-      }),
-
-    storePoses: pose =>
-      dispatch({
-        type: STORE_POSE,
-        pose,
-      }),
-  };
+  return { UserLogin: user => dispatch(storeUser(user)), storePoses: pose => dispatch(store_Poses(pose)) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseLoader);

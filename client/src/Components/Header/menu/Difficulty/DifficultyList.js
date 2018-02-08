@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../store/actions';
+import { set_difficulty } from '../../../../store/actions/actions';
 
 import { Menu } from 'semantic-ui-react';
 
@@ -21,14 +21,6 @@ const mapStateToProps = state => {
   return { difficultySetting: difficulty };
 };
 const mapDispatchToProps = dispatch => {
-  const { FILTER_DIFFICULTY } = actionTypes;
-  return {
-    setDifficulty: (difficulty, currentSlide) =>
-      dispatch({
-        type: FILTER_DIFFICULTY,
-        difficulty,
-        currentSlide,
-      }),
-  };
+  return { setDifficulty: (difficulty, currentSlide) => dispatch(set_difficulty(difficulty, currentSlide)) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(DifficultyList);

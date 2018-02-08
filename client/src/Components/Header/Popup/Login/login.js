@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../store/actions';
+import {storeUser}  from '../../../../store/actions/actions';
 import api from '../../../../api';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
@@ -78,12 +78,6 @@ const mapStateToProps = state => {
   return { userName };
 };
 const mapDispatchToProps = dispatch => {
-  return {
-    UserLogin: user =>
-      dispatch({
-        type: actionTypes.FILL_USER,
-        user,
-      }),
-  };
+  return { UserLogin: user => dispatch(storeUser(user)) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../../../store/actions';
+import { remove_from_user, add_to_user } from '../../../../../../store/actions/actions';
+
 import api from '../../../../../../api';
 
 class Heart extends Component {
@@ -66,20 +67,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  const { COLLECT_POSE, DUMP_POSE } = actionTypes;
   return {
-    addToUserList: (pose_id, listName) =>
-      dispatch({
-        type: COLLECT_POSE,
-        pose_id,
-        listName,
-      }),
-    removeFromUserList: (pose_id, listName) =>
-      dispatch({
-        type: DUMP_POSE,
-        pose_id,
-        listName,
-      }),
+    addToUserList: (pose_id, listName) => dispatch(add_to_user(pose_id, listName)),
+    removeFromUserList: (pose_id, listName) => dispatch(remove_from_user(pose_id, listName))
   };
 };
 

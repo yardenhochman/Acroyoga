@@ -18,20 +18,11 @@ class Popup extends Component {
   render = () => {
     let popupStyle = { height: '400px' };
     //console.log('Popup updated');
-    return (
-      <Modal
-        style={popupStyle}
-        className="Popup"
-        size="tiny"
-        trigger={
-          <Menu.Item>
-            <i className="fa fa-user-circle fa-lg" aria-hidden="true" />
-          </Menu.Item>
-        }
-      >
+    return <Modal style={popupStyle} className="Popup" size="tiny" trigger={<Menu.Item>
+            <i className="fa fa-2x fa-user-circle fa-lg" aria-hidden="true" />
+          </Menu.Item>}>
         {this.renderForm()}
-      </Modal>
-    );
+      </Modal>;
   };
 }
 

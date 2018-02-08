@@ -5,21 +5,13 @@ import { Dropdown } from 'semantic-ui-react';
 
 class DifficultyMenu extends Component {
   render = () => {
-    const colors = {
-      All: '',
-      Easy: 'green',
-      Intermediate: 'yellow',
-      Hard: 'blue',
-      Expert: 'red'
-    };
+    const colors = { All: '', Easy: 'green', Intermediate: 'blue', Hard: 'red', Expert: 'purple' };
 
-    return (
-      <Dropdown item icon={<i className={`fa fa-filter fa-filter-${colors[this.props.difficultySetting]}`} aria-hidden="true" />}>
+    return <Dropdown item icon={<i className={`fa fa-filter fa-2x fa-filter-${colors[this.props.difficultySetting]}`} aria-hidden="true" />}>
         <Dropdown.Menu>
           <DifficultyList />
         </Dropdown.Menu>
-      </Dropdown>
-    );
+      </Dropdown>;
   };
 }
 export default DifficultyMenu;

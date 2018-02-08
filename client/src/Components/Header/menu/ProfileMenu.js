@@ -16,11 +16,9 @@ class ProfileMenu extends Component {
     if (!userName) {
       return <Popup userName={userName} />;
     }
-    return (
-      <Menu.Item>
-        <i className="fa fa-sign-out" style={signOutStyle} onClick={this.logOut} aria-hidden="true">{`${userName}`}</i>
-      </Menu.Item>
-    );
+    return <Menu.Item>
+        <i className="fa fa-2x fa-sign-out" style={signOutStyle} onClick={this.logOut} aria-hidden="true">{`${userName}`}</i>
+      </Menu.Item>;
   };
 }
 

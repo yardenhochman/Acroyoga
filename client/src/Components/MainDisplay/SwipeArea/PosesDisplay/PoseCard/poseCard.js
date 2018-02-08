@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../../store/actions';
 
 import Media from 'react-media';
 
@@ -31,10 +30,11 @@ class PoseCard extends Component {
       float: 'left',
       position: 'relative',
       placeContent: 'center',
+      height: '85vh'
     };
     const cardDetails = { pose, isClose: this.checkCloseness(2), subtitle: this.subtitle() };
     return (
-      <div key={pose.img} style={cardStyle}className="poseCard">
+      <div key={pose.img} style={cardStyle} >
         <Media query={{ minWidth: 900 }}><PC cardDetails={cardDetails} /></Media>
         <Media query={{ minWidth: 450, maxWidth: 900 }}><Landscape cardDetails={cardDetails} /></Media>
         <Media query={{ maxWidth: 450 }}><Portrait cardDetails={cardDetails} /></Media>
@@ -48,22 +48,6 @@ const mapStateToProps = state => {
   return { poses, difficultySetting: difficulty, userName: name, tag, currentSlide, lists, userID: id };
 };
 
-const mapDispatchToProps = dispatch => {
-  const { COLLECT_POSE, DUMP_POSE } = actionTypes;
-  return {
-    addToUserList: (pose_id, listName) =>
-      dispatch({
-        type: COLLECT_POSE,
-        pose_id,
-        listName,
-      }),
-    removeFromUserList: (pose_id, listName) =>
-      dispatch({
-        type: DUMP_POSE,
-        pose_id,
-        listName,
-      }),
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(PoseCard);
+
+export default connect(mapStateToProps)(PoseCard);

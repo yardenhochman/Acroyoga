@@ -1,10 +1,15 @@
-export const STORE_POSE = 'STORE_POSE';
-export const FILTER_DIFFICULTY = 'FILTER_DIFFICULTY';
-export const FILL_USER = 'FILL_USER';
-export const LOG_OUT = 'LOG_OUT';
-export const COLLECT_POSE = 'COLLECT_POSE';
-export const DUMP_POSE = 'DUMP_POSE';
-export const SET_TAG = 'SET_TAG';
-export const SET_SLIDE_INDEX = 'SET_SLIDE_INDEX';
-export const SET_VIEW = 'SET_VIEW';
-export const REFRESH_POSE_DISPLAY = 'REFRESH_POSE_DISPLAY';
+import { FILL_USER, STORE_POSE, COLLECT_POSE, DUMP_POSE, FILTER_DIFFICULTY, SET_TAG } from './actionTypes';
+export const storeUser = user => ({ type: FILL_USER, user });
+export const store_Poses = pose => ({ type: STORE_POSE, pose });
+
+export const remove_from_user = (pose_id, listName) => ({ type: DUMP_POSE, pose_id, listName });
+export const add_to_user = (pose_id, listName) => ({ type: COLLECT_POSE, pose_id, listName });
+
+export const set_difficulty = (difficulty, currentSlide) => ({
+        type: FILTER_DIFFICULTY,
+        difficulty,
+        currentSlide,
+});
+export const set_tag = (tag, currentSlide) => ({
+  type: SET_TAG, tag, currentSlide
+})

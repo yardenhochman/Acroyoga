@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../store/actions';
+import { set_tag } from '../../../../store/actions/actions';
 
 const TagList = ({ tag, userLists, setTag }) => {
   return userLists.map((list, i) => {
@@ -21,15 +21,7 @@ const mapStateToProps = state => {
   return { tag, userLists };
 };
 const mapDispatchToProps = dispatch => {
-  const { SET_TAG } = actionTypes;
-  return {
-    setTag: (tag,currentSlide) =>
-      dispatch({
-        type: SET_TAG,
-        tag,
-        currentSlide
-      }),
-  };
+  return { setTag: (tag, currentSlide) => dispatch(set_tag(tag, currentSlide)) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TagList);

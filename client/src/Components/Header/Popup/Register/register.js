@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import * as actionTypes from '../../../../store/actions';
+import {add_to_user}  from '../../../../store/actions/actions';
 import api from '../../../../api';
 
 const MessageExampleError = () => (
@@ -182,13 +182,7 @@ const mapStateToProps = state => {
   return { userName };
 };
 const mapDispatchToProps = dispatch => {
-  return {
-    UserLogin: user =>
-      dispatch({
-        type: actionTypes.FILL_USER,
-        user,
-      }),
-  };
+  return { UserLogin: user => dispatch(add_to_user(user)) };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
 /*

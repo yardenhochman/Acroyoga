@@ -26,10 +26,10 @@ color:'black'  };
 
   return <div style={controlStyle}>
       <a style={leftButtonStyle} onClick={prev}>
-        <i style={LeftButtonInnerStyle} className="fa fa-arrow-left fa-4x " />
+        <i style={LeftButtonInnerStyle} className="fa fa-chevron-left fa-3x " />
       </a>
       <a style={rightButtonStyle} onClick={next}>
-        <i style={RightButtonInnerStyle} className="fa fa-arrow-right fa-4x " />
+        <i style={RightButtonInnerStyle} className="fa fa-chevron-right fa-3x " />
       </a>
     </div>;
 };

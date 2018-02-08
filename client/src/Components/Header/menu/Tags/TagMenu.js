@@ -7,9 +7,9 @@ class TagMenu extends Component {
   determineIcon = () => {
     switch (this.props.tag) {
       case '':
-        return <i className="tags icon" />;
+        return <i className="fa fa-tags fa-lg" />;
       case 'favorites':
-        return <i className="fa fa-heart-o text-danger" aria-hidden="true" />;
+        return <i className="fa fa-heart-o fa-lg" aria-hidden="true" />;
       default:
     }
   };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import * as actionTypes from './store/actions';
+import * as actionTypes from './store/actions/actions';
 import MainDisplay from './Components/MainDisplay/MainDisplay';
 import Header from './Components/Header/Header';
 import api from './api';

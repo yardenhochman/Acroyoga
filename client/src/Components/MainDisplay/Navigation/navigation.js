@@ -14,7 +14,8 @@ color:'black'  };
     position: 'absolute',
       zIndex: '1',
       width: '100%',
-      top: '45vh',
+    top: '45vh',
+      textAlign: 'center'
   }
   const leftButtonStyle = {
     height: '6vh',

@@ -5,12 +5,7 @@ import { connect } from 'react-redux';
 import { storeUser, store_Poses } from './store/actions/actions';
 
 import MainDisplay from './Components/MainDisplay/MainDisplay';
-import Header from './Components/Header/Header';
 import api from './api';
-
-const appStyle = {
-  textAlign:'center'
-}
 
 class PoseLoader extends Component {
   componentDidMount = async () => {
@@ -23,14 +18,13 @@ class PoseLoader extends Component {
   };
 
   render = () => {
-    return <div style={appStyle}>
-        {this.props.poses && this.props.poses.length && <React.Fragment>
-              <Header />
-              <div>
-                <MainDisplay />
-              </div>
-            </React.Fragment>}
-      </div>;
+    return (
+      <div>
+        {this.props.poses && this.props.poses.length &&
+          <MainDisplay />
+        }
+      </div>
+    );
   };
 };
 

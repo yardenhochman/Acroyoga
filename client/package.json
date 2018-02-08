@@ -19,6 +19,7 @@
     "react-loaders": "^3.0.1",
     "react-media": "^1.6.1",
     "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-slick": "^0.16.0",
     "react-swipe": "^5.1.1",

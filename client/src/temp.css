@@ -1,0 +1,97 @@
+    .about_page{
+      display: flex;
+flex-direction: column;
+height: 70vh;
+    }
+    .about_page_title{
+      color:black;
+      text-align: center;
+      height: 20vh;
+    }
+    .about_page_participants{
+      color:black;
+    }
+    .credit {
+      display:grid;
+      height:20vh;
+      width:70vw;
+      grid-template-columns: 1fr auto 1fr 6fr;
+      grid-template-areas:". img . textbox";
+      margin: 2vh 0;
+    }
+    .credit_image {
+      grid-area: img;
+      height:100%;
+      width:230px
+    }
+    .text_box {
+      grid-area: textbox;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 1vh;
+    }
+    .credit_title {
+      color:black;
+      grid-area: title;
+    }
+    .credit_text {
+      grid-area: text;
+      flex-grow:1;
+      margin: 3vh 0;
+      font-size:1.5vh;
+    }
+
+@media (max-width: 420px) {
+  .about_page{
+height: 90vh;
+  }
+  .about_title{
+    height: 40px;
+margin-top: 5vh;
+  }
+  .about_page_title{
+      height: 15%;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+      .credit {
+        width: 100%;
+        display:flex;
+      height:25vh;
+      margin:4vh 0;
+    }
+      .credit_image{
+          width:auto;
+        }
+        .credit_text {
+      margin: 1vh 0;
+    }
+}
+
+
+
+@media (min-width: 420px) and (max-width: 1000px) {
+  .about_page{
+height: 100vh;
+  }
+  .about_title{
+    height: 20%
+  }
+  .about_page_participants {
+      height: 100%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+      .credit {
+        width: 70%;
+        height:35%;
+      }
+      .credit_image{
+          height: 100%;
+          width: 180px;
+        }
+      }

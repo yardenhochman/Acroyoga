@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 import PageLayout from './Components/UI/pageLayout';
-import NotFound from './Components/MainDisplay/about';
-import AboutUs from './Components/MainDisplay/about';
+import NotFound from './Components/UI/notFound';
+import AboutUs from './Components/UI/Credits/about';
 import PoseLoader from './PoseLoader';
 
 const App = () => {

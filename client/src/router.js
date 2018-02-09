@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 import PageLayout from './Components/UI/pageLayout';
@@ -9,14 +9,15 @@ import PoseLoader from './PoseLoader';
 
 const App = () => {
 
-  return (
-    <Router>
+  return <Router>
       <React.Fragment>
-        <Route path="/" component={PageLayout} />
+      <Route path="/" component={PageLayout} />
+      <Switch>
         <Route exact path="/" component={PoseLoader} />
         <Route path="/about" component={AboutUs} />
-      </React.Fragment>  
-    </Router>
-  );
+        <Route component={NotFound} />
+      </Switch>
+      </React.Fragment>
+    </Router>;
 }
 export default App;

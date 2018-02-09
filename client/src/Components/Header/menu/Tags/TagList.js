@@ -2,14 +2,15 @@ import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { set_tag } from '../../../../store/actions/actions';
+import { Icon } from 'semantic-ui-react';
 
 const TagList = ({ tag, userLists, setTag }) => {
   return userLists.map((list, i) => {
     const favorites = <Menu.Item key={i} name={list} onClick={() => setTag('favorites', 0)}>
-        <i className="fa fa-heart-o fa-lg" aria-hidden="true" />
+        <Icon name="empty heart" size="huge" />Favorites
       </Menu.Item>;
-    const favoritesChosen = <Menu.Item key={i} name={list}>
-        <i className="fa fa-tags fa-lg" aria-hidden="true" onClick={() => setTag('', 0)} />
+    const favoritesChosen = <Menu.Item key={i} name={list} onClick={() => setTag('', 0)}>
+        <Icon name="empty heart" color='green' size="huge" />Favorites
       </Menu.Item>;
 
     return !tag ? favorites : favoritesChosen

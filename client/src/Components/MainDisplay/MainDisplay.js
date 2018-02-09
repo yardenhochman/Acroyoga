@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Media from 'react-media';
 
-import Navigation from './Navigation/navigation';
+import Navigation from '../UI/Navigation/navigation';
 import SwipeArea from './SwipeArea/swipeArea';
 
 const mainStyle = {

@@ -1,13 +1,13 @@
 import React from 'react';
+import { Icon } from 'semantic-ui-react';
+
 
 const Navigation = ({ next, prev }) => {
   
 const RightButtonInnerStyle = {
   margin: `0 0 0 40vw`,
-  cursor: `pointer`,
-  color: '#21ba45',
 };
-  const LeftButtonInnerStyle = { margin: `0 40vw 0 0`, cursor: `pointer`, color: '#21ba45' };
+  const LeftButtonInnerStyle = { margin: `0 40vw 0 0`,};
   const controlStyle = {
     position: 'absolute',
       zIndex: '1',
@@ -25,10 +25,10 @@ const RightButtonInnerStyle = {
 
   return <div style={controlStyle}>
       <a style={leftButtonStyle} onClick={prev}>
-        <i style={LeftButtonInnerStyle} className="fa fa-chevron-left fa-3x " />
+        <Icon name="chevron left" color="red" style={LeftButtonInnerStyle} size="huge" />
       </a>
       <a style={rightButtonStyle} onClick={next}>
-        <i style={RightButtonInnerStyle} className="fa fa-chevron-right fa-3x " />
+        <Icon name="chevron right" color='red' style={RightButtonInnerStyle} size="huge" />
       </a>
     </div>;
 };

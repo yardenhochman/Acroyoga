@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Modal } from 'semantic-ui-react';
+import { Menu, Modal,Icon } from 'semantic-ui-react';
 
 import RegisterForm from './Register/register';
 import LoginForm from './Login/login';
@@ -17,10 +17,9 @@ class Popup extends Component {
   };
   render = () => {
     let popupStyle = { height: '400px' };
-    //console.log('Popup updated');
-    return <Modal style={popupStyle} className="Popup" size="tiny" trigger={<Menu.Item>
-            <i className="fa fa-2x fa-user-circle fa-lg" aria-hidden="true" />
-          </Menu.Item>}>
+    return <Modal style={popupStyle} className="Popup" size="tiny" trigger={
+            <Menu.Item><Icon name="user circle" size="big" />Log In</Menu.Item>
+          }>
         {this.renderForm()}
       </Modal>;
   };

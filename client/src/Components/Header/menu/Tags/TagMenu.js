@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Dropdown } from 'semantic-ui-react';
+import { Dropdown,Icon } from 'semantic-ui-react';
 import TagList from './TagList';
 
 class TagMenu extends Component {
   determineIcon = () => {
     switch (this.props.tag) {
       case '':
-        return <i className="fa fa-tags fa-lg" />;
+        return <Icon name='tags' size='big' />
       case 'favorites':
-        return <i className="fa fa-heart-o fa-lg" aria-hidden="true" />;
+        return <Icon name="heart" color='green' size="big" />;
       default:
     }
   };

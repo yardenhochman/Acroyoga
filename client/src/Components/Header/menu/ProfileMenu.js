@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import Popup from '../Popup/popup';
 import { connect } from 'react-redux';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
 import * as actionTypes from '../../../store/actions';
+
+const signOutStyle = { cursor: 'pointer' };
+
 
 class ProfileMenu extends Component {
   logOut = () => {
@@ -12,12 +15,13 @@ class ProfileMenu extends Component {
   };
   render = () => {
     const { userName } = this.props;
-    const signOutStyle = { cursor: 'pointer' };
+    
     if (!userName) {
       return <Popup userName={userName} />;
     }
-    return <Menu.Item>
-        <i className="fa fa-lg fa-sign-out" style={signOutStyle} onClick={this.logOut} aria-hidden="true">{`${userName}`}</i>
+    return <Menu.Item onClick={this.logOut}>
+        <Icon name="sign out" size="big" />
+        {`${userName}`}
       </Menu.Item>;
   };
 }

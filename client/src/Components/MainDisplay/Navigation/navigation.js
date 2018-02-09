@@ -5,11 +5,9 @@ const Navigation = ({ next, prev }) => {
 const RightButtonInnerStyle = {
   margin: `0 0 0 40vw`,
   cursor: `pointer`,
-  color:'black' 
+  color: '#21ba45',
 };
-  const LeftButtonInnerStyle = {
-    margin: `0 40vw 0 0`, cursor: `pointer`,
-color:'black'  };
+  const LeftButtonInnerStyle = { margin: `0 40vw 0 0`, cursor: `pointer`, color: '#21ba45' };
   const controlStyle = {
     position: 'absolute',
       zIndex: '1',
@@ -21,9 +19,9 @@ color:'black'  };
     height: '6vh',
     gridArea: 'leftArrow',
     cursor: 'pointer',
-    opacity: '0.4'
+    opacity: '0.3'
   };
-  const rightButtonStyle = { height: '6vh', gridArea: 'rightArrow', cursor: 'pointer', opacity: '0.4' };
+  const rightButtonStyle = { height: '6vh', gridArea: 'rightArrow', cursor: 'pointer', opacity: '0.3' };
 
   return <div style={controlStyle}>
       <a style={leftButtonStyle} onClick={prev}>

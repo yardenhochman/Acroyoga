@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { remove_from_user, add_to_user } from '../../../../../../store/actions/actions';
+import { Icon } from 'semantic-ui-react';
 
 import api from '../../../../../../api';
 
@@ -50,14 +51,12 @@ class Heart extends Component {
       color: 'black',
     };
     favStyle={}
-    const fullHeart = `fa fa-heart fa-3x full-heart${poseID}`;
-    const emptyHeart = `fa fa-heart-o fa-3x empty-heart${poseID}`;
+    const fullHeart = `heart`;
+    const emptyHeart = `empty heart`;
     if (!display) return <div />;
-    return (
-      <a style={favStyle} onClick={e => this.onClick(e)}>
-        <i className={isFavorite ? fullHeart : emptyHeart} aria-hidden="true" />
-      </a>
-    );
+    return <a style={favStyle} onClick={e => this.onClick(e)}>
+      <Icon name={isFavorite ? fullHeart : emptyHeart} size="big" color='red'/>
+      </a>;
   };
 }
 

@@ -16,37 +16,90 @@
         font-family: sans-serif;
         background-color: white;
       }
-      .fa{
+      .fa {
         color:black;
       }
-      .fa:hover{
+      .fa:hover {
         color: #FAC344
       }
-      .fa-filter-green{
+      .fa-filter-green {
         color:green
       }
-      .fa-filter-blue{
+      .fa-filter-blue {
         color:blue
       }
-      .fa-filter-red{
+      .fa-filter-red {
         color:red
       }
-      .fa-filter-purple{
+      .fa-filter-purple {
         color:purple
       }
-    .item.btn.active{
-      color:yellow
-    }
-    .poseCard{
-          height: 85vh;
-        }
-
-
-    @media (min-width: 420px) and (max-width: 1000px) {
+      .item.btn.active {
+        color:yellow
+      }
       .poseCard{
-          height: 100vh;
+        height: 85vh;
+      }
+
+      @media (max-width: 420px) {
+        .about_page {
+          height: 90vh;
+        }
+        .about_title{
+          height: 40px;
+        }
+        .about_page_title {
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 5vh;
+          height:13%
+        }
+        .credit {
+          width: 100%;
+          display:flex;
+          height:25vh;
+          margin:4vh 0;
+        }
+        .credit_image{
+          width:auto;
+        }
+        .credit_text {
+          margin: 1vh 0;
         }
       }
+      @media (min-width: 420px) and (max-width: 1000px) {
+        .about_page {
+          height: 100vh;
+        }
+        .about_title{
+          margin-top:1vh;
+        }
+        .about_page_title {
+          padding-top: 0;
+        }
+        .about_page_participants {
+            height: 90%;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around
+          }
+          .credit {
+            width: 70%;
+            height:40%;
+          }
+          .credit_text{
+            font-size:3vh;
+          }
+          .credit_image{
+            height: 100%;
+            width: 140px;
+          }
+          }
+          .poseCard{
+            height: 100vh;
+          }
     </style>
   </head>
   <body>

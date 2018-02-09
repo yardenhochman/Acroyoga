@@ -4,6 +4,10 @@ import Media from 'react-media';
 import Navigation from './Navigation/navigation';
 import SwipeArea from './SwipeArea/swipeArea';
 
+const mainStyle = {
+  height: '92vh'
+}
+
 class MainDisplay extends Component {
   next = () => this.reactSwipe.next();
   prev = () => this.reactSwipe.prev();
@@ -12,7 +16,7 @@ class MainDisplay extends Component {
   render = () => {
     //console.log('mainDisplay updates')
     return (
-      <div className="poses-container">
+      <div style={mainStyle} className="poses-container">
         <div className="carousel-container">
           <SwipeArea
             reactSwipe={reactSwipe => (this.reactSwipe = reactSwipe)}

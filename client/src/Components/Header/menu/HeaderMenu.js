@@ -3,8 +3,8 @@ import { Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../../store/actions';
 import DifficultyMenu from './Difficulty/DifficultyMenu';
-import ProfileMenu from './ProfileMenu';
 import TagMenu from './Tags/TagMenu';
+import Options from './optionsMenu';
 
 class HeaderMenu extends Component {
   render = () => {
@@ -14,7 +14,7 @@ class HeaderMenu extends Component {
         <DifficultyMenu difficultySetting={difficulty} />
         {name && <TagMenu />}
         <Menu.Menu position="right">
-          <ProfileMenu />
+          <Dropdown.Menu> <Options /></Dropdown.Menu>  
         </Menu.Menu>
       </Fragment>
     );

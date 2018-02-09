@@ -12,7 +12,7 @@ const AboutUs = () => {
   const Anatoliy = { name: 'Anatoliy Zaslavskiy', img: 'http://res.cloudinary.com/dz2nxhscn/image/upload/v1518127206/20046539_10156211418873265_263186605151505675_n_ah72ly.jpg', profileSite: 'https://www.linkedin.com/in/tolicodes', text: 'Toli is a frontend programmer working at Hover Inc in SF, California. He loves everything active including acro yoga, hiking, jogging, skiing, and PsyTrance parties.' };
   return <div className="about_page">
       <div className="about_page_title">
-        <h1>About Us</h1>
+        <h1 className="about_title">About Us</h1>
       </div>
       <div className="about_page_participants">
         <Credit person={yarden} />

@@ -6,7 +6,7 @@ import { storeUser, store_Poses } from './store/actions/actions';
 
 import MainDisplay from './Components/MainDisplay/MainDisplay';
 import api from './api';
-import loader from './Components/UI/Loader/loader';
+import LoadDisplay from './Components/UI/Loader/loader';
 
 class PoseLoader extends Component {
   componentDidMount = async () => {
@@ -19,13 +19,10 @@ class PoseLoader extends Component {
   };
 
   render = () => {
-    return (
-      <div>
-        {this.props.poses && this.props.poses.length ?
-          <MainDisplay />:<loader />
-        }
-      </div>
-    );
+    if (!this.props.poses || !this.props.poses.length) {
+      return LoadDisplay;
+    }
+    return <div><MainDisplay /></div>;
   };
 };
 

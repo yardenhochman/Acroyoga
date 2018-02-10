@@ -5,9 +5,6 @@ import { Menu, Icon } from 'semantic-ui-react';
 
 import * as actionTypes from '../../../store/actions';
 
-const signOutStyle = { cursor: 'pointer' };
-
-
 class ProfileMenu extends Component {
   logOut = () => {
     localStorage.removeItem('token');

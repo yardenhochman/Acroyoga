@@ -37,31 +37,33 @@ class Heart extends Component {
     this.setState({ isFavorite: false });
   };
   render = () => {
-    const { poseID } = this.props;
     const { isFavorite, display } = this.state;
 
-    let favStyle = {
-      width: '5vw',
-      height: '5vh',
+
+    const clickableArea = {
+      display: 'flex', width: '70px', height: '70px',
+  paddingLeft: '10px'  };
+    const heartStyle = {
       display: 'flex',
-      gridColumnStart: '1',
-      gridRow: '2',
-      alignItems: 'center',
+      width: '45px',
+      height: '45px',
       cursor: 'pointer',
-      color: 'black',
-    };
-    favStyle={}
-    const fullHeart = `heart`;
-    const emptyHeart = `empty heart`;
+      fontSize: `3em`
+    }
+    const innerStyle = {
+      right: `30px`,
+bottom: `8px`
+    }
     if (!display) return <div />;
-    return <a style={favStyle} onClick={e => this.onClick(e)}>
-      <Icon name={isFavorite ? fullHeart : emptyHeart} size="big" color='red'/>
-      </a>;
+    return <div style={clickableArea} onClick={e => this.onClick(e)}>
+        <Icon.Group style={heartStyle}>
+          <Icon name={isFavorite ? `heart` : `empty heart`} color="red" />
+        </Icon.Group>
+      </div>;
   };
 }
 
-const mapStateToProps = state => {
-  const { view: { tag }, user: { name, id, lists } } = state;
+const mapStateToProps = ({ view: { tag }, user: { name, id, lists } }) => {
   return { tag, userName: name, userID: id, lists };
 };
 

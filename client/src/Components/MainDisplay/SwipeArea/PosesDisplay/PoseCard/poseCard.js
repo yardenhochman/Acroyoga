@@ -18,7 +18,7 @@ class PoseCard extends Component {
     return `${difficultySetting === 'All' ? `Difficulty: ${difficulty}` : ''}`;
   };
   render = () => {
-    //console.log('PoseCard updates')
+    console.log('PoseCard updates')
     const { pose } = this.props;
     let cardStyle = {
       display: 'flex',
@@ -33,7 +33,7 @@ class PoseCard extends Component {
       textAlign: 'center',
     };
     const cardDetails = { pose, isClose: this.checkCloseness(2), subtitle: this.subtitle() };
-    return <div key={pose.img} className={'poseCard'} style={cardStyle}>
+    return <div key={pose.img} className={'pose_card'} style={cardStyle}>
         <Media query={{ minWidth: 900 }}>
           <PC cardDetails={cardDetails} />
         </Media>

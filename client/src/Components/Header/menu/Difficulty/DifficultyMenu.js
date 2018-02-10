@@ -5,7 +5,7 @@ import { Dropdown,Icon } from 'semantic-ui-react';
 
 class DifficultyMenu extends Component {
   render = () => {
-    const colors = { All: '', Easy: 'green', Intermediate: 'blue', Hard: 'red', Expert: 'purple' };
+    const colors = { All: null, Easy: 'green', Intermediate: 'blue', Hard: 'red', Expert: 'purple' };
 
     return <Dropdown item icon={<Icon name='filter' size='big' color={colors[this.props.difficultySetting]} />}>
         <Dropdown.Menu>

@@ -5,15 +5,14 @@ import { set_tag } from '../../../../store/actions/actions';
 import { Icon } from 'semantic-ui-react';
 
 const TagList = ({ tag, userLists, setTag }) => {
+  const showFavorites = () => setTag('favorites', 0)
+  const showAll = () => setTag('', 0)
   return userLists.map((list, i) => {
-    const favorites = <Menu.Item key={i} name={list} onClick={() => setTag('favorites', 0)}>
-        <Icon name="empty heart" size="huge" />Favorites
-      </Menu.Item>;
-    const favoritesChosen = <Menu.Item key={i} name={list} onClick={() => setTag('', 0)}>
-        <Icon name="empty heart" color='green' size="huge" />Favorites
-      </Menu.Item>;
-
-    return !tag ? favorites : favoritesChosen
+    return (
+      <Menu.Item key={i} active={tag} name={list} onClick={!tag ? showFavorites : showAll}>
+        <Icon name={!tag ?"empty heart":"full heart"} />Favorites
+      </Menu.Item>
+    );
   });
 };
 const mapStateToProps = state => {

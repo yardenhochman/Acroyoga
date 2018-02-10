@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
@@ -7,9 +7,8 @@ import NotFound from './Components/UI/notFound';
 import AboutUs from './Components/UI/Credits/about';
 import PoseLoader from './PoseLoader';
 
-const App = () => {
-
-  return <Router>
+const App = () => (
+  <Router>
       <React.Fragment>
       <Route path="/" component={PageLayout} />
       <Switch>
@@ -18,6 +17,6 @@ const App = () => {
         <Route component={NotFound} />
       </Switch>
       </React.Fragment>
-    </Router>;
-}
+    </Router>
+)
 export default App;

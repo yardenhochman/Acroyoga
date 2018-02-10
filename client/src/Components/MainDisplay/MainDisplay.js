@@ -5,7 +5,7 @@ import Navigation from '../UI/Navigation/navigation';
 import SwipeArea from './SwipeArea/swipeArea';
 
 const mainStyle = {
-  height: '92vh'
+  height: '92vh',
 }
 
 class MainDisplay extends Component {

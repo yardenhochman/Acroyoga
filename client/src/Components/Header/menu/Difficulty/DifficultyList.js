@@ -9,8 +9,8 @@ const DifficultyList = ({ difficultySetting, setDifficulty }) => {
   return difficulties.map((difficulty, i) => (
     <Menu.Item
       key={i + difficulty}
-      className={`btn ${difficultySetting === difficulty ? ' active' : ' inactive'}`}
       name={difficulty}
+      active={difficultySetting === difficulty}
       onClick={difficult => setDifficulty(difficulty, 0)}
     />
   ));

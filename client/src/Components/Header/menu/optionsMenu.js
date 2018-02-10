@@ -17,7 +17,7 @@ class Options extends Component {
     return <Fragment>
         <Dropdown item icon={<Icon name="bars" color={this.props.isUser ? 'green' : 'black'} size="big" />}>
           <Dropdown.Menu>
-            <Menu.Item onClick={this.aboutPage}>
+            <Menu.Item link onClick={this.aboutPage}>
               <Icon name="info circle" size="big" />
               About Us
             </Menu.Item>

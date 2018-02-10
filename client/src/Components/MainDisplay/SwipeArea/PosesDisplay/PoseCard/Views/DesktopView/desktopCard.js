@@ -1,7 +1,7 @@
 import React from 'react';
 import Img from 'react-image';
 import VisibilitySensor from 'react-visibility-sensor';
-import loader from '../../../../../../UI/Loader/loader';
+import LoadDisplay from '../../../../../../UI/Loader/loader';
 import Heart from '../../cardParts/heart';
 
 const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => {
@@ -35,11 +35,11 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
   const displayCard = <div>
       <div>
         <VisibilitySensor>
-          <Img src={img} style={imageStyle} alt={"to be added!"} loader={loader} />
+          <Img src={img} style={imageStyle} alt={'to be added!'} loader={LoadDisplay} />
         </VisibilitySensor>
       </div>
       <div style={cardDetails}>
-        <Heart key={id + "heart"} poseID={id} />
+        <Heart key={id + 'heart'} poseID={id} />
         <div style={textAreaStyle}>
           <h1 style={titleStyle}>{name}</h1>
           <p style={subStyle}>{subtitle}</p>
@@ -49,19 +49,3 @@ const PC = ({ cardDetails: { pose: { img, name, id }, isClose, subtitle } }) => 
   return isClose ? displayCard : <div />
 };
 export default PC;
-
-  /* <CardMedia>
-        <VisibilitySensor>
-          <Img src={img} style={imageStyle} alt={'to be added!'} loader={loader} />
-        </VisibilitySensor>
-      </CardMedia>
-      <div style={cardInfoStyle}>
-        <Heart key={id + 'heart'} poseID={id} />
-        <CardTitle
-          style={textAreaStyle}
-          title={name}
-          titleStyle={titleStyle}
-          subtitleStyle={subStyle}
-          subtitle={subtitle}
-        />
-      </div> */

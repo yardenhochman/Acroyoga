@@ -62,7 +62,7 @@ var cardStyle = styler`
     position: relative
     place-content: center
     text-align: center
-    height:85vh
+    height:90vh
     ${Phone_Landscape}
       height:100vh
 `;

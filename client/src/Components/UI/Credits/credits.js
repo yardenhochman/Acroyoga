@@ -3,7 +3,6 @@ import LoadDisplay from '../Loader/loader';
 import Img from 'react-image';
 import Radium from '../../../ConfiguredRadium';
 import { StyleRoot } from 'radium';
-import Media from 'react-media';
 import styler from 'react-styling';
 
 const Credit = ({ person: { name, img, text, profileSite } }) => (

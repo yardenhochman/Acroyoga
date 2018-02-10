@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import { StyleRoot } from 'radium';
 import Radium from '../../../ConfiguredRadium'
-import Media from 'react-media';
 import styler from 'react-styling';
 
 import Credit from './credits';

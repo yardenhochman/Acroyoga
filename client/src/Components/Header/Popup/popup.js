@@ -10,19 +10,28 @@ class Popup extends Component {
     if (this.state.form === 'login') this.setState({ form: 'register' });
     else this.setState({ form: 'login' });
   };
-  renderForm = () => {
-    const { form } = this.state;
-    if (form === 'login') return <LoginForm register={this.changeForm} />;
-    else return <RegisterForm login={this.changeForm} />;
-  };
-  render = () => {
-    let popupStyle = { height: '400px' };
-    return <Modal style={popupStyle} className="Popup" size="tiny" trigger={
-            <Menu.Item><Icon name="user circle" size="big" />Log In</Menu.Item>
-          }>
-        {this.renderForm()}
-      </Modal>;
-  };
+  render = () => (
+    <Modal
+      style={popupStyle}
+      className="Popup"
+      size="tiny"
+      trigger=
+      {
+        <Menu.Item>
+          <Icon name="user circle" size="big" />
+          Log In
+        </Menu.Item>
+      }
+    >
+      {
+        this.state.form === 'login'
+          ? <LoginForm register={this.changeForm} />
+          : <RegisterForm login={this.changeForm} />
+      }
+    </Modal>
+  );
 }
 
 export default Popup;
+
+var popupStyle = { height: '400px' };

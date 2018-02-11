@@ -19,16 +19,11 @@ class LoginForm extends Component {
       console.log(err);
     }
   };
-  handInputChange = e => {
-    const { value, type } = e.target;
-    this.setState({ [type]: value });
-  };
   render() {
     console.log('login updated');
     const { register } = this.props;
 
-    return (
-      <div className="login-form">
+    return <div className="login-form">
         <style>{`
       body > div,
       body > div > div,
@@ -40,24 +35,16 @@ class LoginForm extends Component {
           <Grid.Column style={{ maxWidth: 450 }}>
             <Form size="large" onSubmit={this.formSubmit}>
               <Segment stacked>
-                <Form.Input
-                  fluid
-                  icon="mail"
-                  iconPosition="left"
-                  type="email"
-                  placeholder="E-mail address"
-                  onChange={this.handInputChange}
-                  value={this.state.email}
-                />
-                <Form.Input
-                  fluid
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  onChange={this.handInputChange}
-                  value={this.state.password}
-                />
+                <Form.Input fluid icon="mail" iconPosition="left" type="email" placeholder="E-mail address" onChange={e => this.setState(
+                      {
+                        [e.target.type]: e.target.value,
+                      },
+                    )} value={this.state.email} />
+                <Form.Input fluid icon="lock" iconPosition="left" placeholder="Password" type="password" onChange={e => this.setState(
+                      {
+                        [e.target.type]: e.target.value,
+                      },
+                    )} value={this.state.password} />
 
                 <Button color="teal" fluid size="large">
                   Login
@@ -65,12 +52,13 @@ class LoginForm extends Component {
               </Segment>
             </Form>
             <Message>
-              New to us? <Button onClick={register}>Register</Button>
+              New to us? <Button onClick={register}>
+                Register
+              </Button>
             </Message>
           </Grid.Column>
         </Grid>
-      </div>
-    );
+      </div>;
   }
 }
 const mapStateToProps = state => {

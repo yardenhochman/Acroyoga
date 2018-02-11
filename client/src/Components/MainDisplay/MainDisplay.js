@@ -23,14 +23,13 @@ class MainDisplay extends Component {
             resetSlide={this.resetSlide}
             getPose={this.getPos}
           />
-          <Media query={{ minWidth: 1000 }}>
-            {yes =>
-              yes && (
-                <div>
-                  <Navigation next={this.next} prev={this.prev} />
-                </div>
-              )
-            }
+          <Media query={`${Phone_Landscape}`}>
+            <div>
+              <Navigation
+                next={this.next}
+                prev={this.prev}
+              />
+            </div>
           </Media>
         </div>
       </div>
@@ -39,3 +38,6 @@ class MainDisplay extends Component {
 }
 
 export default MainDisplay;
+
+
+var Phone_Landscape = '(min-device-width: 800px)';

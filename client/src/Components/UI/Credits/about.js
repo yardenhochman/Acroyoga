@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import { StyleRoot } from 'radium';
 import Radium from '../../../ConfiguredRadium'
@@ -7,7 +6,7 @@ import styler from 'react-styling';
 
 import Credit from './credits';
 
-const AboutUs = () => (
+const AboutUs = ({history}) => (
   <StyleRoot style={style.about_page}>
     <StyleRoot><div className="about_page_title">
       <h1 style={style.title}>About Us</h1>
@@ -17,9 +16,7 @@ const AboutUs = () => (
       <Credit person={Anatoliy} />
     </StyleRoot>
     <div style={style.back_button} className="back_button">
-      <Link to="/">
-        <Icon color="green" name="reply" size="huge" />
-      </Link>
+      <Icon color="green" name="reply" style={style.icon} size="huge" onClick={()=>window.history.back()}/>
     </div>
   </StyleRoot>
 );
@@ -28,8 +25,8 @@ const AboutUs = () => (
 export default Radium(AboutUs);
 
 
-var Phone_Landscape = '@media (min-width: 420px) and (max-width: 1000px)';
-var Phone_Portrait = '@media (max-width: 420px)';
+var Phone_Landscape = '@media only screen and (min-width: 420px) and (max-width: 1000px)';
+var Phone_Portrait = '@media only screen and (max-width: 420px)';
 var style = styler`
   about_page
     display: flex
@@ -63,6 +60,8 @@ var style = styler`
       padding-bottom: 0;
   back_button
     paddingLeft: 90vw
+  icon
+    cursor: pointer
 `;
 
 

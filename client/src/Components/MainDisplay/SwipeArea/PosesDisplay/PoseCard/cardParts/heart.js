@@ -50,10 +50,6 @@ class Heart extends Component {
       cursor: 'pointer',
       fontSize: `3em`
     }
-    const innerStyle = {
-      right: `30px`,
-bottom: `8px`
-    }
     if (!display) return <div />;
     return <div style={clickableArea} onClick={e => this.onClick(e)}>
         <Icon.Group style={heartStyle}>

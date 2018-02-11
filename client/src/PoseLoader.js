@@ -10,12 +10,12 @@ import LoadDisplay from './Components/UI/Loader/loader';
 
 class PoseLoader extends Component {
   componentDidMount = async () => {
-    this.props.UserLogin(api.user.get(true));
-    this.props.storePoses(api.poses.get(true));
+    const { UserLogin, storePoses } = this.props;
+    UserLogin(api.user.get(true));
+    storePoses(api.poses.get(true));
 
-    this.props.UserLogin(await api.user.get());
-
-    this.props.storePoses(await api.poses.get());
+    UserLogin(await api.user.get());
+    storePoses(await api.poses.get());
   };
 
   render = () => {
@@ -31,7 +31,10 @@ const mapStateToProps = state => {
   return { poses };
 };
 const mapDispatchToProps = dispatch => {
-  return { UserLogin: user => dispatch(storeUser(user)), storePoses: pose => dispatch(store_Poses(pose)) };
+  return {
+    UserLogin: user => dispatch(storeUser(user)),
+    storePoses: pose => dispatch(store_Poses(pose))
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseLoader);

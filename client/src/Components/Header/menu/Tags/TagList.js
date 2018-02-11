@@ -9,7 +9,7 @@ const TagList = ({ tag, userLists, setTag }) => {
   const showAll = () => setTag('', 0)
   return userLists.map((list, i) => {
     return (
-      <Menu.Item key={i} active={tag} name={list} onClick={!tag ? showFavorites : showAll}>
+      <Menu.Item key={i} active={tag?true:false} name={list} onClick={!tag ? showFavorites : showAll}>
         <Icon name={!tag ?"empty heart":"full heart"} />Favorites
       </Menu.Item>
     );

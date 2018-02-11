@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { set_difficulty } from '../../../../store/actions/actions';
-
 import { Menu } from 'semantic-ui-react';
 
 const DifficultyList = ({ difficultySetting, setDifficulty }) => {
@@ -11,16 +10,14 @@ const DifficultyList = ({ difficultySetting, setDifficulty }) => {
       key={i + difficulty}
       name={difficulty}
       active={difficultySetting === difficulty}
-      onClick={difficult => setDifficulty(difficulty, 0)}
+      onClick={() => setDifficulty(difficulty, 0)}
     />
   ));
 };
 
-const mapStateToProps = state => {
-  const { view: { difficulty } } = state;
-  return { difficultySetting: difficulty };
-};
-const mapDispatchToProps = dispatch => {
-  return { setDifficulty: (difficulty, currentSlide) => dispatch(set_difficulty(difficulty, currentSlide)) };
-};
+const mapStateToProps = ({ view: { difficulty } }) => ({ difficultySetting: difficulty });
+
+const mapDispatchToProps = dispatch => ({
+  setDifficulty: (difficulty, currentSlide) => dispatch(set_difficulty(difficulty, currentSlide))
+})
 export default connect(mapStateToProps, mapDispatchToProps)(DifficultyList);

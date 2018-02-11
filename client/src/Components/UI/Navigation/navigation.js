@@ -1,36 +1,33 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
+import styler from 'react-styling';
+import Radium from '../../../ConfiguredRadium';
+import { StyleRoot } from 'radium';
 
+const Navigation = ({ next, prev }) => (
+  <StyleRoot style={style.control}>
+    <a style={style.arrow_button} onClick={prev}>
+      <Icon name="chevron left" color="red" size="huge" />
+    </a>
+    <a style={style.arrow_button} onClick={next}>
+      <Icon name="chevron right" color="red" size="huge" />
+    </a>
+  </StyleRoot>
+);
 
-const Navigation = ({ next, prev }) => {
-  
-const RightButtonInnerStyle = {
-  margin: `0 0 0 40vw`,
-};
-  const LeftButtonInnerStyle = { margin: `0 40vw 0 0`,};
-  const controlStyle = {
-    position: 'absolute',
-      zIndex: '1',
-      width: '100%',
-    top: '45vh',
-      textAlign: 'center'
-  }
-  const leftButtonStyle = {
-    height: '6vh',
-    gridArea: 'leftArrow',
-    cursor: 'pointer',
-    opacity: '0.3'
-  };
-  const rightButtonStyle = { height: '6vh', gridArea: 'rightArrow', cursor: 'pointer', opacity: '0.3' };
+export default Radium(Navigation);
 
-  return <div style={controlStyle}>
-      <a style={leftButtonStyle} onClick={prev}>
-        <Icon name="chevron left" color="red" style={LeftButtonInnerStyle} size="huge" />
-      </a>
-      <a style={rightButtonStyle} onClick={next}>
-        <Icon name="chevron right" color='red' style={RightButtonInnerStyle} size="huge" />
-      </a>
-    </div>;
-};
+var style = styler`
+  arrow_button
+    height: 6vh
+    cursor: pointer
+    opacity: 0.3
+  control
+    position: absolute
+    z-index: 1
+    width: 100%
+    top: 45vh
+    display: flex
+    justify-content: space-between
 
-export default Navigation;
+`;

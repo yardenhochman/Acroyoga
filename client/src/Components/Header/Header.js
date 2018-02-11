@@ -9,7 +9,7 @@ const Header = () => (
       query={`not ${Phone_Landscape}`}
     >
       <Menu
-        borderless
+        
         style={headerStyle}
         size={'huge'}
         fluid
@@ -29,6 +29,5 @@ var headerStyle = {
   height: '8vh',
   display: 'flex',
   flexDirection: 'row',
-  margin: '0',
   justifyContent: 'center',
 };

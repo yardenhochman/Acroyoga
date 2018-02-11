@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { Menu, Dropdown, Icon } from 'semantic-ui-react';
-import ProfileMenu from './ProfileMenu';
 import { Route } from 'react-router-dom';
+
+import ProfileMenu from './ProfileMenu';
 
 const Options = ({ isUser }) => (
   <Fragment>
@@ -10,8 +11,9 @@ const Options = ({ isUser }) => (
       icon={
         <Icon
           name="bars"
-          color={isUser ? 'green' : 'black'}
+          color={isUser ? 'green' : 'orange'}
           size="big"
+          style={style.icon}
         />
       }
     >
@@ -29,7 +31,7 @@ const Options = ({ isUser }) => (
             </Menu.Item>
           )}
         />
-        <ProfileMenu />
+        {isUser && <ProfileMenu/>}
       </Dropdown.Menu>
     </Dropdown>
   </Fragment>
@@ -38,3 +40,9 @@ const Options = ({ isUser }) => (
 
 
 export default Options;
+
+var style = {
+  icon: {
+    margin: '0 0.5vw'
+  }
+}

@@ -7,10 +7,10 @@ import { StyleRoot } from 'radium';
 const Navigation = ({ next, prev }) => (
   <StyleRoot style={style.control}>
     <a style={style.arrow_button} onClick={prev}>
-      <Icon name="chevron left" color="red" size="huge" />
+      <Icon name="chevron left" color="pink" size="huge" />
     </a>
     <a style={style.arrow_button} onClick={next}>
-      <Icon name="chevron right" color="red" size="huge" />
+      <Icon name="chevron right" color="pink" size="huge" />
     </a>
   </StyleRoot>
 );

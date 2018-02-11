@@ -21,8 +21,9 @@ class PoseCard extends Component {
   };
   render = () => {
     const { pose } = this.props;
+    /*
     const desktopImage = pose.img.replace(/(?:upload).+\//, 'upload/w_2000/');
-    const mobileImage = pose.img.replace(/(?:upload).+\//, 'upload/w_1000/');
+    const mobileImage = pose.img.replace(/(?:upload).+\//, 'upload/w_1000/');*/
     return <StyleRoot key={pose.img} style={style.card}>
         {!this.checkCloseness(2) ? <div /> : <React.Fragment>
             <VisibilitySensor>

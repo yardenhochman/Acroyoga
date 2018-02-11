@@ -19,7 +19,6 @@ const HeaderMenu = ({ name, difficulty }) => (
           <Menu.Item style={style.menu_item}>
             <Icon
               name="tags"
-              color={'orange'}
               style={style.disabled_tag}
               size="big"
             />

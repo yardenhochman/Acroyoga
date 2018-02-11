@@ -3,41 +3,38 @@ import Media from 'react-media';
 
 import Navigation from '../UI/Navigation/navigation';
 import SwipeArea from './SwipeArea/swipeArea';
-
-const mainStyle = {
-  height: '92vh',
-}
+import { Desktop,  } from '../../device_rules';
 
 class MainDisplay extends Component {
   next = () => this.reactSwipe.next();
   prev = () => this.reactSwipe.prev();
   resetSlide = () => this.reactSwipe&&this.reactSwipe.slide(1, 1000);
   getPos = () => this.reactSwipe.getPos(1);
-  render = () => {
-    //console.log('mainDisplay updates')
-    return (
-      <div style={mainStyle} className="poses-container">
-        <div className="carousel-container">
-          <SwipeArea
-            reactSwipe={reactSwipe => (this.reactSwipe = reactSwipe)}
-            resetSlide={this.resetSlide}
-            getPose={this.getPos}
-          />
-          <Media query={`${Phone_Landscape}`}>
-            <div>
-              <Navigation
-                next={this.next}
-                prev={this.prev}
-              />
-            </div>
-          </Media>
-        </div>
+  render = () => (
+    <div style={style.main} className="poses-container">
+      <div className="carousel-container">
+        <SwipeArea
+          reactSwipe={reactSwipe => (this.reactSwipe = reactSwipe)}
+          resetSlide={this.resetSlide}
+          getPose={this.getPos}
+        />
+        <Media query={`${Desktop}`}>
+          <div>
+            <Navigation
+              next={this.next}
+              prev={this.prev}
+            />
+          </div>
+        </Media>
       </div>
-    );
-  };
+    </div>
+  );
 }
 
 export default MainDisplay;
 
-
-var Phone_Landscape = '(min-device-width: 800px)';
+var style = {
+  main: {
+    height: '92vh',
+  },
+};

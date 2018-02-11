@@ -7,9 +7,9 @@ const TagMenu = ({tag,loggedIn}) => {
   const determineIcon = () => {
     switch (tag) {
       case '':
-        return <Icon name='tags' color='orange' size='big' />
+        return <Icon name='tags' size='big' />
       case 'favorites':
-        return <Icon name="heart" color='green' size="big" />;
+        return <Icon name="heart" color='red' size="big" />;
       default:
     }
   };

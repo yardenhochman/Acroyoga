@@ -65,10 +65,10 @@ const reduxed = connect(mapStateToProps)(PoseCard);
 export default Radium(reduxed);
 
 var Desktop =
-  '(min-device-width: 1000px)';
-var Phone_Portrait =
-  '(orientation: portrait) and (max-device-width: 800px)';
-var Phone_Landscape = 'screen and (min-device-width: 320px) and (max-device-width: 800px) and (orientation: landscape)';
+  `(min-device-width: 1000px)`;
+var mobile_device = 'screen and (max-device-width: 999px)';
+var Phone_Portrait = `${mobile_device} and (orientation: portrait)`;
+var Phone_Landscape = `${mobile_device} and (orientation: landscape)`;
 var style = styler`
   card
     display: flex

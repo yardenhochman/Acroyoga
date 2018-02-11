@@ -3,8 +3,8 @@ import { Icon } from 'semantic-ui-react';
 import { StyleRoot } from 'radium';
 import Radium from '../../../ConfiguredRadium'
 import styler from 'react-styling';
-
 import Credit from './credits';
+import { Phone_Portrait, Phone_Landscape } from '../../../device_rules';
 
 const AboutUs = ({history}) => (
   <StyleRoot style={style.about_page}>
@@ -16,7 +16,7 @@ const AboutUs = ({history}) => (
       <Credit person={Anatoliy} />
     </StyleRoot>
     <div style={style.back_button} className="back_button">
-      <Icon color="green" name="reply" style={style.icon} size="huge" onClick={()=>window.history.back()}/>
+      <Icon name="reply" style={style.icon} size="huge" onClick={()=>window.history.back()}/>
     </div>
   </StyleRoot>
 );
@@ -24,24 +24,21 @@ const AboutUs = ({history}) => (
 
 export default Radium(AboutUs);
 
-
-var Phone_Landscape = '@media only screen and (min-width: 420px) and (max-width: 1000px)';
-var Phone_Portrait = '@media only screen and (max-width: 420px)';
 var style = styler`
   about_page
     display: flex
     flex-direction: column
     height: 80vh
-    ${Phone_Landscape}
+    @media ${Phone_Landscape}
       height: 100vh;
   participants
     height: 70vh
     padding: 10vw
     padding-top:0
-    ${Phone_Portrait}
-      padding: 0 5px
+    @media ${Phone_Portrait}
+      padding: 0 3px
       height: 70vh
-    ${Phone_Landscape}
+    @media ${Phone_Landscape}
       height: 80%;
       padding:0;
       display:flex;
@@ -53,13 +50,13 @@ var style = styler`
     text-align: center
     height: 20vh
     padding-top:10vh
-    ${Phone_Landscape}
+    @media ${Phone_Landscape}
       margin-top:1vh;
       text-align: center;
       padding-top: 3vh;
       padding-bottom: 0;
   back_button
-    paddingLeft: 90vw
+    paddingLeft: 80vw
   icon
     cursor: pointer
 `;

@@ -2,18 +2,17 @@ import React, { Fragment } from 'react';
 import { Menu } from 'semantic-ui-react';
 import Media from 'react-media';
 import HeaderMenu from './menu/HeaderMenu';
+import { Desktop, Phone_Portrait } from '../../device_rules';
 
 const Header = () => (
   <Fragment>
-    <Media
-      query={`not ${Phone_Landscape}`}
-    >
-      <Menu
-        
-        style={headerStyle}
-        size={'huge'}
-        fluid
-      >
+    <Media query={Desktop}>
+      <Menu style={headerStyle} size={'huge'} fluid>
+        <HeaderMenu />
+      </Menu>
+    </Media>
+    <Media query={Phone_Portrait}>
+      <Menu borderless style={headerStyle} size={'huge'} fluid>
         <HeaderMenu />
       </Menu>
     </Media>
@@ -22,8 +21,6 @@ const Header = () => (
 
 export default Header;
 
-
-var Phone_Landscape = 'screen and (min-device-width: 320px) and (max-device-width: 800px) and (orientation: landscape)';
 var headerStyle = {
   width: '100vw',
   height: '8vh',

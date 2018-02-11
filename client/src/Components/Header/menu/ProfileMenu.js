@@ -19,6 +19,7 @@ const ProfileMenu = ({ userName, UserLogout }) => {
       <Icon
         name="sign out"
         size="big"
+        color="red"
       />
       {userName}
     </Menu.Item>

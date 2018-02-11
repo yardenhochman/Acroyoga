@@ -20,4 +20,4 @@ const DifficultyMenu = ({ difficultySetting }) => (
 );
 export default DifficultyMenu;
 
-var colors = { All: 'orange', Easy: 'green', Intermediate: 'blue', Hard: 'red', Expert: 'purple' };
+var colors = { All: null, Easy: 'green', Intermediate: 'blue', Hard: 'red', Expert: 'purple' };

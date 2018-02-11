@@ -13,27 +13,38 @@ class Popup extends Component {
     else this.setState({ form: 'login' });
   };
   render = () => (
-    <Modal
-      style={popupStyle}
-      className="Popup"
-      size="tiny"
-      trigger={
-        <React.Fragment>
-          <Media query={Desktop}>
-            <Button style={style.log_in}>LOGIN</Button>
-          </Media>
-          <Media query={Phone_Portrait}>
-            <Menu.Item style={style.menu_style}><Button style={style.log_in_phone}>LOGIN</Button></Menu.Item>
-          </Media>
-        </React.Fragment>  
-      }
-    >
-      {this.state.form === 'login' ? (
-        <LoginForm register={this.changeForm} />
-      ) : (
-        <RegisterForm login={this.changeForm} />
-      )}
-    </Modal>
+    <React.Fragment>
+      <Media query={Desktop}>
+        <Modal
+          style={popupStyle}
+          className="Popup"
+          size="tiny"
+          trigger={<Button style={style.log_in}>LOGIN</Button>}
+        >
+          {this.state.form === 'login' ? (
+            <LoginForm register={this.changeForm} />
+          ) : (
+            <RegisterForm login={this.changeForm} />
+          )}
+        </Modal>
+      </Media>
+      <Media query={Phone_Portrait}>
+      <Modal
+          style={popupStyle}
+          className="Popup"
+          size="tiny"
+          trigger={<Menu.Item style={style.menu_style}>
+            <Button style={style.log_in_phone}>LOGIN</Button>
+          </Menu.Item>}
+        >
+          {this.state.form === 'login' ? (
+            <LoginForm register={this.changeForm} />
+          ) : (
+            <RegisterForm login={this.changeForm} />
+          )}
+        </Modal>
+        </Media>
+  </React.Fragment>     
   );
 }
 

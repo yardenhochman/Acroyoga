@@ -47,7 +47,7 @@ var style = styler`
     width: 220px
     border-radius: 5px
     ${Phone_Portrait}
-      width:230px;
+      width:30%
     ${Phone_Landscape}
       height: 100%;
       width: 158px;

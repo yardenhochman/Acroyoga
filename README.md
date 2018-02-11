@@ -19,13 +19,10 @@ Front-End: CSS-Grid, Flexbox, Component Libraries outlined below
 
 [Semantic-UI](https://react.semantic-ui.com/)
 
-[Material-UI](http://material-ui.com/)
-
 [React-Media](https://github.com/reacttraining/react-media)
 
 [React-Image](https://github.com/yuanyan/react-image)
 
-[FontAwesome](http://fontawesome.io/)
+[React-Styling](https://github.com/catamphetamine/react-styling)
 
-
-
+[Radium](https://github.com/FormidableLabs/radium)

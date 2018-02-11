@@ -27,10 +27,11 @@ class PoseCard extends Component {
         {!this.checkCloseness(2) ? <div /> : <React.Fragment>
             <VisibilitySensor>
               <div>
-                <picture>
-                  <source srcset={desktopImage} media={Desktop} />
-                  <img src={mobileImage} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
-                </picture>
+                {/*<picture>
+              <source srcset={desktopImage} media={Desktop} />
+              <img src={mobileImage} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
+            </picture>*/}
+                <img src={pose.img} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
                 <Media query={`not ${Phone_Landscape}`}>
                   <Heart key={pose.id + 'heart'} poseID={pose.id} />
                 </Media>

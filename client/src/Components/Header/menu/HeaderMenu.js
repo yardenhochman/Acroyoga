@@ -10,7 +10,7 @@ import Media from 'react-media';
 
 const HeaderMenu = ({ name, difficulty }) => (
   <Fragment>
-    <DifficultyMenu difficultySetting={difficulty} />
+        <DifficultyMenu difficultySetting={difficulty} />
     {name ? (
       <TagMenu />
     ) : (
@@ -24,15 +24,16 @@ const HeaderMenu = ({ name, difficulty }) => (
             />
           </Menu.Item>
         }
+        inverted
         content="Sign up to save poses to your favorites"
       />
     )}
-    <Menu.Menu position="right">  
-      {!name&&<ProfileMenu />}
+    <Menu.Menu position="right">
+      {!name && <ProfileMenu />}
       <Options isUser={name} />
       <Media query={Desktop}>
         <Menu.Item item style={style.empty_space} />
-      </Media>  
+      </Media>
     </Menu.Menu>
   </Fragment>
 );

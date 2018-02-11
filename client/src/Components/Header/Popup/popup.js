@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal, Menu } from 'semantic-ui-react';
 
 import RegisterForm from './Register/register';
 import LoginForm from './Login/login';
+import Media from 'react-media';
 
 class Popup extends Component {
   state = { form: 'register' };
@@ -17,9 +18,14 @@ class Popup extends Component {
       className="Popup"
       size="tiny"
       trigger={
-        <Button style={style.log_in}>
-          LOGIN
-        </Button>
+        <React.Fragment>
+          <Media query={Desktop}>
+            <Button style={style.log_in}>LOGIN</Button>
+          </Media>
+          <Media query={Phone_Portrait}>
+            <Menu.Item style={style.menu_style}><Button style={style.log_in_phone}>LOGIN</Button></Menu.Item>
+          </Media>
+        </React.Fragment>  
       }
     >
       {this.state.form === 'login' ? (
@@ -32,6 +38,10 @@ class Popup extends Component {
 }
 
 export default Popup;
+var Phone_Portrait =
+  '(orientation: portrait) and (max-device-width: 800px)';
+var Desktop =
+  '(min-device-width: 1000px)';
 
 var style = {
   popup: {
@@ -39,11 +49,24 @@ var style = {
   },
   log_in: {
     height: '4vh',
-    width: '10vw',
+    width: '10vh',
     margin: 'auto 2vw',
     backgroundColor: '#FF7257',
     color: 'white',
     fontFamily: 'Lato',
+    display: `flex`,
+    justifyContent: `center`,
   },
+  log_in_phone: {
+    backgroundColor: '#FF7257',
+    color: 'white',
+
+    width: '41vw',
+    height: '10vh',
+    padding: '0',
+  },
+  menu_style: {
+    padding: `0`  
+  }
 };
 var popupStyle = { height: '400px' };

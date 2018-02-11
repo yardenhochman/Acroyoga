@@ -6,6 +6,7 @@ import DifficultyMenu from './Difficulty/DifficultyMenu';
 import TagMenu from './Tags/TagMenu';
 import Options from './optionsMenu';
 import ProfileMenu from './ProfileMenu';
+import Media from 'react-media';
 
 const HeaderMenu = ({ name, difficulty }) => (
   <Fragment>
@@ -24,13 +25,15 @@ const HeaderMenu = ({ name, difficulty }) => (
             />
           </Menu.Item>
         }
-        content="Sign up to store poses in your favorites"
+        content="Sign up to save poses to your favorites"
       />
     )}
     <Menu.Menu position="right">  
       {!name&&<ProfileMenu />}
       <Options isUser={name} />
-      <Menu.Item item style={style.empty_space} />
+      <Media query={Desktop}>
+        <Menu.Item item style={style.empty_space} />
+      </Media>  
     </Menu.Menu>
   </Fragment>
 );
@@ -45,7 +48,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderMenu);
 
-
+var Desktop = '(min-width: 1000px)';
 var style = {
   disabled_tag: {
     opacity: '0.2',

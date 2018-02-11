@@ -21,28 +21,35 @@ class PoseCard extends Component {
   };
   render = () => {
     const { pose } = this.props;
-
+    const desktopImage = pose.img.replace(/(?:upload).+\//, 'upload/w_2000/');
+    const mobileImage = pose.img.replace(/(?:upload).+\//, 'upload/w_1000/');
     return <StyleRoot key={pose.img} style={style.card}>
-      {!this.checkCloseness(2) ? <div /> : (
-        <React.Fragment>
-        <VisibilitySensor>
-          <div>
-            <img src={pose.img} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
+        {!this.checkCloseness(2) ? <div /> : <React.Fragment>
+            <VisibilitySensor>
+              <div>
+                <picture>
+                  <source srcset={desktopImage} media={Desktop} />
+                  <img src={mobileImage} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
+                </picture>
+                <Media query={`not ${Phone_Landscape}`}>
+                  <Heart key={pose.id + 'heart'} poseID={pose.id} />
+                </Media>
+              </div>
+            </VisibilitySensor>
             <Media query={`not ${Phone_Landscape}`}>
-              <Heart key={pose.id + 'heart'} poseID={pose.id} />
+              <div style={style.details}>
+                <div style={style.text_area}>
+                  <h1 style={style.title}>
+                    {pose.name}
+                  </h1>
+                  <p style={style.subtitle}>
+                    {this.subtitle()}
+                  </p>
+                </div>
+              </div>
             </Media>
-          </div>
-        </VisibilitySensor>
-        <Media query={`not ${Phone_Landscape}`}>
-          <div style={style.details}>
-            <div style={style.text_area}>
-              <h1 style={style.title}>{pose.name}</h1>
-              <p style={style.subtitle}>{this.subtitle()}</p>
-            </div>
-          </div>
-        </Media></React.Fragment>)
-      }
-        </StyleRoot>;
+          </React.Fragment>}
+      </StyleRoot>;
   };
 }
 

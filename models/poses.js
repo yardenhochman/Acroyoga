@@ -12,7 +12,7 @@ Poses.AllPoses = async () => {
     .map(pose => {
       pose.id = Number(pose.id);
       return pose;
-    })
+    })/*
     .filter(
       pose =>
         ![
@@ -83,7 +83,7 @@ Poses.AllPoses = async () => {
           'Floating Camel',
           'Mono Foot to Foot',
         ].includes(pose.name),
-    );
+    );*/
 };
 
 module.exports = Poses;

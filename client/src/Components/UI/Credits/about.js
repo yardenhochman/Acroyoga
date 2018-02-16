@@ -67,7 +67,7 @@ var yarden = {
   name: 'Yarden Hochman',
   img:
     'https://res.cloudinary.com/dz2nxhscn/image/upload/v1518158450/16832212_1326016857444631_3977183095561215084_n_osizmh.jpg',
-  profileSite: 'https://polar-tundra-13345.herokuapp.com/',
+  profileSite: 'https://yardenh.herokuapp.com/',
   text:
     'Yarden is a Full Stack Engineer currently looking for opportunities in Colorado or California. His favorite fruit is Mango.',
 };

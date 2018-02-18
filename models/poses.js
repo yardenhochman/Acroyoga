@@ -26,7 +26,6 @@ Poses.AllPoses = async () => {
           'Reverse Vishnus Couch',
           'Satellite',
           'Leaf Stretch',
-          'Birds Dive',
           'Goofy Goofy Foot to Foot',
           'Sticky Lab',
           'Ostrich Lab',

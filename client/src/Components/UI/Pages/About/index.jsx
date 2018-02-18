@@ -1,10 +1,10 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
 import { StyleRoot } from 'radium';
-import Radium from '../../../ConfiguredRadium'
 import styler from 'react-styling';
 import Credit from './Credits';
-import { Phone_Portrait, Phone_Landscape } from '../../../DeviceRules';
+import { Phone_Portrait, Phone_Landscape } from '../../../../DeviceRules';
+import Radium from '../../../../ConfiguredRadium';
 
 const AboutUs = ({history}) => (
   <StyleRoot style={style.about_page}>

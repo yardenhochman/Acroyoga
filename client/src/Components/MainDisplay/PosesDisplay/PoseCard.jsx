@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleRoot } from 'radium'
-import Radium from '../../../../../ConfiguredRadium';
 import Media from 'react-media';
 import styler from 'react-styling';
 import VisibilitySensor from 'react-visibility-sensor';
-import LoadDisplay from '../../../../UI/Loader';
-import Heart from './CardParts/Heart';
+import Radium from '../../../ConfiguredRadium';
+import LoadDisplay from '../../UI/Loader';
+import Heart from './Heart';
 import {
   Desktop,
   Phone_Landscape,
   Phone_Portrait,
-} from '../../../../../DeviceRules';
+} from '../../../DeviceRules';
 
 class PoseCard extends Component {
   checkCloseness = preload => {

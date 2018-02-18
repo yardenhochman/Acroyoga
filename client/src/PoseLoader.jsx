@@ -22,16 +22,11 @@ class PoseLoader extends Component {
   };
 };
 
-const mapStateToProps = state => {
-    const { pose: {poses} } = state;
-  return { poses };
-};
-const mapDispatchToProps = dispatch => {
-  return {
+const mapStateToProps = ({ pose: {poses} }) => ({ poses });
+const mapDispatchToProps = dispatch => ({
     UserLogin: user => dispatch(storeUser(user)),
     storePoses: pose => dispatch(store_Poses(pose))
-  };
-};
+  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseLoader);
 

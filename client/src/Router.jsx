@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import PageLayout from './Components/UI/PageLayout';
-import NotFound from './Components/UI/NotFound';
-import AboutUs from './Components/UI/About';
+import PageLayout from './Components/UI/Pages/PageLayout';
+import NotFound from './Components/UI/Pages/NotFound';
+import AboutUs from './Components/UI/Pages/About';
 import PoseLoader from './PoseLoader';
 
 const App = () => (

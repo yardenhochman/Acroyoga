@@ -1,13 +1,13 @@
 import React from 'react';
-import Radium from '../../../ConfiguredRadium';
 import { StyleRoot } from 'radium';
 import styler from 'react-styling';
+import Radium from '../../../../ConfiguredRadium';
 import {
   Desktop,
   Phone_Landscape,
   Phone_Portrait,
   Orange,
-} from '../../../DeviceRules';
+} from '../../../../DeviceRules';
 
 const Credit = ({ person: { name, img, text, profileSite } }) => (
   <StyleRoot style={style.credit}>

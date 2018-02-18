@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactSwipe from 'react-swipe';
-import {SET_SLIDE_INDEX} from '../../../store/actions';
+import {SET_SLIDE_INDEX} from '../../store/actions';
 import PosesDisplay from './PosesDisplay';
 
 const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide, difficulty, lists }) => {

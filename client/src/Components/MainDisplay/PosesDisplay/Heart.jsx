@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { remove_from_user, add_to_user } from '../../../../../../store/actions/actions';
 import { Icon } from 'semantic-ui-react';
-import api from '../../../../../../API';
+import { remove_from_user, add_to_user } from '../../../store/actions/actions';
+import api from '../../../API';
 
 class Heart extends Component {
   state = { display: false, isFavorite: false };

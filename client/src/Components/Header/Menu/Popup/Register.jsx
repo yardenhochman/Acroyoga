@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {add_to_user}  from '../../../../store/actions/actions';
-import api from '../../../../api';
+import api from '../../../../API';
 
 const MessageExampleError = () => (
   <Message

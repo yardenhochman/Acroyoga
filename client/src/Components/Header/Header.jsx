@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Menu } from 'semantic-ui-react';
 import Media from 'react-media';
-import HeaderMenu from './menu/HeaderMenu';
-import { Desktop, Phone_Portrait } from '../../device_rules';
+import HeaderMenu from './Menu';
+import { Desktop, Phone_Portrait } from '../../DeviceRules';
 
 const Header = () => (
   <Fragment>

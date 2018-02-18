@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, Menu, Icon } from 'semantic-ui-react';
-
-import RegisterForm from './Register/register';
-import LoginForm from './Login/login';
 import Media from 'react-media';
+import RegisterForm from './Register';
+import LoginForm from './Login';
+import { Desktop, Phone_Portrait } from '../../../../DeviceRules';
 
 class Popup extends Component {
   state = { form: 'register' };
@@ -57,11 +57,6 @@ class Popup extends Component {
 }
 
 export default Popup;
-var Phone_Portrait =
-  '(orientation: portrait) and (max-device-width: 800px)';
-var Desktop =
-  '(min-device-width: 1000px)';
-
 var style = {
   popup: {
     height: '400px',

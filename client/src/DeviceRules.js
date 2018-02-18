@@ -1,4 +1,3 @@
-
 export const Desktop = `(min-device-width: 1100px)`;
 export const mobile_device = 'screen and (max-device-width: 1100px)';
 export const Phone_Portrait = `${mobile_device} and (orientation: portrait)`;

@@ -16,10 +16,8 @@
     "cors": "^2.8.4",
     "debug": "~2.6.9",
     "dotenv": "^4.0.0",
-    "eslint": "^4.16.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-react": "^7.6.1",
-    "express": "~4.15.5",
+    "eslint": "^4.18.0",
+    "express": "^4.16.2",
     "express-session": "^1.15.6",
     "formsy-react": "^1.0.0",
     "formsy-react-components": "^1.0.0-beta.2",
@@ -37,5 +35,12 @@
     "pg-promise": "^7.3.2",
     "redux-auth": "0.0.5-beta5",
     "serve-favicon": "~2.4.5"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1"
   }
 }

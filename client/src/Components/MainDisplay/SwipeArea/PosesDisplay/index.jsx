@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PoseCard from './PoseCard/poseCard';
+import PoseCard from './PoseCard';
 
 class PosesDisplay extends Component {
   componentDidMount = () => this.props.resetSlide();

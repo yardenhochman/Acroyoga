@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactSwipe from 'react-swipe';
-import * as actionTypes from '../../../store/actions';
-import PosesDisplay from './PosesDisplay/PosesDisplay';
+import {SET_SLIDE_INDEX} from '../../../store/actions';
+import PosesDisplay from './PosesDisplay';
 
 const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide, difficulty, lists }) => {
   if (!poses) return <div />;
@@ -22,20 +22,14 @@ const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide, difficulty, l
   );
 };
 
-const mapStateToProps = state => {
-  const { pose: { poses }, view: { tag, difficulty } } = state;
-  return { poses, tag, difficulty };
-};
+const mapStateToProps = ({ pose: { poses }, view: { tag, difficulty } }) => ({ poses, tag, difficulty });
 
-const mapDispatchToProps = dispatch => {
-  const { SET_SLIDE_INDEX } = actionTypes;
-  return {
+const mapDispatchToProps = dispatch => ({
     setSlide: currentSlide =>
       dispatch({
         type: SET_SLIDE_INDEX,
         currentSlide,
       }),
-  };
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SwipeArea);

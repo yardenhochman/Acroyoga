@@ -3,20 +3,27 @@ import { Icon } from 'semantic-ui-react';
 import { StyleRoot } from 'radium';
 import Radium from '../../../ConfiguredRadium'
 import styler from 'react-styling';
-import Credit from './credits';
-import { Phone_Portrait, Phone_Landscape } from '../../../device_rules';
+import Credit from './Credits';
+import { Phone_Portrait, Phone_Landscape } from '../../../DeviceRules';
 
 const AboutUs = ({history}) => (
   <StyleRoot style={style.about_page}>
-    <StyleRoot><div className="about_page_title">
-      <h1 style={style.title}>About Us</h1>
-    </div></StyleRoot>
+    <StyleRoot>
+      <div className="about_page_title">
+        <h1 style={style.title}>About Us</h1>
+      </div>
+    </StyleRoot>
     <StyleRoot style={style.participants}>
       <Credit person={yarden} />
       <Credit person={Anatoliy} />
     </StyleRoot>
     <div style={style.back_button} className="back_button">
-      <Icon name="reply" style={style.icon} size="huge" onClick={()=>window.history.back()}/>
+      <Icon
+        name="reply"
+        style={style.icon}
+        size="huge"
+        onClick={() => window.history.back()}
+      />
     </div>
   </StyleRoot>
 );

@@ -7,12 +7,11 @@ import {
   Phone_Landscape,
   Phone_Portrait,
   Orange,
-} from '../../../device_rules';
+} from '../../../DeviceRules';
 
 const Credit = ({ person: { name, img, text, profileSite } }) => (
   <StyleRoot style={style.credit}>
     <img style={style.image} src={img} alt={`loading...`}/>
-
     <div style={style.text_box}>
       <h2 style={style.title}>
         <a style={style.site_link} href={profileSite}>{name}</a>

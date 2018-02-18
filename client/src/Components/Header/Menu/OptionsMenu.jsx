@@ -3,7 +3,7 @@ import { Menu, Dropdown, Icon } from 'semantic-ui-react';
 import { Route } from 'react-router-dom';
 
 import ProfileMenu from './ProfileMenu';
-import { Orange } from '../../../device_rules';
+import { Orange } from '../../../DeviceRules';
 
 const Options = ({ isUser }) => (
   <Fragment>

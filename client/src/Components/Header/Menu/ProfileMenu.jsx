@@ -1,8 +1,8 @@
 import React from 'react';
-import Popup from '../Popup/popup';
+import Popup from './Popup';
 import { connect } from 'react-redux';
-import { Menu, Icon } from 'semantic-ui-react';
 import {LOG_OUT} from '../../../store/actions';
+import { Menu, Icon } from 'semantic-ui-react';
 
 const ProfileMenu = ({ userName, UserLogout }) => {
   const logOut = () => {

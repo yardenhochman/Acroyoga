@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Media from 'react-media';
-
-import Navigation from '../UI/Navigation/navigation';
-import SwipeArea from './SwipeArea/swipeArea';
-import { Desktop,  } from '../../device_rules';
+import Navigation from '../UI/Navigation';
+import SwipeArea from './SwipeArea';
+import { Desktop } from '../../DeviceRules';
 
 class MainDisplay extends Component {
   next = () => this.reactSwipe.next();

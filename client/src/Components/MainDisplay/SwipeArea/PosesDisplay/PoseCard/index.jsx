@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { StyleRoot } from 'radium'
 import Radium from '../../../../../ConfiguredRadium';
 import Media from 'react-media';
 import styler from 'react-styling';
 import VisibilitySensor from 'react-visibility-sensor';
-import LoadDisplay from '../../../../UI/Loader/loader';
-import Heart from './cardParts/heart';
+import LoadDisplay from '../../../../UI/Loader';
+import Heart from './CardParts/Heart';
+import {
+  Desktop,
+  Phone_Landscape,
+  Phone_Portrait,
+} from '../../../../../DeviceRules';
 
 class PoseCard extends Component {
   checkCloseness = preload => {
@@ -64,11 +68,6 @@ const reduxed = connect(mapStateToProps)(PoseCard);
 
 export default Radium(reduxed);
 
-var Desktop =
-  `(min-device-width: 1000px)`;
-var mobile_device = 'screen and (max-device-width: 999px)';
-var Phone_Portrait = `${mobile_device} and (orientation: portrait)`;
-var Phone_Landscape = `${mobile_device} and (orientation: landscape)`;
 var style = styler`
   card
     display: flex

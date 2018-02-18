@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { remove_from_user, add_to_user } from '../../../../../../store/actions/actions';
 import { Icon } from 'semantic-ui-react';
-
-import api from '../../../../../../api';
+import api from '../../../../../../API';
 
 class Heart extends Component {
   state = { display: false, isFavorite: false };
@@ -12,8 +11,9 @@ class Heart extends Component {
     this.checkIfLoggedIn();
   };
   checkIfLoggedIn = () => {
-    const { userName, tag } = this.props;
-    if (userName&&!tag) this.setState({ display: true });
+    if (this.props.userName && !this.props.tag) {
+      this.setState({ display: true });
+    }
     else this.setState({ display: false });
   };
   checkIfFavorite = () => {
@@ -38,36 +38,43 @@ class Heart extends Component {
   };
   render = () => {
     const { isFavorite, display } = this.state;
-
-
-    const clickableArea = {
-      display: 'flex', width: '70px', height: '70px',
-  paddingLeft: '10px'  };
-    const heartStyle = {
-      display: 'flex',
-      width: '45px',
-      height: '45px',
-      cursor: 'pointer',
-      fontSize: `3em`
-    }
+    
     if (!display) return <div />;
-    return <div style={clickableArea} onClick={e => this.onClick(e)}>
-        <Icon.Group style={heartStyle}>
-          <Icon name={isFavorite ? `heart` : `empty heart`} color="red" />
+    return (
+      <div style={style.clickableArea} onClick={e => this.onClick(e)}>
+        <Icon.Group style={style.heartStyle}>
+          <Icon
+            name={isFavorite ? `heart` : `empty heart`}
+            color="red"
+          />
         </Icon.Group>
-      </div>;
+      </div>
+    );
   };
 }
 
-const mapStateToProps = ({ view: { tag }, user: { name, id, lists } }) => {
-  return { tag, userName: name, userID: id, lists };
-};
+const mapStateToProps = ({ view: { tag }, user: { name, id, lists } }) => ({ tag, userName: name, userID: id, lists });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     addToUserList: (pose_id, listName) => dispatch(add_to_user(pose_id, listName)),
     removeFromUserList: (pose_id, listName) => dispatch(remove_from_user(pose_id, listName))
-  };
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Heart);
+
+
+var style = {
+  clickableArea: {
+    display: 'flex',
+    width: '70px',
+    height: '70px',
+    paddingLeft: '10px',
+  },
+  heartStyle: {
+    display: 'flex',
+    width: '45px',
+    height: '45px',
+    cursor: 'pointer',
+    fontSize: `3em`,
+  }
+};

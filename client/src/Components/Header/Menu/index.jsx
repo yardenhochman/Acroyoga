@@ -1,12 +1,13 @@
 import React, {Fragment } from 'react';
 import { Menu, Popup,Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { LOG_OUT } from '../../../store/actions';
-import DifficultyMenu from './Difficulty/DifficultyMenu';
-import TagMenu from './Tags/TagMenu';
-import Options from './optionsMenu';
-import ProfileMenu from './ProfileMenu';
 import Media from 'react-media';
+import { LOG_OUT } from '../../../store/actions';
+import DifficultyMenu from './Difficulty';
+import TagMenu from './Tags';
+import Options from './OptionsMenu';
+import ProfileMenu from './ProfileMenu';
+import {Desktop} from '../../../DeviceRules';
 
 const HeaderMenu = ({ name, difficulty }) => (
   <Fragment>
@@ -48,7 +49,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderMenu);
 
-var Desktop = '(min-width: 1000px)';
 var style = {
   disabled_tag: {
     opacity: '0.2',

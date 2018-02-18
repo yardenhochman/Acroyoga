@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
-
 import { storeUser, store_Poses } from './store/actions/actions';
-
-import MainDisplay from './Components/MainDisplay/MainDisplay';
-import api from './api';
-import LoadDisplay from './Components/UI/Loader/loader';
+import MainDisplay from './Components/MainDisplay';
+import api from './API';
+import LoadDisplay from './Components/UI/Loader';
 
 class PoseLoader extends Component {
   componentDidMount = async () => {
     const { UserLogin, storePoses } = this.props;
     UserLogin(api.user.get(true));
     storePoses(api.poses.get(true));
-
     UserLogin(await api.user.get());
     storePoses(await api.poses.get());
   };

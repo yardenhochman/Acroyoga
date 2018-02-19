@@ -30,8 +30,6 @@ var style = styler`
       grid-template-columns: 5vw auto 5vw 
       grid-template-rows: 20% auto 
       grid-template-area: 'heart | text | .|''.|text|.' 
-      
-    @media ${Desktop}
 
   text_area
     grid-area: textArea

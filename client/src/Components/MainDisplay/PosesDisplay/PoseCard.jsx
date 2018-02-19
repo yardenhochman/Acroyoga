@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { StyleRoot } from 'radium'
 import Media from 'react-media';
@@ -13,32 +13,32 @@ import {
   Phone_Portrait,
 } from '../../../DeviceRules';
 
-class PoseCard extends Component {
-  checkCloseness = preload => {
-    const { cardIndex, currentSlide, filteredPoses } = this.props;
+const PoseCard = ({ pose:{img, difficulty, id, name,}, difficultySetting, filteredPoses, currentSlide, cardIndex }) => {
+  const checkCloseness = preload => {
     const distance = Math.abs(cardIndex - currentSlide);
     return distance < preload || distance > filteredPoses.length - preload;
-  };
-  subtitle = () => {
-    const { difficultySetting, pose: { difficulty } } = this.props;
-    return `${difficultySetting === 'All' ? `Difficulty: ${difficulty}` : ''}`;
-  };
-  render = () => {
-    const { pose } = this.props;
-    /*
-    const desktopImage = pose.img.replace(/(?:upload).+\//, 'upload/w_2000/');
-    const mobileImage = pose.img.replace(/(?:upload).+\//, 'upload/w_1000/');*/
-    return <StyleRoot key={pose.img} style={style.card}>
-        {!this.checkCloseness(2) ? <div /> : <React.Fragment>
+  };    
+    return <StyleRoot key={img} style={style.card}>
+        {!checkCloseness(2) ? <div /> : <React.Fragment>
             <VisibilitySensor>
               <div>
-                {/*<picture>
-              <source srcset={desktopImage} media={Desktop} />
-              <img src={mobileImage} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
-            </picture>*/}
-                <img src={pose.img} style={style.image} alt={'Loading...'} loader={LoadDisplay} />
+                <picture>
+                  <source 
+                    srcSet={img.replace(/(?:upload).+\//, 'upload/w_2000/')} 
+                    media={Desktop} 
+                  />
+                  <img 
+                    src={img.replace(/(?:upload).+\//, 'upload/w_1000/')} 
+                    style={style.image} 
+                    alt={'Loading...'} 
+                    loader={LoadDisplay} 
+                  />
+                </picture>
                 <Media query={`not ${Phone_Landscape}`}>
-                  <Heart key={pose.id + 'heart'} poseID={pose.id} />
+                  <Heart 
+                    key={id + 'heart'} 
+                    poseID={id} 
+                  />
                 </Media>
               </div>
             </VisibilitySensor>
@@ -46,10 +46,10 @@ class PoseCard extends Component {
               <div style={style.details}>
                 <div style={style.text_area}>
                   <h1 style={style.title}>
-                    {pose.name}
+                    {name}
                   </h1>
                   <p style={style.subtitle}>
-                    {this.subtitle()}
+                    {`${difficultySetting === 'All' ? `Difficulty: ${difficulty}` : ''}`}
                   </p>
                 </div>
               </div>
@@ -57,12 +57,8 @@ class PoseCard extends Component {
           </React.Fragment>}
       </StyleRoot>;
   };
-}
 
-const mapStateToProps = state => {
-  const { pose: { poses }, view: { difficulty, tag, currentSlide }, user: { name, lists, id } } = state;
-  return { poses, difficultySetting: difficulty, userName: name, tag, currentSlide, lists, userID: id };
-};
+const mapStateToProps = ({ pose: { poses }, view: { difficulty, tag, currentSlide }, user: { name, lists, id } }) => ({ poses, difficultySetting: difficulty, userName: name, tag, currentSlide, lists, userID: id });
 
 const reduxed = connect(mapStateToProps)(PoseCard);
 

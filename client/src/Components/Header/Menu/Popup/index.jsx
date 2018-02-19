@@ -18,7 +18,7 @@ class Popup extends Component {
         <Modal
           style={popupStyle}
           className="Popup"
-          size="tiny"
+          size="mini"
           trigger={
             <Button style={style.log_in}>LOGIN</Button>
           }
@@ -58,9 +58,6 @@ class Popup extends Component {
 
 export default Popup;
 var style = {
-  popup: {
-    height: '400px',
-  },
   log_in: {
     height: '4vh',
     width: '10vh',
@@ -88,4 +85,7 @@ var style = {
     fontSize: `2em`
   },
 };
-var popupStyle = { height: '400px' };
+var popupStyle = { 
+  height: '350px',
+  padding: `20px`
+};

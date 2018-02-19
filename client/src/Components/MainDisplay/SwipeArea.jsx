@@ -7,7 +7,7 @@ import PosesDisplay from './PosesDisplay';
 const SwipeArea = ({ poses, tag, setSlide, reactSwipe, resetSlide, difficulty, lists }) => {
   if (!poses) return <div />;
   const listKey = lists && lists.Favorites;
-  //console.log('SwipeArea updates')
+  console.log('SwipeArea updates')
   return (
     <ReactSwipe
       ref={reactSwipe}

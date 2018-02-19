@@ -1,31 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Media from 'react-media';
 import Navigation from '../UI/Navigation';
 import SwipeArea from './SwipeArea';
 import { Desktop } from '../../DeviceRules';
 
-class MainDisplay extends Component {
-  next = () => this.reactSwipe.next();
-  prev = () => this.reactSwipe.prev();
-  resetSlide = () => this.reactSwipe&&this.reactSwipe.slide(1, 1000);
-  getPos = () => this.reactSwipe.getPos(1);
-  render = () => (
+const MainDisplay = () => {
+  let swipe = null;
+  const next = () => swipe.next();
+  const prev = () => swipe.prev();
+  const resetSlide = () => swipe&&swipe.slide(1, 1000);
+  const getPos = () => swipe.getPos(1);
+  return (
     <div style={style.main} className="poses-container">
-      <div className="carousel-container">
         <SwipeArea
-          reactSwipe={reactSwipe => (this.reactSwipe = reactSwipe)}
-          resetSlide={this.resetSlide}
-          getPose={this.getPos}
+          reactSwipe={reactSwipe => (swipe = reactSwipe)}
+          resetSlide={resetSlide}
+          getPose={getPos}
         />
         <Media query={`${Desktop}`}>
           <div>
             <Navigation
-              next={this.next}
-              prev={this.prev}
+              next={next}
+              prev={prev}
             />
           </div>
         </Media>
-      </div>
     </div>
   );
 }

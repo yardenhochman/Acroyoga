@@ -33,7 +33,7 @@ const HeaderMenu = ({ name, difficulty }) => (
       {!name && <ProfileMenu />}
       <Options isUser={name} />
       <Media query={Desktop}>
-        <Menu.Item item style={style.empty_space} />
+        <Menu.Item item='true' style={style.empty_space} />
       </Media>
     </Menu.Menu>
   </Fragment>

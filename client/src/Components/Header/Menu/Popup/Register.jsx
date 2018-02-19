@@ -3,6 +3,7 @@ import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {add_to_user}  from '../../../../store/actions/actions';
 import api from '../../../../API';
+import styler from 'react-styling';
 
 const MessageExampleError = () => (
   <Message
@@ -121,13 +122,6 @@ class RegisterForm extends Component {
 
     return (
       <div className="register-form">
-        <style>{`
-      body > div,
-      body > div > div,
-      body > div > div > div.register-form {
-        height: 100%;
-      }
-    `}</style>
         <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
           <Grid.Column style={{ maxWidth: 450 }}>
             <Form size="large" onSubmit={this.formSubmit}>
@@ -168,7 +162,7 @@ class RegisterForm extends Component {
             </Form>
             <Message>
               Already have an account?
-              <Button onClick={login}>Login</Button>
+              <Button onClick={login} style={style.login_button}>Login</Button>
             </Message>
             {this.displayError()}
           </Grid.Column>
@@ -177,23 +171,11 @@ class RegisterForm extends Component {
     );
   };
 }
-const mapStateToProps = state => {
-  const { user: { name: userName } } = state;
-  return { userName };
-};
-const mapDispatchToProps = dispatch => {
-  return { UserLogin: user => dispatch(add_to_user(user)) };
-};
+const mapStateToProps = ({ user: { name: userName } }) => ({ userName });
+const mapDispatchToProps = dispatch => ({ UserLogin: user => dispatch(add_to_user(user)) });
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
-/*
-email:
 
-                  value={email.value}
-                  onChange={e => this.input(e, 'email')}
-
-pw:
-
-                  value={password.value}
-                  onChange={e => this.input(e, 'pw')}
-
-*/
+var style = styler`
+  login_button
+    margin-left:10px
+`;

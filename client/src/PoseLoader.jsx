@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { storeUser, store_Poses } from './store/actions/actions';
-import MainDisplay from './Components/MainDisplay';
+import PoseGallery from './Components/PoseGallery';
 import api from './API';
 import LoadDisplay from './Components/UI/Loader';
 
@@ -15,10 +15,11 @@ class PoseLoader extends Component {
   };
 
   render = () => {
-    if (!this.props.poses || !this.props.poses.length) {
-      return LoadDisplay;
+    const {poses,children} = this.props
+    if (!poses || !poses.length) {
+      return <LoadDisplay />;
     }
-    return <div><MainDisplay /></div>;
+    return <div>{children}</div>;
   };
 };
 

@@ -1,5 +1,4 @@
 import React, {Fragment} from 'react';
-import { connect } from 'react-redux';
 import { StyleRoot } from 'radium'
 import Media from 'react-media';
 import styler from 'react-styling';
@@ -33,11 +32,7 @@ const PoseCard = ({ pose:{img, difficulty, id, name}, difficultySetting, filtere
     );
   };
 
-const mapStateToProps = ({ view: { difficulty, currentSlide } }) => ({ difficultySetting: difficulty, currentSlide });
-
-const reduxed = connect(mapStateToProps)(PoseCard);
-
-export default Radium(reduxed);
+export default Radium(PoseCard);
 
 var style = styler`
   card

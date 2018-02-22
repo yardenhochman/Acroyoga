@@ -1,25 +1,21 @@
 import React from 'react';
-import {Desktop,Phone_Portrait,Phone_Landscape} from '../../../../DeviceRules';
+import { Desktop, Phone_Portrait } from '../../../../DeviceRules';
 import styler from 'react-styling';
 import Radium from '../../../../ConfiguredRadium';
-import { StyleRoot } from 'radium'
+import { StyleRoot } from 'radium';
 
-const PoseText = ({poseTitle, subtitle}) => (
-  <StyleRoot>
-    <div style={style.details}>
-      <div style={style.text_area}>
-        <h1 style={style.title}>
-          {poseTitle}
-        </h1>
-        <p style={style.subtitle}>
-          {subtitle}
-        </p>
-      </div>
-    </div>
-  </StyleRoot>
-)
+const PoseText = ({ poseTitle, subtitle }) => (
+	<StyleRoot>
+		<div style={style.details}>
+			<div style={style.text_area}>
+				<h1 style={style.title}>{poseTitle}</h1>
+				<p style={style.subtitle}>{subtitle}</p>
+			</div>
+		</div>
+	</StyleRoot>
+);
 
-export default PoseText;
+export default Radium(PoseText);
 
 var style = styler`
   details
@@ -56,4 +52,4 @@ var style = styler`
       margin-top: 1vh
     @media ${Desktop}
       font-size: 2vh
-`
+`;

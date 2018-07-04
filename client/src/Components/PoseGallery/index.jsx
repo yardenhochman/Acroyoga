@@ -12,7 +12,7 @@ const PoseGallery = ({ poses, tag, difficulty, setSlide }) => {
   const next = () => swipe.next();
   const prev = () => swipe.prev();
   return (
-    <div style={style.main} className="pose-gallery">
+    <div style={{height: '92vh'}} className="pose-gallery">
       <SwipeUI 
         reactSwipe={reactSwipe => (swipe = reactSwipe)}
         key={poses.length + tag + difficulty }
@@ -42,12 +42,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(PoseGallery);
-
-
-var style = {
-  main: {
-    height: '92vh',
-  },
-};
-
 

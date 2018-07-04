@@ -38,15 +38,14 @@ export default PoseCard;
 
 const Card = styled.div`
 	display: flex;
-	flex-drection: column;
+	flex-direction: column;
 	align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 100%;
     background-color: white;
     float: left;
     position: relative;
-    place-content: center;
     text-align: center;
 	height:90vh;
 	

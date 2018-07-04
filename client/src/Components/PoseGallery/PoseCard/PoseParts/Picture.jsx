@@ -10,11 +10,11 @@ import styled from 'styled-components'
 const PosePicture = ({ img }) => (
 			<picture>
 				<source
-					srcSet={img.replace(/(?:upload).+\//, 'upload/w_2000/')}
+					srcSet={img.replace('https://res.cloudinary.com/dz2nxhscn/image/upload/v1514930940/','https://s3.us-east-2.amazonaws.com/yardenimages/WeAcro/')}
 					media={Desktop}
 				/>
 				<Img
-					src={img.replace(/(?:upload).+\//, 'upload/w_1000/')}
+					src={img.replace('https://res.cloudinary.com/dz2nxhscn/image/upload/v1514930940/','https://s3.us-east-2.amazonaws.com/yardenimages/WeAcro/')}
 					alt={'Loading...'}
 					loader={LoadDisplay}
 				/>

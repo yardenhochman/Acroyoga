@@ -14,9 +14,9 @@ const AboutUs = ({history}) => (
         onClick={() => window.history.back()}
       />
     </Back_Button>
-      <div className="about_page_title">
+      <TitleArea>
         <Title>About Us</Title>
-      </div>
+      </TitleArea>
     <Participants>
       <Credit person={yarden} />
       <Credit person={Anatoliy} />
@@ -37,7 +37,6 @@ const About_Page = styled.div`
   }
 `;
 const Participants = styled.div`
-  height: 70vh;
   padding: 10vw;
   padding-top:0;
   @media ${Phone_Portrait}{
@@ -56,8 +55,6 @@ const Participants = styled.div`
 const Title = styled.h1`
   font-family: Special Elite;
   text-align: center;
-  height: 20vh;
-  padding-top:10vh;
 
   @media ${Phone_Landscape}{
     margin-top:1vh;
@@ -67,10 +64,13 @@ const Title = styled.h1`
   }
 `;
 const Back_Button = styled.div`
-  paddingLeft: 80vw;
+  padding-left: 80vw;
 `;
 const Styled_Icon = styled(Icon)`
   cursor: pointer;
+`;
+const TitleArea = styled.div`
+  margin: 10vh 0;
 `;
 
 var yarden = {

@@ -45,7 +45,6 @@ const Image = styled.img`
 @media ${Desktop}{
       grid-area: img
       height: 100%
-      width: 220px
       border-radius: 5px
     }
     @media ${Phone_Portrait}{

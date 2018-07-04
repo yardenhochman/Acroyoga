@@ -1,25 +1,19 @@
 import * as actionTypes from './actions';
 
-export const authStart = () => {
-  return {
+export const authStart = () => ({
     type: actionTypes.AUTH_START,
-  };
-};
+  });
 
-export const authSuccess = (token, userId) => {
-  return {
+export const authSuccess = (token, userId) => ({
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
     userId: userId,
-  };
-};
+  });
 
-export const authFail = error => {
-  return {
+export const authFail = error => ({
     type: actionTypes.AUTH_FAIL,
     error: error,
-  };
-};
+  });
 
 export const logout = () => {
   localStorage.removeItem('token');

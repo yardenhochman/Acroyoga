@@ -1,74 +1,77 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
-import { StyleRoot } from 'radium';
-import styler from 'react-styling';
 import Credit from './Credits';
 import { Phone_Portrait, Phone_Landscape } from '../../../../DeviceRules';
-import Radium from '../../../../ConfiguredRadium';
+import styled from 'styled-components'
+
 
 const AboutUs = ({history}) => (
-  <StyleRoot style={style.about_page}>
-    <StyleRoot>
-      <div className="about_page_title">
-        <h1 style={style.title}>About Us</h1>
-      </div>
-    </StyleRoot>
-    <StyleRoot style={style.participants}>
-      <Credit person={yarden} />
-      <Credit person={Anatoliy} />
-    </StyleRoot>
-    <div style={style.back_button} className="back_button">
-      <Icon
+  <About_Page>
+  <Back_Button className="back_button">
+      <Styled_Icon
         name="reply"
-        style={style.icon}
         size="huge"
         onClick={() => window.history.back()}
       />
-    </div>
-  </StyleRoot>
+    </Back_Button>
+      <div className="about_page_title">
+        <Title>About Us</Title>
+      </div>
+    <Participants>
+      <Credit person={yarden} />
+      <Credit person={Anatoliy} />
+    </Participants>
+  </About_Page>
 );
 
 
-export default Radium(AboutUs);
+export default AboutUs;
 
-var style = styler`
-  about_page
-    display: flex
-    flex-direction: column
-    height: 80vh
-    @media ${Phone_Landscape}
-      height: 100vh;
-  participants
-    height: 70vh
-    padding: 10vw
-    padding-top:0
-    @media ${Phone_Portrait}
-      padding: 0 3px
-      height: 70vh
-    @media ${Phone_Landscape}
-      height: 80%;
-      padding:0;
-      display:flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
-  title
-    font-family: Special Elite;
-    text-align: center
-    height: 20vh
-    padding-top:10vh
-    @media ${Phone_Landscape}
-      margin-top:1vh;
-      text-align: center;
-      padding-top: 3vh;
-      padding-bottom: 0;
-  back_button
-    paddingLeft: 80vw
-  icon
-    cursor: pointer
+const About_Page = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+
+  @media ${Phone_Landscape}{
+    height: 100vh;
+  }
 `;
+const Participants = styled.div`
+  height: 70vh;
+  padding: 10vw;
+  padding-top:0;
+  @media ${Phone_Portrait}{
+    padding: 0 3px;
+    height: 70vh;
+  }
+  @media ${Phone_Landscape}{
+    height: 80%;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+`
+const Title = styled.h1`
+  font-family: Special Elite;
+  text-align: center;
+  height: 20vh;
+  padding-top:10vh;
 
-
+  @media ${Phone_Landscape}{
+    margin-top:1vh;
+    text-align: center;
+    padding-top: 3vh;
+    padding-bottom: 0;
+  }
+`;
+const Back_Button = styled.div`
+  paddingLeft: 80vw;
+`;
+const Styled_Icon = styled(Icon)`
+  cursor: pointer;
+`;
 
 var yarden = {
   name: 'Yarden Hochman',

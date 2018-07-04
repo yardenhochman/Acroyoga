@@ -1,30 +1,30 @@
 import React, { Fragment } from 'react';
 import { Menu } from 'semantic-ui-react';
-import Media from 'react-media';
 import HeaderMenu from './Menu';
-import { Desktop, Phone_Portrait } from '../../DeviceRules';
+import LoadIf from '../UI/LoadIf'
+import styled from 'styled-components';
 
-const Header = () => (
+export default () => (
   <Fragment>
-    <Media query={Desktop}>
-      <Menu style={headerStyle} size={'huge'} fluid>
+    <LoadIf.Desktop>
+      <Header>
         <HeaderMenu />
-      </Menu>
-    </Media>
-    <Media query={Phone_Portrait}>
-      <Menu borderless style={headerStyle} size={'huge'} fluid>
+      </Header>
+    </LoadIf.Desktop>
+    <LoadIf.Portrait>
+      <Header borderless>
         <HeaderMenu />
-      </Menu>
-    </Media>
+      </Header>
+    </LoadIf.Portrait>
   </Fragment>
 );
 
-export default Header;
-
-var headerStyle = {
-  width: '100vw',
-  height: '8vh',
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-};
+const Header = styled(Menu).attrs({
+  size: "huge",
+  fluid: true
+})`
+  width: 100vw;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+`;

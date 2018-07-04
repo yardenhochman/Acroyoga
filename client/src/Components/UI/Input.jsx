@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const input = props => {
+export default props => {
   let inputElement = null;
   
   switch (props.elementType) {
@@ -33,5 +33,3 @@ const input = props => {
     </div>
   );
 };
-
-export default input;

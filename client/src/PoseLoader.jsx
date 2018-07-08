@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { storeUser, storePoses } from './store/actions/actions';
+import { store_user, store_poses } from './store/actions/actions';
 import api from './API';
 import LoadDisplay from './Components/UI/Loader';
 
@@ -20,16 +20,16 @@ class PoseLoader extends Component {
 	  }
 	  return (
   <div>
-    {children}
-  </div>
+        {children}
+      </div>
 	  );
 	};
 }
 
 const mapStateToProps = ({ pose: { poses } }) => ({ poses });
 const mapDispatchToProps = dispatch => ({
-  UserLogin: user => dispatch(storeUser(user)),
-  storePoses: pose => dispatch(storePoses(pose)),
+  UserLogin: user => dispatch(store_user(user)),
+  storePoses: pose => dispatch(store_poses(pose)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PoseLoader);

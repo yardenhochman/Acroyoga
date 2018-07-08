@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import {storeUser}  from '../../../../store/actions/actions';
+import {store_user}  from '../../../../store/actions/actions';
 import api from '../../../../API';
 import styler from 'react-styling';
 
@@ -59,7 +59,7 @@ class LoginForm extends Component {
 };
 
 const mapStateToProps = ({ user: { name: userName } }) => ({ userName });
-const mapDispatchToProps = dispatch => ({ UserLogin: user => dispatch(storeUser(user)) });
+const mapDispatchToProps = dispatch => ({ UserLogin: user => dispatch(store_user(user)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
 

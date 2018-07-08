@@ -6,13 +6,14 @@ import { Desktop } from '../../DeviceRules';
 import PosesFilter from './PoseFilter';
 import { connect } from 'react-redux';
 import {SET_SLIDE_INDEX} from '../../store/actions';
+import styled from 'styled-components';
 
 const PoseGallery = ({ poses, tag, difficulty, setSlide }) => {
   let swipe = null;
   const next = () => swipe.next();
   const prev = () => swipe.prev();
   return (
-    <div style={{height: '92vh'}} className="pose-gallery">
+    <PoseGalleryArea>
       <SwipeUI 
         reactSwipe={reactSwipe => (swipe = reactSwipe)}
         key={poses.length + tag + difficulty }
@@ -28,7 +29,7 @@ const PoseGallery = ({ poses, tag, difficulty, setSlide }) => {
           />
         </div>
       </Media>
-    </div>
+    </PoseGalleryArea>
   );
 }
 const mapStateToProps = ({ pose: { poses }, view: { tag, difficulty } }) => ({ poses, tag, difficulty });
@@ -43,3 +44,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps,mapDispatchToProps)(PoseGallery);
 
+const PoseGalleryArea = styled.div`
+  height: 92vh;
+`;

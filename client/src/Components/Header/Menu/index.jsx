@@ -8,6 +8,7 @@ import TagMenu from './Tags';
 import Options from './OptionsMenu';
 import ProfileMenu from './ProfileMenu';
 import {Desktop} from '../../../DeviceRules';
+import styled from 'styled-components';
 
 const HeaderMenu = ({ name, difficulty }) => (
   <Fragment>
@@ -17,13 +18,13 @@ const HeaderMenu = ({ name, difficulty }) => (
     ) : (
       <Popup
         trigger={
-          <Menu.Item style={style.menu_item}>
+          <MenuItem>
             <Icon
               name="tags"
               style={style.disabled_tag}
               size="big"
             />
-          </Menu.Item>
+          </MenuItem>
         }
         inverted
         content="Sign up to save poses to your favorites"
@@ -33,7 +34,7 @@ const HeaderMenu = ({ name, difficulty }) => (
       {!name && <ProfileMenu />}
       <Options isUser={name} />
       <Media query={Desktop}>
-        <Menu.Item item='true' style={style.empty_space} />
+        <EmptySpace />
       </Media>
     </Menu.Menu>
   </Fragment>
@@ -60,3 +61,12 @@ var style = {
     width: '4.5vw'
   },
 };
+
+const MenuItem = styled(Menu.Item)`
+  cursor: default;
+`;
+const EmptySpace = styled(Menu.Item).attr({
+  item: true
+})`
+  width: 4.5vw;
+`;

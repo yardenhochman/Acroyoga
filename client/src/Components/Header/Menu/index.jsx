@@ -7,7 +7,7 @@ import DifficultyMenu from './Difficulty';
 import TagMenu from './Tags';
 import Options from './OptionsMenu';
 import ProfileMenu from './ProfileMenu';
-import {Desktop} from '../../../DeviceRules';
+import LoadIf from '../../UI/LoadIf';
 import styled from 'styled-components';
 
 const HeaderMenu = ({ name, difficulty }) => (
@@ -33,9 +33,9 @@ const HeaderMenu = ({ name, difficulty }) => (
     <Menu.Menu position="right">
       {!name && <ProfileMenu />}
       <Options isUser={name} />
-      <Media query={Desktop}>
+      <LoadIf.Desktop>
         <EmptySpace />
-      </Media>
+      </LoadIf.Desktop>
     </Menu.Menu>
   </Fragment>
 );
@@ -65,7 +65,7 @@ var style = {
 const MenuItem = styled(Menu.Item)`
   cursor: default;
 `;
-const EmptySpace = styled(Menu.Item).attr({
+const EmptySpace = styled(Menu.Item).attrs({
   item: true
 })`
   width: 4.5vw;

@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import {SET_SLIDE_INDEX} from '../../store/actions';
 import styled from 'styled-components';
 
-const PoseGallery = ({ poses, tag, difficulty, setSlide }) => {
+function PoseGallery({ poses, tag, difficulty, setSlide }){
   let swipe = null;
   const next = () => swipe.next();
   const prev = () => swipe.prev();

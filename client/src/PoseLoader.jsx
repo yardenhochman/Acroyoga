@@ -18,11 +18,7 @@ class PoseLoader extends Component {
 	  if (!poses || !poses.length) {
 	    return <LoadDisplay />;
 	  }
-	  return (
-  <div>
-        {children}
-      </div>
-	  );
+	  return children;
 	};
 }
 

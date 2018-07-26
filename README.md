@@ -27,6 +27,4 @@ Front-End: CSS-Grid, Flexbox, Component Libraries outlined below
 
 [React-Image](https://github.com/yuanyan/react-image)
 
-[React-Styling](https://github.com/catamphetamine/react-styling)
-
-[Radium](https://github.com/FormidableLabs/radium)
+[Styled-Components](https://www.styled-components.com/)
